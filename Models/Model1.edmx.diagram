@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4438a96761e643afa26bfe532665ea9d" Name="Diagram1">
+      <Diagram DiagramId="dfadc86b6666487c96a0eabca0f731d6" Name="Diagram1">
         <EntityTypeShape EntityType="CRACKEDModel.AUDITORIA" Width="1.5" PointX="10.5" PointY="18.625" IsExpanded="true" />
         <EntityTypeShape EntityType="CRACKEDModel.CAJA" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
         <EntityTypeShape EntityType="CRACKEDModel.CAJA_PRODUCTO" Width="1.5" PointX="5.25" PointY="7.625" IsExpanded="true" />
@@ -19,7 +19,6 @@
         <EntityTypeShape EntityType="CRACKEDModel.PRODUCTO" Width="1.5" PointX="5.25" PointY="19.125" IsExpanded="true" />
         <EntityTypeShape EntityType="CRACKEDModel.ROL" Width="1.5" PointX="3" PointY="24.375" IsExpanded="true" />
         <EntityTypeShape EntityType="CRACKEDModel.SABOR" Width="1.5" PointX="3" PointY="20.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CRACKEDModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CRACKEDModel.TIPO_PRODUCTO" Width="1.5" PointX="3" PointY="27.375" IsExpanded="true" />
         <EntityTypeShape EntityType="CRACKEDModel.USUARIO" Width="1.5" PointX="8.25" PointY="17.875" IsExpanded="true" />
         <EntityTypeShape EntityType="CRACKEDModel.USUARIO_PRODUCTO" Width="1.5" PointX="10.5" PointY="22.5" IsExpanded="true" />

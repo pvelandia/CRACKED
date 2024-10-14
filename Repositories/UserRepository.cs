@@ -15,7 +15,7 @@ namespace CRACKED.Repositories
             try
             {
                 //ACCESO DE DATOS
-                using (var db = new CRACKEDEntities3())
+                using (var db = new CRACKEDEntities4())
                 {
                     USUARIO userDb = new USUARIO();
 

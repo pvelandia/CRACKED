@@ -141,16 +141,6 @@
           <Property Name="idEstado" Type="int" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
         <EntityType Name="TIPO_PRODUCTO">
           <Key>
             <PropertyRef Name="idTipoProducto" />
@@ -163,7 +153,7 @@
           <Key>
             <PropertyRef Name="idUsuario" />
           </Key>
-          <Property Name="idUsuario" Type="int" Nullable="false" />
+          <Property Name="idUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idRol" Type="int" />
           <Property Name="idEstado" Type="int" />
           <Property Name="nombre" Type="varchar" MaxLength="50" />
@@ -531,7 +521,6 @@
           <EntitySet Name="PRODUCTO" EntityType="Self.PRODUCTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ROL" EntityType="Self.ROL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SABOR" EntityType="Self.SABOR" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TIPO_PRODUCTO" EntityType="Self.TIPO_PRODUCTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="USUARIO" EntityType="Self.USUARIO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="USUARIO_PRODUCTO" EntityType="Self.USUARIO_PRODUCTO" Schema="dbo" store:Type="Tables" />
@@ -835,16 +824,6 @@
           <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="PRODUCTOes" Relationship="Self.FK_PRODUCTO_SABOR" FromRole="SABOR" ToRole="PRODUCTO" />
         </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
         <EntityType Name="TIPO_PRODUCTO">
           <Key>
             <PropertyRef Name="idTipoProducto" />
@@ -859,7 +838,7 @@
           <Key>
             <PropertyRef Name="idUsuario" />
           </Key>
-          <Property Name="idUsuario" Type="Int32" Nullable="false" />
+          <Property Name="idUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idRol" Type="Int32" />
           <Property Name="idEstado" Type="Int32" />
           <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -1220,7 +1199,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="CRACKEDEntities3" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="CRACKEDEntities4" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AUDITORIAs" EntityType="Self.AUDITORIA" />
           <EntitySet Name="CAJAs" EntityType="Self.CAJA" />
           <EntitySet Name="CAJA_PRODUCTO" EntityType="Self.CAJA_PRODUCTO" />
@@ -1235,7 +1214,6 @@
           <EntitySet Name="PRODUCTOes" EntityType="Self.PRODUCTO" />
           <EntitySet Name="ROLs" EntityType="Self.ROL" />
           <EntitySet Name="SABORs" EntityType="Self.SABOR" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="TIPO_PRODUCTO" EntityType="Self.TIPO_PRODUCTO" />
           <EntitySet Name="USUARIOs" EntityType="Self.USUARIO" />
           <EntitySet Name="USUARIO_PRODUCTO" EntityType="Self.USUARIO_PRODUCTO" />
@@ -1357,7 +1335,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="CRACKEDModelStoreContainer" CdmEntityContainer="CRACKEDEntities3">
+        <EntityContainerMapping StorageEntityContainer="CRACKEDModelStoreContainer" CdmEntityContainer="CRACKEDEntities4">
           <EntitySetMapping Name="AUDITORIAs">
             <EntityTypeMapping TypeName="CRACKEDModel.AUDITORIA">
               <MappingFragment StoreEntitySet="AUDITORIA">
@@ -1505,17 +1483,6 @@
                 <ScalarProperty Name="idSabor" ColumnName="idSabor" />
                 <ScalarProperty Name="idEstado" ColumnName="idEstado" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="CRACKEDModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
