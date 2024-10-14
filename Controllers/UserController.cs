@@ -40,7 +40,46 @@ namespace CRACKED.Controllers
             }
             
         }
-        public ActionResult Details(int id)
+
+   
+
+        private readonly UserService _userService;
+
+        public UserController()
+        {
+            _userService = new UserService();
+        }
+
+        [HttpGet]
+
+        public ActionResult inicioSesion()
+        {
+            UserDto usuario = new UserDto();
+            return View(usuario);
+        }
+        [HttpPost]
+        public ActionResult inicioSesion(UserDto usuario)
+        {
+            if (ModelState.IsValid)
+            {
+                bool esValido = _userService.AutenticarUsuario(usuario);
+
+                if (esValido)
+                {
+                    // Aquí puedes establecer la sesión o redirigir a una página principal
+                    // Session["Usuario"] = usuario.Name; // Por ejemplo
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    // Lógica para el inicio de sesión fallido
+                    ModelState.AddModelError("", "Usuario o contraseña incorrectos.");
+                }
+            }
+            return View(usuario);
+        }
+    
+public ActionResult Details(int id)
         {
             return View();
         }

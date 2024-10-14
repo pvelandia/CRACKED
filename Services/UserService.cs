@@ -17,5 +17,18 @@ namespace CRACKED.Services
                 usuario.Mensaje="Algo paso al resgistrar usuario";
             return usuario;
         }
+
+
+            private readonly UserRepository _userRepository;
+
+            public UserService()
+            {
+                _userRepository = new UserRepository();
+            }
+
+            public bool AutenticarUsuario(UserDto usuario)
+            {
+                return _userRepository.ValidarUsuario(usuario);
+            }
+        }
     }
-}

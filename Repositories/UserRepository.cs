@@ -53,14 +53,37 @@ namespace CRACKED.Repositories
                 return false; // O maneja la excepción como sea necesario
             }
         }
-    } }
 
 
-            //}
-            //catch (Exception ex)
-            //{
-            //    //        //respuesta.Respuesta = false;
-            //    //        //respuesta.Mensaje = ex.Message;
-            //            return false;
-            //}
-        
+
+        //}
+        //catch (Exception ex)
+        //{
+        //    //        //respuesta.Respuesta = false;
+        //    //        //respuesta.Mensaje = ex.Message;
+        //            return false;
+        //}
+
+        public bool ValidarUsuario(UserDto usuario)
+        {
+            try
+            {
+                using (var db = new CRACKEDEntities4())
+                {
+                    // Busca un usuario que coincida con el nombre y la contraseña
+                    var userDb = db.USUARIOs
+                        .FirstOrDefault(u => u.nombre == usuario.Name && u.contraseña == usuario.Password);
+
+                    // Verifica si se encontró el usuario
+                    return userDb != null;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Registra el error o lanza una excepción
+                Console.WriteLine($"Error: {ex.Message}");
+                return false;
+            }
+        }
+    }
+}
