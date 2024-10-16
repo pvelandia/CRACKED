@@ -23,25 +23,31 @@ namespace CRACKED.Controllers
             UserDto usuario = new UserDto();
             return View(usuario);
         }
+        public ActionResult ListaUsuarios()
+        {
+            UserService userService = new UserService();
+            UserListDto usersList = userService.ListarUsuarios();
+            return View(usersList);
+        }
 
         [HttpPost]
         public ActionResult RegistroUsuarios(UserDto usuario)
         {
             UserService userSevice = new UserService();
-            usuario= userSevice.RegistroUsuarios(usuario);
+            usuario = userSevice.RegistroUsuarios(usuario);
 
-            if (usuario.Respuesta==true)
+            if (usuario.Respuesta == true)
             {
                 return View("Index");
             }
             else
             {
-                return View("RegistroUsuarios");
+                return View(usuario);
             }
-            
+
         }
 
-   
+
 
         private readonly UserService _userService;
 
@@ -54,100 +60,24 @@ namespace CRACKED.Controllers
 
         public ActionResult inicioSesion()
         {
-            UserDto usuario = new UserDto();
-            return View(usuario);
+            UserDto user = new UserDto();
+            return View(user);
         }
+
+        //POST Login
         [HttpPost]
-        public ActionResult inicioSesion(UserDto usuario)
+        public ActionResult inicioSesion(UserDto user)
         {
-            if (ModelState.IsValid)
+            UserService userService = new UserService();
+            UserDto userLogin = userService.LoginUser(user);
+
+            if (userLogin.IdUser != 0)
             {
-                bool esValido = _userService.AutenticarUsuario(usuario);
-
-                if (esValido)
-                {
-                    // Aquí puedes establecer la sesión o redirigir a una página principal
-                    // Session["Usuario"] = usuario.Name; // Por ejemplo
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    // Lógica para el inicio de sesión fallido
-                    ModelState.AddModelError("", "Usuario o contraseña incorrectos.");
-                }
-            }
-            return View(usuario);
-        }
-    
-public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Userr/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Userr/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
+                Session["UserLogged"] = userLogin;
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
-        }
 
-        // GET: Userr/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Userr/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Userr/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Userr/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return View(userLogin);
         }
     }
 }
