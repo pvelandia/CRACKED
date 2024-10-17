@@ -4,24 +4,25 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="dfadc86b6666487c96a0eabca0f731d6" Name="Diagram1">
-        <EntityTypeShape EntityType="CRACKEDModel.AUDITORIA" Width="1.5" PointX="10.5" PointY="18.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CRACKEDModel.CAJA" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CRACKEDModel.CAJA_PRODUCTO" Width="1.5" PointX="5.25" PointY="7.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CRACKEDModel.CIUDAD" Width="1.5" PointX="5.25" PointY="14.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CRACKEDModel.COMBO" Width="1.5" PointX="3" PointY="13.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="CRACKEDModel.COMBO_PRODUCTO" Width="1.5" PointX="5.25" PointY="10.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="CRACKEDModel.DEPARTAMENTO" Width="1.5" PointX="3" PointY="16.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="CRACKEDModel.ESTADO" Width="1.5" PointX="0.75" PointY="12.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="CRACKEDModel.METODO_PAGO" Width="1.5" PointX="8.25" PointY="14.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CRACKEDModel.PEDIDO" Width="1.5" PointX="10.5" PointY="13.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CRACKEDModel.PEDIDO_PRODUCTO" Width="1.5" PointX="12.75" PointY="16.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CRACKEDModel.PRODUCTO" Width="1.5" PointX="5.25" PointY="19.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CRACKEDModel.ROL" Width="1.5" PointX="3" PointY="24.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CRACKEDModel.SABOR" Width="1.5" PointX="3" PointY="20.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CRACKEDModel.TIPO_PRODUCTO" Width="1.5" PointX="3" PointY="27.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CRACKEDModel.USUARIO" Width="1.5" PointX="8.25" PointY="17.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="CRACKEDModel.USUARIO_PRODUCTO" Width="1.5" PointX="10.5" PointY="22.5" IsExpanded="true" />
+      <Diagram DiagramId="54897a568313424c94ed820bf41bf18e" Name="Diagram1">
+        <EntityTypeShape EntityType="CRACKEDModel.AUDITORIA" Width="1.5" PointX="7.5" PointY="24.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CRACKEDModel.CAJA" Width="1.5" PointX="3" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CRACKEDModel.CAJA_PRODUCTO" Width="1.5" PointX="5.25" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CRACKEDModel.CIUDAD" Width="1.5" PointX="5.25" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CRACKEDModel.COMBO" Width="1.5" PointX="3" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="CRACKEDModel.COMBO_PRODUCTO" Width="1.5" PointX="5.25" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="CRACKEDModel.DEPARTAMENTO" Width="1.5" PointX="3" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="CRACKEDModel.ESTADO" Width="1.5" PointX="0.75" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="CRACKEDModel.METODO_PAGO" Width="1.5" PointX="5.25" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CRACKEDModel.PEDIDO" Width="1.5" PointX="7.5" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="CRACKEDModel.PEDIDO_PRODUCTO" Width="1.5" PointX="9.75" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CRACKEDModel.PRODUCTO" Width="1.5" PointX="5.25" PointY="18.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CRACKEDModel.ROL" Width="1.5" PointX="3" PointY="23.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CRACKEDModel.SABOR" Width="1.5" PointX="3" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CRACKEDModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CRACKEDModel.TIPO_PRODUCTO" Width="1.5" PointX="3" PointY="26.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CRACKEDModel.USUARIO" Width="1.5" PointX="5.25" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CRACKEDModel.USUARIO_PRODUCTO" Width="1.5" PointX="7.5" PointY="19.125" IsExpanded="true" />
         <AssociationConnector Association="CRACKEDModel.FK_AUDITORIA_USUARIO" ManuallyRouted="false" />
         <AssociationConnector Association="CRACKEDModel.FK_CAJA_ESTADO" ManuallyRouted="false" />
         <AssociationConnector Association="CRACKEDModel.FK_CAJA_PRODUCTO_CAJA" ManuallyRouted="false" />
@@ -39,7 +40,6 @@
         <AssociationConnector Association="CRACKEDModel.FK_PRODUCTO_ESTADO" ManuallyRouted="false" />
         <AssociationConnector Association="CRACKEDModel.FK_ROL_ESTADO" ManuallyRouted="false" />
         <AssociationConnector Association="CRACKEDModel.FK_TIPO_PRODUCTO_ESTADO" ManuallyRouted="false" />
-        <AssociationConnector Association="CRACKEDModel.FK_USUARIO_ESTADO" ManuallyRouted="false" />
         <AssociationConnector Association="CRACKEDModel.FK_PEDIDO_METODO_PAGO" ManuallyRouted="false" />
         <AssociationConnector Association="CRACKEDModel.FK_PEDIDO_PRODUCTO_PEDIDO" ManuallyRouted="false" />
         <AssociationConnector Association="CRACKEDModel.FK_PEDIDO_USUARIO" ManuallyRouted="false" />
@@ -48,7 +48,6 @@
         <AssociationConnector Association="CRACKEDModel.FK_PRODUCTO_SABOR" ManuallyRouted="false" />
         <AssociationConnector Association="CRACKEDModel.FK_PRODUCTO_TIPO_PRODUCTO" ManuallyRouted="false" />
         <AssociationConnector Association="CRACKEDModel.FK_USUARIO_PRODUCTO_PRODUCTO" ManuallyRouted="false" />
-        <AssociationConnector Association="CRACKEDModel.FK_USUARIO_ROL" ManuallyRouted="false" />
         <AssociationConnector Association="CRACKEDModel.FK_USUARIO_PRODUCTO_USUARIO" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>

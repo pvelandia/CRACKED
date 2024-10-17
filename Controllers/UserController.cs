@@ -7,16 +7,13 @@ using System.Web;
 using System.Web.Mvc;
 
 namespace CRACKED.Controllers
-{
+{ //vistas trae clases
     public class UserController : Controller
     {
-        // GET: Userr
         public ActionResult Index()
         {
             return View();
         }
-
-        // GET: Userr/Details/5
 
         public ActionResult RegistroUsuarios()
         {
@@ -42,18 +39,10 @@ namespace CRACKED.Controllers
             }
             else
             {
+                ViewBag.ErrorMessage = usuario.Mensaje;
                 return View(usuario);
             }
 
-        }
-
-
-
-        private readonly UserService _userService;
-
-        public UserController()
-        {
-            _userService = new UserService();
         }
 
         [HttpGet]
@@ -64,7 +53,7 @@ namespace CRACKED.Controllers
             return View(user);
         }
 
-        //POST Login
+      
         [HttpPost]
         public ActionResult inicioSesion(UserDto user)
         {
@@ -81,3 +70,4 @@ namespace CRACKED.Controllers
         }
     }
 }
+

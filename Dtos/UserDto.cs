@@ -17,6 +17,7 @@ namespace CRACKED.Dtos
         public string Name { get; set; } = string.Empty;
         public string ConfirmPassword { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
+        public string PasswordE { get; set; } //encriptar no se si es necesario
         public int Response { get; set; }
         public string Mensaje { get; set; }
 
@@ -25,10 +26,6 @@ namespace CRACKED.Dtos
 
         public string Numero { get; set; }
         public string Correo { get; set; }
-        public bool IsSuccessful
-        {
-            get; set;
-
-        }
+        public bool IsSuccessful { get; set; }
     }
 }

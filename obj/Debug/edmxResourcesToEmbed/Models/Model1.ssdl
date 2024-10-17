@@ -136,6 +136,16 @@
     <Property Name="idEstado" Type="int" Nullable="false" />
     <Property Name="nombre" Type="varchar" MaxLength="100" Nullable="false" />
   </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
   <EntityType Name="TIPO_PRODUCTO">
     <Key>
       <PropertyRef Name="idTipoProducto" />
@@ -149,13 +159,13 @@
       <PropertyRef Name="idUsuario" />
     </Key>
     <Property Name="idUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="idRol" Type="int" />
-    <Property Name="idEstado" Type="int" />
     <Property Name="nombre" Type="varchar" MaxLength="50" />
     <Property Name="apellido" Type="varchar" MaxLength="50" />
     <Property Name="numeroContacto" Type="varchar" MaxLength="15" />
     <Property Name="correoElectronico" Type="varchar" MaxLength="200" />
-    <Property Name="contraseña" Type="varchar" MaxLength="50" />
+    <Property Name="contraseña" Type="varchar" MaxLength="500" />
+    <Property Name="idRol" Type="int" />
+    <Property Name="idEstado" Type="int" />
   </EntityType>
   <EntityType Name="USUARIO_PRODUCTO">
     <Key>
@@ -453,18 +463,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_USUARIO_ESTADO">
-    <End Role="ESTADO" Type="Self.ESTADO" Multiplicity="0..1" />
-    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="ESTADO">
-        <PropertyRef Name="idEstado" />
-      </Principal>
-      <Dependent Role="USUARIO">
-        <PropertyRef Name="idEstado" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_USUARIO_PRODUCTO_PRODUCTO">
     <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="1" />
     <End Role="USUARIO_PRODUCTO" Type="Self.USUARIO_PRODUCTO" Multiplicity="*" />
@@ -489,18 +487,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_USUARIO_ROL">
-    <End Role="ROL" Type="Self.ROL" Multiplicity="0..1" />
-    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="ROL">
-        <PropertyRef Name="idRol" />
-      </Principal>
-      <Dependent Role="USUARIO">
-        <PropertyRef Name="idRol" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityContainer Name="CRACKEDModelStoreContainer">
     <EntitySet Name="AUDITORIA" EntityType="Self.AUDITORIA" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CAJA" EntityType="Self.CAJA" Schema="dbo" store:Type="Tables" />
@@ -516,6 +502,7 @@
     <EntitySet Name="PRODUCTO" EntityType="Self.PRODUCTO" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ROL" EntityType="Self.ROL" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SABOR" EntityType="Self.SABOR" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TIPO_PRODUCTO" EntityType="Self.TIPO_PRODUCTO" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="USUARIO" EntityType="Self.USUARIO" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="USUARIO_PRODUCTO" EntityType="Self.USUARIO_PRODUCTO" Schema="dbo" store:Type="Tables" />
@@ -615,10 +602,6 @@
       <End Role="ESTADO" EntitySet="ESTADO" />
       <End Role="TIPO_PRODUCTO" EntitySet="TIPO_PRODUCTO" />
     </AssociationSet>
-    <AssociationSet Name="FK_USUARIO_ESTADO" Association="Self.FK_USUARIO_ESTADO">
-      <End Role="ESTADO" EntitySet="ESTADO" />
-      <End Role="USUARIO" EntitySet="USUARIO" />
-    </AssociationSet>
     <AssociationSet Name="FK_USUARIO_PRODUCTO_PRODUCTO" Association="Self.FK_USUARIO_PRODUCTO_PRODUCTO">
       <End Role="PRODUCTO" EntitySet="PRODUCTO" />
       <End Role="USUARIO_PRODUCTO" EntitySet="USUARIO_PRODUCTO" />
@@ -626,10 +609,6 @@
     <AssociationSet Name="FK_USUARIO_PRODUCTO_USUARIO" Association="Self.FK_USUARIO_PRODUCTO_USUARIO">
       <End Role="USUARIO" EntitySet="USUARIO" />
       <End Role="USUARIO_PRODUCTO" EntitySet="USUARIO_PRODUCTO" />
-    </AssociationSet>
-    <AssociationSet Name="FK_USUARIO_ROL" Association="Self.FK_USUARIO_ROL">
-      <End Role="ROL" EntitySet="ROL" />
-      <End Role="USUARIO" EntitySet="USUARIO" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

@@ -26,7 +26,6 @@ namespace CRACKED.Models
             this.PRODUCTOes = new HashSet<PRODUCTO>();
             this.ROLs = new HashSet<ROL>();
             this.TIPO_PRODUCTO = new HashSet<TIPO_PRODUCTO>();
-            this.USUARIOs = new HashSet<USUARIO>();
         }
     
         public int idEstado { get; set; }
@@ -50,7 +49,5 @@ namespace CRACKED.Models
         public virtual ICollection<ROL> ROLs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TIPO_PRODUCTO> TIPO_PRODUCTO { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<USUARIO> USUARIOs { get; set; }
     }
 }

@@ -10,6 +10,7 @@ namespace CRACKED.Services
 {
     public class UserService
     {
+        //por ahora no
         public UserListDto ListarUsuarios()
         {
             UserListDto userList = new UserListDto();
@@ -26,33 +27,32 @@ namespace CRACKED.Services
                 return userList;
             }
         }
+        //validaciones true y asi
         public UserDto RegistroUsuarios(UserDto usuario)
         {
-            UserRepository userRepository = new UserRepository();
-            usuario.Respuesta = userRepository.RegistroUsuarios(usuario);
-            if (!usuario.Respuesta)
-                usuario.Mensaje = "Algo paso al resgistrar usuario";
-            return usuario;
+            try
+            {
+                UserRepository userRepository = new UserRepository();
+                usuario.Respuesta = userRepository.RegistroUsuarios(usuario);
+                usuario.Password = Encriptar.GetSHA256(usuario.Password);
+                if (!usuario.Respuesta)
+                    usuario.Mensaje = "Algo paso al resgistrar usuario";
+                return usuario;
+            }
+            catch (Exception ex)
+            {
+                usuario.Respuesta = false;
+                usuario.Mensaje = ex.Message;
+                return usuario;
+            }
         }
 
-
-        private readonly UserRepository _userRepository;
-
-        public UserService()
-        {
-            _userRepository = new UserRepository();
-        }
-
-        //public bool AutenticarUsuario(UserDto usuario)
-        //{
-        //    return _userRepository.ValidarUsuario(usuario);
-        //}
         public UserDto LoginUser(UserDto userModel)
         {
             UserRepository userRepository = new UserRepository();
-            //userModel.Password = Encriptar.GetSHA256(userModel.Password);
+            
             UserDto userResponse = userRepository.inicioSesion(userModel);
-            if (userResponse.IdUser != 0)
+            if (userResponse.IdUser != 0 && userResponse.IdUser !=null)
             {
                 userResponse.Mensaje = "Successful Login";
 
@@ -73,7 +73,7 @@ namespace CRACKED.Services
         {
             string mensaje = "<html>" +
                     "<body>" +
-                        "<h1> INGENIERIA DE SOFTWARE 1 </h1>" +
+                        "<h1> CRACKES </h1>" +
                         "</br>" +
                         "<p> Bienvenido(a) <b> " + name + " </b></p>" +
                         "<p> Notificación Automatica. <b> No responder a este correo.</b></p>" +

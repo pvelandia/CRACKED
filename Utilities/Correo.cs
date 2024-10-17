@@ -14,7 +14,7 @@ namespace CRACKED.Utilities
         private string Host = "smtp.gmail.com";
         private int Port = 587;
         private string User = "cracked.cookies.2024@gmail.com";
-        private string Password = " lcdxuafwuwtxnhcq";//Contraseña de Aplicación zstn anso aubm xgwp
+        private string Password = " lcdxuafwuwtxnhcq";
         private bool EnabledSSL = true;
         public Correo()
         {
