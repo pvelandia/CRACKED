@@ -3,16 +3,17 @@
 }
 
 <div class="image-container">
-    <img src="~/Content/image/Sin título.png" class="full-width-image" />
-    <div class="button-container">
-        <button class="btn btn-primary">Ver Más</button>
+       <img src="~/Content/Imagen/Sin título.jpg"  class="full-width-image" />
+        <div class="button-container">
+            <button class="btn btn-primary">Ver Más</button>
+        </div>
     </div>
-</div>
 
 <!-- Agregar el siguiente CSS -->
 <style>
     .full-width-image {
-        width: auto; /* La imagen ocupará todo el ancho de la pantalla */
+        left: 100%;
+        width: 95vw; /* La imagen ocupará todo el ancho de la pantalla */
         height: auto; /* Mantiene la altura proporcional original */
         object-fit: contain; /* Asegura que la imagen no se deforme */
     }
@@ -24,7 +25,7 @@
 
     .button-container {
         position: absolute;
-        bottom:10px; /* Coloca el botón 20px por encima de la parte inferior de la imagen */
+        bottom: 10px; /* Coloca el botón 20px por encima de la parte inferior de la imagen */
         left: 50%; /* Centra el botón horizontalmente */
         transform: translateX(-50%); /* Asegura que el botón esté completamente centrado */
     }

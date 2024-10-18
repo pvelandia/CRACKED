@@ -30,16 +30,24 @@ namespace CRACKED.Controllers
         [HttpPost]
         public ActionResult RegistroUsuarios(UserDto usuario)
         {
-            UserService userSevice = new UserService();
-            usuario = userSevice.RegistroUsuarios(usuario);
+            try
+            {
+                UserService userSevice = new UserService();
+                usuario = userSevice.RegistroUsuarios(usuario);
 
-            if (usuario.Respuesta == true)
-            {
-                return View("Index");
+                if (usuario.Respuesta == true)
+                {
+                    return View("Index");
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = usuario.Mensaje;
+                    return View(usuario);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                ViewBag.ErrorMessage = usuario.Mensaje;
+                usuario.Mensaje = ex.Message;
                 return View(usuario);
             }
 
@@ -63,7 +71,7 @@ namespace CRACKED.Controllers
             if (userLogin.IdUser != 0)
             {
                 Session["UserLogged"] = userLogin;
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Home");
             }
 
             return View(userLogin);

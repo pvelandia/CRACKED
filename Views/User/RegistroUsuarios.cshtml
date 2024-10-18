@@ -73,25 +73,7 @@
             @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
         </div>
     </div>
-    <!-- Campo de Respuesta -->
-    <div class="form-group">
-        @Html.LabelFor(model => model.Respuesta, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <div class="checkbox">
-                @Html.EditorFor(model => model.Respuesta)
-                @Html.ValidationMessageFor(model => model.Respuesta, "", new { @class = "text-danger" })
-            </div>
-        </div>
-    </div>
 
-    <!-- Campo de Mensaje -->
-    <div class="form-group">
-        @Html.LabelFor(model => model.Mensaje, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Mensaje, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Mensaje, "", new { @class = "text-danger" })
-        </div>
-    </div>
 
     <!-- Botón de Enviar -->
     <div class="form-group">
