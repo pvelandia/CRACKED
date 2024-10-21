@@ -1,31 +1,32 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-
-<div class="image-container">
-       <img src="~/Content/Imagen/Sin título.jpg"  class="full-width-image" />
+<div class="container-fluid">
+    <div class="image-container">
+        <img src="~/Content/Imagen/Sin título.jpg" class="full-width-image" />
         <div class="button-container">
             <button class="btn btn-primary">Ver Más</button>
         </div>
     </div>
+</div>
 
 <!-- Agregar el siguiente CSS -->
 <style>
     .full-width-image {
-        left: 100%;
-        width: 95vw; /* La imagen ocupará todo el ancho de la pantalla */
+        width: 100%; /* La imagen ocupará todo el ancho del contenedor */
         height: auto; /* Mantiene la altura proporcional original */
-        object-fit: contain; /* Asegura que la imagen no se deforme */
+        object-fit: cover; /* Ajusta la imagen sin deformarla */
     }
 
     .image-container {
         position: relative; /* Necesario para posicionar el botón dentro de la imagen */
         width: 100%; /* El contenedor tiene el mismo ancho que la pantalla */
+        overflow: hidden; /* Oculta cualquier parte de la imagen que sobresalga del contenedor */
     }
 
     .button-container {
         position: absolute;
-        bottom: 10px; /* Coloca el botón 20px por encima de la parte inferior de la imagen */
+        bottom: 10px; /* Coloca el botón 10px por encima de la parte inferior de la imagen */
         left: 50%; /* Centra el botón horizontalmente */
         transform: translateX(-50%); /* Asegura que el botón esté completamente centrado */
     }
@@ -40,7 +41,7 @@
         cursor: pointer;
     }
 
-        .btn-primary:hover {
-            background-color: #0056b3;
-        }
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
 </style>

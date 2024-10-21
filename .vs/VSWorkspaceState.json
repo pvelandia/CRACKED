@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Controllers",
+    "\\Views",
+    "\\Views\\User"
   ],
-  "SelectedNode": "\\C:\\Users\\57314\\Downloads\\ENTREGA PREVIA 1",
+  "SelectedNode": "\\Views\\User\\RegistroUsuarios.cshtml",
   "PreviewInSolutionExplorer": false
 }

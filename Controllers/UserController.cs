@@ -37,7 +37,7 @@ namespace CRACKED.Controllers
 
                 if (usuario.Respuesta == true)
                 {
-                    return View("Index");
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
