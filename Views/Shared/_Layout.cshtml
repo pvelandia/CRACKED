@@ -15,7 +15,19 @@
             background-color: #f7ebdd;
             left: 20PX;
         }
-
+        .nav-icon {
+            font-size: 3rem; /* Icon size */
+            color: saddlebrown; /* Icon color */
+            display: flex; /* Flexbox for alignment */
+            align-items: center; /* Center align items vertically */
+            justify-content: center; /* Center align items horizontally */
+        }
+        .icon-footer {
+            font-size: 1rem; /* Icon size */
+            color: saddlebrown; /* Icon color */
+            
+           
+        }
         .body-content {
             position: absolute;
             padding: 100px; /* Reduce el padding */
@@ -32,11 +44,15 @@
             position: absolute;
             top: 10px;
             right: 20px;
+            z-index: 1000;
+         
         }
-         .vertical-menu {
-        display: flex;
-        flex-direction: column;
-    }
+        .vertical-menu {
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+           
+        }
 
     .vertical-menu .nav-link {
         display: flex;
@@ -44,6 +60,7 @@
         padding: 10px;
         text-decoration: none; /* Para eliminar el subrayado de los enlaces */
         color: saddlebrown; /* Cambia el color del texto si es necesario */
+      
     }
 
     .vertical-menu .nav-link img {
@@ -54,8 +71,12 @@
             border: none;
             background-color: transparent;
             outline: none; /* Elimina el borde de enfoque */
+            z-index: 1000;
+          
         }
-
+        .collapse {
+            background-color: whitesmoke;
+        }
     </style>
 </head>
 <body>
@@ -66,30 +87,30 @@
             <ul class=" nav nav-tabs">
                 <li class="nav-item">
                     <a href="@Url.Action("Index", "Home")" class="nav-link">
-                        <i class="bi bi-house-door-fill" style="font-size: 3rem; color: saddlebrown;"></i>
+                        <i class="bi bi-house-door-fill nav-icon" ></i>
                     </a>
 
                 </li>
                 <li class="nav-item">
                     <a href="@Url.Action("Contact", "Home")" class="nav-link">
-                        <i class="bi bi-cart-fill" style="font-size: 3rem; color: saddlebrown;"></i>
+                        <i class="bi bi-cart-fill nav-icon" ></i>
                     </a>
 
                 </li>
                 <li class="nav-item">
-                    <a href="@Url.Action("inicioSesion", "User")">
-                        <i class="bi bi-person-fill" style="font-size: 3rem;color:saddlebrown;"> </i>
+                    <a href="@Url.Action("inicioSesion", "User")" class="nav-link">
+                        <i class="bi bi-person-fill nav-icon" > </i>
                     </a>
                 </li>
                 <li class="nav-item">
                     <button class="nav navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#barralateral" aria-controls="barralateral" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="bi bi-list" style="font-size: 4rem;"> </span>
+                        <span class="bi bi-list nav-icon" style="font-size: 4rem; "> </span> 
                     </button>
                     <div class="pos-f-t">
                         <div class="collapse" id="barralateral">
                             <div class="container-fluid">
 
-                                <h5 class="text-white h6" style="color:saddlebrown">NUESTROS PRODUCTOS</h5>
+                                <h5 class="text-black h6">NUESTROS PRODUCTOS</h5>
                                 <div class="vertical-menu">
                                     <a href="@Url.Action("Contact", "Home")" class="nav-link">
                                         <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAB2AAAAdgFOeyYIAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAA1pJREFUOI11k21M1AUAxn/3v7vujruD8+C84yXwQhwQQSwJ5NUxa1C53JrKWlajt7HZIimdYfWhYsNFrdg0m+Ucmh/KmvbqFIyQqRyVJBJ3cIXp3aF3HHfH/7h3rk9uxuz59mzPb3s+PI+E/5euosDQUVdibM5IU6X7F6M+i9V9amDM+SFw41ZIeiey1Jz+dFdrxeBfdrFxzhfN+mRHjc4vxkydT95fu67I2D4zK8ave4LnAITlcFGurr314YLD2foUBRKQyyQA/Gadwx+MsrEqV/Zpe21XbUnmuwCy21ihMDdtV6l5RZdMJnDsZztfdjWiVcmZuDpPqlpOdrqawGKMY/12Hq3IeWPE5jpyq4HmpUeKRvdtr+nShlScPufklU33svvQKHOBCMcHrzJsucm8GKHvzDQJt8DAhVlJS93qDwRA0tKQ/0vOCnV5SZ6epGaJDeuyKF+dgc8XofuLMTq3lXHwrRr0WgWPVd2NIxZgQ1UmJWZ9tZCflbal4T5T+fi4D+fcIgd31rJ9UzH7T05idwSYX4giSCTYXQtseXuAvJUa+t5czz1ZGjQKuUb6QlPh0d0tZaa6tUb0qQqOD81gztRyacqLcy6EfXaBWW+IojwdtWUm0lOVAOw6MIpaLY9KDnXUh6qLjco12Wm09QyjjSpJ6OL0tFUihmKc+d2JzeHHoFPy2XdWUmQKDrxeTSyRoPfElUtCilJ+18sfnccnRllbbOBPjxdzlpZ4YokfLQ5+unCNnZtL2dZYwCqTFuNKBf+4F/AHo5z+1fGezBsIi6f2NqUCPNe8hqYHs3m1e4RwOM5rW0vZXL8KgFA0jlGnIikFhVxK74kr560O/1eCxeYeBnh+7xBP7OknXatkfY2JrY35/xnY/EKEFzcWcs0tsu/bSUtf//RDAMKRs7aOEevN5HVXiHgoiRiO0VyZw+c/WJl2Bth/cgKHJ0g4lmDosit5cdLT2ddvqwSCANJEAs+0KyB7v62y/vGGXLIz1HgCEdz+MIe/n8LniuNYFFEqZLxzdKx1yunrvb2ZFGDmhnh2fMYbyzGkNCwlEZ7tHmTPU+UsSZJMuOYx6FXRnq//eOby396+5d+RLPPGujLTjgfMGc0apTzNF4x4Ltrc31is7o+BwJ2e+y81rmC0/uywcQAAAABJRU5ErkJggg==" width="32" idth="300" height="32"> galletas
@@ -112,13 +133,26 @@
         </div>
    
 
-        <div class="container-fluid body-content">
-            @RenderBody()
-            <hr />
-            <footer>
-                <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
-            </footer>
-        </div>
+    <div class="container-fluid body-content">
+        @RenderBody()
+        <hr />
+
+        <footer style="background-color: transparent; padding: 20px; text-align: left;">
+            <p> <h5 style="color:saddlebrown">Contáctanos</h5>  </p>
+            <i class="bi bi-telephone icon-footer"></i>
+            310-808-74-06
+            <p>
+            <p>
+                <i class="bi bi-instagram icon-footer"></i>
+                CRACKEDCOOKIES_
+            </p>
+            <p>&copy; @DateTime.Now.Year - CRACKED</p>
+
+
+        </footer>
+
+
+    </div>
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 

@@ -1,11 +1,14 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+<style>
+    
+</style>
 <div class="container-fluid">
     <div class="image-container">
         <img src="~/Content/Imagen/Sin título.jpg" class="full-width-image" />
         <div class="button-container">
-            <button class="btn btn-primary">Ver Más</button>
+            <button class="btn btn-primary">Ordena</button>
         </div>
     </div>
 </div>
@@ -16,6 +19,7 @@
         width: 100%; /* La imagen ocupará todo el ancho del contenedor */
         height: auto; /* Mantiene la altura proporcional original */
         object-fit: cover; /* Ajusta la imagen sin deformarla */
+        opacity:0.8;
     }
 
     .image-container {
@@ -32,16 +36,18 @@
     }
 
     .btn-primary {
-        padding: 10px 20px;
+        padding: 20px 50px;
         font-size: 16px;
-        background-color: #007bff;
-        color: white;
+        background-color: #efcbab;
+        color: saddlebrown;
         border: none;
         border-radius: 5px;
         cursor: pointer;
     }
 
-    .btn-primary:hover {
-        background-color: #0056b3;
-    }
+        .btn-primary:hover {
+            background-color: #efcbab;
+        }
+
+    
 </style>

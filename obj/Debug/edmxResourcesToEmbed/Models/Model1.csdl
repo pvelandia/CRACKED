@@ -180,16 +180,6 @@
     <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="PRODUCTOes" Relationship="Self.FK_PRODUCTO_SABOR" FromRole="SABOR" ToRole="PRODUCTO" />
   </EntityType>
-  <EntityType Name="sysdiagram">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-  </EntityType>
   <EntityType Name="TIPO_PRODUCTO">
     <Key>
       <PropertyRef Name="idTipoProducto" />
@@ -204,14 +194,14 @@
     <Key>
       <PropertyRef Name="idUsuario" />
     </Key>
-    <Property Name="idUsuario" Type="Int32" annotation:StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idUsuario" Type="Int32" Nullable="false" />
+    <Property Name="idRol" Type="Int32" />
+    <Property Name="idEstado" Type="Int32" />
     <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="numeroContacto" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
     <Property Name="correoElectronico" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="contraseña" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-    <Property Name="idRol" Type="Int32" />
-    <Property Name="idEstado" Type="Int32" />
     <NavigationProperty Name="AUDITORIAs" Relationship="Self.FK_AUDITORIA_USUARIO" FromRole="USUARIO" ToRole="AUDITORIA" />
     <NavigationProperty Name="PEDIDOes" Relationship="Self.FK_PEDIDO_USUARIO" FromRole="USUARIO" ToRole="PEDIDO" />
     <NavigationProperty Name="PEDIDOes1" Relationship="Self.FK_PEDIDO_USUARIO1" FromRole="USUARIO" ToRole="PEDIDO" />
@@ -539,7 +529,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="CRACKEDEntities5" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="CRACKEDEntities6" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="AUDITORIAs" EntityType="Self.AUDITORIA" />
     <EntitySet Name="CAJAs" EntityType="Self.CAJA" />
     <EntitySet Name="CAJA_PRODUCTO" EntityType="Self.CAJA_PRODUCTO" />
@@ -554,7 +544,6 @@
     <EntitySet Name="PRODUCTOes" EntityType="Self.PRODUCTO" />
     <EntitySet Name="ROLs" EntityType="Self.ROL" />
     <EntitySet Name="SABORs" EntityType="Self.SABOR" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
     <EntitySet Name="TIPO_PRODUCTO" EntityType="Self.TIPO_PRODUCTO" />
     <EntitySet Name="USUARIOs" EntityType="Self.USUARIO" />
     <EntitySet Name="USUARIO_PRODUCTO" EntityType="Self.USUARIO_PRODUCTO" />

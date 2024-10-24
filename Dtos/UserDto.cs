@@ -26,12 +26,12 @@ namespace CRACKED.Dtos
             public string ConfirmPassword { get; set; } = string.Empty;
 
 
-            [Required(ErrorMessage = "La contraseña es obligatoria.")]
-            [StringLength(15, MinimumLength = 8, ErrorMessage = "La contraseña debe tener entre 8 y 15 caracteres.")]
-            [RegularExpression(@"^(?=.[a-z])(?=.[A-Z])(?=.*\d).+$", ErrorMessage = "La contraseña debe contener al menos una letra mayúscula, una letra minúscula y un número.")]
-            public string Password { get; set; }
+        [Required(ErrorMessage = "La contraseña es obligatoria.")]
+        [StringLength(15, MinimumLength = 8, ErrorMessage = "La contraseña debe tener entre 8 y 15 caracteres.")]
+        [RegularExpression(@"^(?=.[a-z])(?=.[A-Z])(?=.*\d).+$", ErrorMessage = "La contraseña debe contener al menos una letra mayúscula, una letra minúscula y un número.")]
+        public string Password { get; set; }
 
-            public string PasswordE { get; set; } //encriptar no se si es necesario
+        public string PasswordE { get; set; } //encriptar no se si es necesario
             public int Response { get; set; }
             public string Mensaje { get; set; }
 
