@@ -34,7 +34,7 @@ namespace CRACKED.Services
             {
                 UserRepository userRepository = new UserRepository();
                 usuario.Respuesta = userRepository.RegistroUsuarios(usuario);
-                usuario.Password = Encriptar.GetSHA256(usuario.Password);
+                usuario.Password = BCrypt.Net.BCrypt.HashPassword(usuario.Password);
                 if (!usuario.Respuesta)
                     usuario.Mensaje = "Algo paso al resgistrar usuario";
                 return usuario;

@@ -20,12 +20,13 @@ namespace CRACKED.Repositories
             try
             {
                 //ACCESO DE DATOS
-                using (var db = new CRACKEDEntities6())
+                using (var db = new CRACKEDEntities7())
                 {
                  
                     if (usuario.Password != usuario.ConfirmPassword)
                     {
                         throw new Exception("Las contraseñas no coinciden. Por favor, verifícalas.");
+
                     }
                  
 
@@ -41,18 +42,18 @@ namespace CRACKED.Repositories
                     }
 
                     USUARIO userDb = new USUARIO();
-                 
-                    //userDb.idUsuario = usuario.IdUsuario;
+
+                    userDb.idUsuario = usuario.IdUser;
                     userDb.nombre = usuario.Name;
-                    usuario.PasswordE = Encriptar.GetSHA256(usuario.Password.Trim());
+                    usuario.PasswordE = BCrypt.Net.BCrypt.HashPassword(usuario.Password.Trim());
                     userDb.contraseña = usuario.PasswordE;
 
-                    //userDb.idRol = usuario.IdRol;
-                    //userDb.idEstado = usuario.IdEstado;
-                    //userDb.apellido = usuario.Apellido;
-                    //userDb.correoElectronico = usuario.Correo;
-                    //userDb.numeroContacto = usuario.Numero;
-                    
+                    userDb.idRol = usuario.IdRol;
+                    userDb.idEstado = usuario.IdEstado;
+                    userDb.apellido = usuario.Apellido;
+                    userDb.correoElectronico = usuario.Correo;
+                    userDb.numeroContacto = usuario.Numero;
+
                     db.USUARIOs.Add(userDb);
                     db.SaveChanges();
 
@@ -91,7 +92,7 @@ namespace CRACKED.Repositories
 
             try
             {
-                using (var db = new CRACKEDEntities6())
+                using (var db = new CRACKEDEntities7())
                 {
                     
                     var usuarios = db.USUARIOs.Select(u => new UserDto
@@ -121,7 +122,7 @@ namespace CRACKED.Repositories
 
             try
             {
-                using (var db = new CRACKEDEntities6())
+                using (var db = new CRACKEDEntities7())
                 {
                 
                     var userDb = db.USUARIOs.FirstOrDefault(u => u.nombre == username);
@@ -146,18 +147,18 @@ namespace CRACKED.Repositories
 
             try
             {
-                using (var db = new CRACKEDEntities6())
+                using (var db = new CRACKEDEntities7())
                 {
                     if (BuscarUsuario(user.Name))
                     {
                         var userDb = db.USUARIOs.FirstOrDefault(u => u.nombre == user.Name);
-                        user.PasswordE = Encriptar.GetSHA256(user.Password.Trim());
-                        
-                            Console.WriteLine("Usuario encontrado.");
+                        //user.PasswordE = BCrypt.Net.BCrypt.HashPassword(user.Password.Trim());
 
-                            if (userDb.contraseña == user.PasswordE) // Si la contraseña es correcta, crea un nuevo UserDto
-                        {
-                                result = new UserDto
+                        Console.WriteLine("Usuario encontrado.");
+                        bool isPasswordValid = BCrypt.Net.BCrypt.Verify(user.Password, userDb.contraseña);
+                        if (isPasswordValid == true) // Si la contraseña es correcta, crea un nuevo UserDto
+                        {
+                            result = new UserDto
                                 {
                                     IdUser = userDb.idUsuario,
                                     Name = userDb.nombre,
@@ -169,6 +170,7 @@ namespace CRACKED.Repositories
                             else
                             {
                                 Console.WriteLine("Contraseña incorrecta.");
+
                             }
                         }
                         else
