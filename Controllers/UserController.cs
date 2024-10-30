@@ -15,6 +15,15 @@ namespace CRACKED.Controllers
             return View();
         }
 
+        public ActionResult Productos()
+        {
+            return View();
+        }
+
+        public ActionResult Galletas()
+        {
+            return View();
+        }
         public ActionResult RegistroUsuarios()
         {
             UserDto usuario = new UserDto();
