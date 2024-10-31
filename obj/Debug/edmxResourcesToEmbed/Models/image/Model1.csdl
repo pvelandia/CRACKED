@@ -194,7 +194,7 @@
     <Key>
       <PropertyRef Name="idUsuario" />
     </Key>
-    <Property Name="idUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idUsuario" Type="Int32" Nullable="false" />
     <Property Name="idRol" Type="Int32" />
     <Property Name="idEstado" Type="Int32" />
     <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -529,7 +529,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="CRACKEDEntities10" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="CRACKEDEntities8" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="AUDITORIAs" EntityType="Self.AUDITORIA" />
     <EntitySet Name="CAJAs" EntityType="Self.CAJA" />
     <EntitySet Name="CAJA_PRODUCTO" EntityType="Self.CAJA_PRODUCTO" />

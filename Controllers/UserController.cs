@@ -19,8 +19,20 @@ namespace CRACKED.Controllers
         {
             return View();
         }
+        public ActionResult Cookiecakes()
+        {
+            return View();
+        }
 
+        public ActionResult Detalle_Cookiecakes()
+        {
+            return View();
+        }
         public ActionResult Galletas()
+        {
+            return View();
+        }
+        public ActionResult Detalle_Galletas()
         {
             return View();
         }

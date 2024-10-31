@@ -20,7 +20,7 @@ namespace CRACKED.Repositories
             try
             {
                 //ACCESO DE DATOS
-                using (var db = new CRACKEDEntities7())
+                using (var db = new CRACKEDEntities10())
                 {
                  
                     if (usuario.Password != usuario.ConfirmPassword)
@@ -92,7 +92,7 @@ namespace CRACKED.Repositories
 
             try
             {
-                using (var db = new CRACKEDEntities7())
+                using (var db = new CRACKEDEntities10())
                 {
                     
                     var usuarios = db.USUARIOs.Select(u => new UserDto
@@ -122,7 +122,7 @@ namespace CRACKED.Repositories
 
             try
             {
-                using (var db = new CRACKEDEntities7())
+                using (var db = new CRACKEDEntities10())
                 {
                 
                     var userDb = db.USUARIOs.FirstOrDefault(u => u.nombre == username);
@@ -147,7 +147,7 @@ namespace CRACKED.Repositories
 
             try
             {
-                using (var db = new CRACKEDEntities7())
+                using (var db = new CRACKEDEntities10())
                 {
                     if (BuscarUsuario(user.Name))
                     {

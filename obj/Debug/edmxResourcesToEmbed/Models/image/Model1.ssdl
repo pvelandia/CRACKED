@@ -148,7 +148,7 @@
     <Key>
       <PropertyRef Name="idUsuario" />
     </Key>
-    <Property Name="idUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idUsuario" Type="int" Nullable="false" />
     <Property Name="idRol" Type="int" />
     <Property Name="idEstado" Type="int" />
     <Property Name="nombre" Type="varchar" MaxLength="50" />
