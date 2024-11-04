@@ -59,6 +59,7 @@ namespace CRACKED.Controllers
                 if (usuario.Respuesta == true)
                 {
                     return RedirectToAction("Index", "Home");
+
                 }
                 else
                 {

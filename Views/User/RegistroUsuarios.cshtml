@@ -9,11 +9,15 @@
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-
+    @if (ViewBag.ErrorMessage != null)
+    {
+<div class="alert alert-danger">
+    @ViewBag.ErrorMessage
+</div>}
 
     <!-- Campo de Nombre -->
     <div class="form-group">
-        @Html.LabelFor(model => model.Name, "Nombre",htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.Name, "Nombre", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
@@ -48,7 +52,7 @@
     </div>
     <!-- Campo de Contraseña -->
     <div class="form-group">
-        @Html.LabelFor(model => model.Password,"contraseña", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.Password, "contraseña", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             <div class="input-group">
                 @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Contraseña", id = "txtContraseña" })
@@ -60,6 +64,7 @@
         </div>
     </div>
 
+
     <!-- Campo de Confirmación de Contraseña -->
     <div class="form-group">
         @Html.LabelFor(model => model.ConfirmPassword, " confirmar contraseña", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -67,7 +72,7 @@
             <div class="input-group">
                 @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control", placeholder = "Confirmar Contraseña", id = "txtConfirmContraseña" })
                 <span class="input-group-text" id="toggleConfirmPassword" style="cursor: pointer;">
-                    <i class="bi bi-eye-slash-fill"  style="color:saddlebrown;"></i>
+                    <i class="bi bi-eye-slash-fill" style="color:saddlebrown;"></i>
                 </span>
             </div>
             @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })

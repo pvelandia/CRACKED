@@ -20,7 +20,7 @@ namespace CRACKED.Repositories
             try
             {
                 //ACCESO DE DATOS
-                using (var db = new CRACKEDEntities10())
+                using (var db = new CRACKEDEntities17())
                 {
                  
                     if (usuario.Password != usuario.ConfirmPassword)
@@ -48,15 +48,15 @@ namespace CRACKED.Repositories
                     usuario.PasswordE = BCrypt.Net.BCrypt.HashPassword(usuario.Password.Trim());
                     userDb.contraseña = usuario.PasswordE;
 
-                    userDb.idRol = usuario.IdRol;
-                    userDb.idEstado = usuario.IdEstado;
+                    userDb.idRol = 1;
+                    userDb.idEstado = 1;
                     userDb.apellido = usuario.Apellido;
                     userDb.correoElectronico = usuario.Correo;
                     userDb.numeroContacto = usuario.Numero;
 
                     db.USUARIOs.Add(userDb);
                     db.SaveChanges();
-
+                    usuario.Mensaje = "Usuario registrado exitosamente.";
                     return true;
                 }
             }
@@ -75,6 +75,10 @@ namespace CRACKED.Repositories
 
         private bool ValidarPassword(string password)
         {
+            // La contraseña no debe estar vacía
+            if (string.IsNullOrWhiteSpace(password))
+                return false;
+
             // La contraseña debe tener entre 8 y 15 caracteres, al menos una letra mayúscula y un número
             if (password.Length < 8 || password.Length > 15)
                 return false;
@@ -92,7 +96,7 @@ namespace CRACKED.Repositories
 
             try
             {
-                using (var db = new CRACKEDEntities10())
+                using (var db = new CRACKEDEntities17())
                 {
                     
                     var usuarios = db.USUARIOs.Select(u => new UserDto
@@ -122,7 +126,7 @@ namespace CRACKED.Repositories
 
             try
             {
-                using (var db = new CRACKEDEntities10())
+                using (var db = new CRACKEDEntities17())
                 {
                 
                     var userDb = db.USUARIOs.FirstOrDefault(u => u.nombre == username);
@@ -147,7 +151,7 @@ namespace CRACKED.Repositories
 
             try
             {
-                using (var db = new CRACKEDEntities10())
+                using (var db = new CRACKEDEntities17())
                 {
                     if (BuscarUsuario(user.Name))
                     {

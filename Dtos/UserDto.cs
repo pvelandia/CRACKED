@@ -9,8 +9,7 @@ namespace CRACKED.Dtos
     {
         public class UserDto
         {
-            [Key]
-            [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+           
             public int IdUser { get; set; }
             public int IdRol { get; set; }
             public int IdEstado { get; set; }
@@ -30,7 +29,7 @@ namespace CRACKED.Dtos
         [StringLength(15, MinimumLength = 8, ErrorMessage = "La contraseña debe tener entre 8 y 15 caracteres.")]
         [RegularExpression(@"^(?=.[a-z])(?=.[A-Z])(?=.*\d).+$", ErrorMessage = "La contraseña debe contener al menos una letra mayúscula, una letra minúscula y un número.")]
         public string Password { get; set; }
-
+        
         public string PasswordE { get; set; } //encriptar no se si es necesario
             public int Response { get; set; }
             public string Mensaje { get; set; }

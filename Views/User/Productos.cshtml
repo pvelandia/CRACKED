@@ -10,7 +10,7 @@
     <div class="row justify-content-around">
         <div class="col-4">
 
-            <img src="~/Content/Imagen/image (1).png" width="380" height="360" />
+            <img src="~/Content/Imagen/image (1).png" width="380" height="360" class="img-fluid" />
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="button" value="Galletas" class="btn btn-primary" onclick="window.location='@Url.Action("Galletas", "User")'" />
@@ -19,7 +19,7 @@
 
         </div>
         <div class="col-4">
-            <img src="~/Content/Imagen/image (2).png" width="380" height="360" />
+            <img src="~/Content/Imagen/image (2).png" width="380" height="360" class="img-fluid"/>
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="button" value="Cookiecakes" class="btn btn-primary" onclick="window.location='@Url.Action("Cookiecakes", "User")'" />
@@ -71,7 +71,10 @@
         cursor: pointer;
         font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     }
-
+    
+        .btn-primary:hover {
+            background-color: #542b1d;
+        }
     .form-group {
         text-align:center;
         font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
