@@ -1,4 +1,5 @@
 ﻿using CRACKED.Dtos;
+using CRACKED.Repositories;
 using CRACKED.Services;
 using System;
 using System.Collections.Generic;
@@ -80,6 +81,7 @@ namespace CRACKED.Controllers
         public ActionResult inicioSesion()
         {
             UserDto user = new UserDto();
+
             return View(user);
         }
 
@@ -87,17 +89,63 @@ namespace CRACKED.Controllers
         [HttpPost]
         public ActionResult inicioSesion(UserDto user)
         {
-            UserService userService = new UserService();
-            UserDto userLogin = userService.LoginUser(user);
+          
+                UserService userService = new UserService();
+                UserDto userLogin = userService.LoginUser(user);
 
-            if (userLogin.IdUser != 0)
+                if (userLogin.IdUser != 0)
+                {
+                    Session["UserLogged"] = userLogin;
+
+                    // Obtener el IdRol del usuario autenticado
+                    int idRol = userService.ObtenerIdRol(userLogin.IdUser);
+
+                    // Seleccionar el layout basado en el rol
+                    if (idRol == 1)
+                    {
+                        // Asignar layout para el cliente
+                        ViewBag.Layout = "_Layout.cshtml";
+                    }
+                    else if (idRol == 2)
+                    {
+                        // Asignar layout para el administrador
+                        ViewBag.Layout = "Error.cshtml";
+                    }
+                    else if (idRol == 3)
+                    {
+                        // Asignar layout para el domiciliario
+                        ViewBag.Layout = "_LayoutDomiciliario";
+                    }
+
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = "Credenciales incorrectas.";
+                    return View();
+                }
+            }
+        [HttpPost]
+        public ActionResult Cookiecakes(UserDto model, int quantity, string selectionInput)
+        {
+            
+            if (model == null)
             {
-                Session["UserLogged"] = userLogin;
-                return RedirectToAction("Index","Home");
+                return ViewBag.ErrorMessage("El modelo es nulo.");
             }
 
-            return View(userLogin);
+            // Aquí iría tu lógica para manejar el carrito
+
+            if (quantity <= 0)
+            {
+                return ViewBag.ErrorMessage("La cantidad debe ser mayor a cero.");
+            }
+
+            // Supongamos que todo está bien y quieres redirigir
+            // Por ejemplo, después de agregar al carrito
+            return RedirectToAction("Index");
         }
+
     }
 }
 

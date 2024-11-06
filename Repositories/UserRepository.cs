@@ -48,7 +48,7 @@ namespace CRACKED.Repositories
                     usuario.PasswordE = BCrypt.Net.BCrypt.HashPassword(usuario.Password.Trim());
                     userDb.contraseña = usuario.PasswordE;
 
-                    userDb.idRol = 1;
+                    userDb.idRol = 2;
                     userDb.idEstado = 1;
                     userDb.apellido = usuario.Apellido;
                     userDb.correoElectronico = usuario.Correo;
@@ -191,7 +191,14 @@ namespace CRACKED.Repositories
 
             return result; // lo que retorna es el UserDto si el inicio fue exitoso o null si falló
         }
+        public int ObtenerIdRol(int userId)
+        {
+            using (var context = new CRACKEDEntities17())
+            {
+                var user = context.USUARIOs.SingleOrDefault(u => u.idRol == userId);
+                return user != null ? user.idRol : 0;
+            }
+        }
 
-        
     }
 }
