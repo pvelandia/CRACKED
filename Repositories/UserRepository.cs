@@ -20,7 +20,7 @@ namespace CRACKED.Repositories
             try
             {
                 //ACCESO DE DATOS
-                using (var db = new CRACKEDEntities20())
+                using (var db = new CRACKEDEntities22())
                 {
                  
                     if (usuario.Password != usuario.ConfirmPassword)
@@ -96,7 +96,7 @@ namespace CRACKED.Repositories
 
             try
             {
-                using (var db = new CRACKEDEntities20())
+                using (var db = new CRACKEDEntities22())
                 {
                     
                     var usuarios = db.USUARIOs.Select(u => new UserDto
@@ -126,7 +126,7 @@ namespace CRACKED.Repositories
 
             try
             {
-                using (var db = new CRACKEDEntities20())
+                using (var db = new CRACKEDEntities22())
                 {
                 
                     var userDb = db.USUARIOs.FirstOrDefault(u => u.nombre == username);
@@ -147,58 +147,54 @@ namespace CRACKED.Repositories
 
         public UserDto inicioSesion(UserDto user)
         {
-            UserDto result = new UserDto(); 
+            UserDto result = new UserDto();
 
             try
             {
-                using (var db = new CRACKEDEntities20())
+                using (var db = new CRACKEDEntities22())
                 {
                     if (BuscarUsuario(user.Name))
                     {
                         var userDb = db.USUARIOs.FirstOrDefault(u => u.nombre == user.Name);
-                        //user.PasswordE = BCrypt.Net.BCrypt.HashPassword(user.Password.Trim());
 
                         Console.WriteLine("Usuario encontrado.");
                         bool isPasswordValid = BCrypt.Net.BCrypt.Verify(user.Password, userDb.contraseña);
-                        if (isPasswordValid == true) // Si la contraseña es correcta, crea un nuevo UserDto
-                        {
-                            result = new UserDto
-                                {
-                                    IdUser = userDb.idUsuario,
-                                    Name = userDb.nombre,
-                                    Password = userDb.contraseña,
-                                    // Puedes agregar más propiedades si es necesario
-                                };
-                                Console.WriteLine("Inicio de sesión exitoso.");
-                            }
-                            else
-                            {
-                                Console.WriteLine("Contraseña incorrecta.");
 
-                            }
+                        if (isPasswordValid == true) // Si la contraseña es correcta, crea un nuevo UserDto
+                        {
+                            // Obtener el IdRol llamando al método ObtenerIdRol
+                            result = new UserDto
+                            {
+                                IdUser = userDb.idUsuario,
+                                Name = userDb.nombre,
+                                Password = userDb.contraseña,
+                                IdRol = userDb.idRol
+
+                            };
+                            
+                            Console.WriteLine("Inicio de sesión exitoso.");
                         }
                         else
                         {
-                            Console.WriteLine("El usuario no existe.");
+                            Console.WriteLine("Contraseña incorrecta.");
                         }
                     }
+                    else
+                    {
+                        Console.WriteLine("El usuario no existe.");
+                    }
                 }
-            
+            }
             catch (Exception ex)
             {
                 Console.WriteLine("Error en el inicio de sesión: " + ex.Message);
             }
 
-            return result; // lo que retorna es el UserDto si el inicio fue exitoso o null si falló
+            return result; // Lo que retorna es el UserDto con el IdRol
         }
-        public int ObtenerIdRol(int userId)
-        {
-            using (var context = new CRACKEDEntities20())
-            {
-                var user = context.USUARIOs.SingleOrDefault(u => u.idRol == userId);
-                return user != null ? user.idRol : 0;
-            }
-        }
+
+
+
 
     }
 }

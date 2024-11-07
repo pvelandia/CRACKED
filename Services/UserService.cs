@@ -69,11 +69,7 @@ namespace CRACKED.Services
 
             return userResponse;
         }
-        private UserRepository _userRepository = new UserRepository();
-        public int ObtenerIdRol(int userId)
-        {
-            return _userRepository.ObtenerIdRol(userId);
-        }
+
         public string mensaje(string name)
         {
             string mensaje = "<html>" +

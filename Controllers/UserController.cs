@@ -97,36 +97,36 @@ namespace CRACKED.Controllers
         [HttpPost]
         public ActionResult inicioSesion(UserDto user)
         {
-          
-                UserService userService = new UserService();
-                UserDto userLogin = userService.LoginUser(user);
+            UserService userService = new UserService();
+            UserDto userLogin = userService.LoginUser(user); // Llamar a inicioSesion para obtener el UserDto completo
 
-                if (userLogin.IdUser != 0)
+            if (userLogin.IdUser != 0)  // Verifica que el inicio de sesión fue exitoso
+            {
+                // Almacenar el usuario en la sesión
+                Session["UserLogged"] = userLogin;
+
+               
+                // Verificar el rol y redirigir a la vista correspondiente
+                if (userLogin.IdRol == 1)
                 {
-                    Session["UserLogged"] = userLogin;
-
-                    // Obtener el IdRol del usuario autenticado
-                    int idRol = userService.ObtenerIdRol(userLogin.IdUser);
-
-                
-                switch (idRol)
+                    // Redirigir a la vista para rol de usuario regular
+                    return RedirectToAction("Index", "Home");
+                }
+                else if (userLogin.IdRol == 2)
                 {
-                    case 1:
-                        // Redirigir a la vista para rol de usuario regular
-                        return RedirectToAction("Index", "Home");
-
-                    case 2:
-                        // Redirigir a la vista para administrador
-                        ViewData["Layout"] = "_Layout - Admin.cshtml";
-                        return RedirectToAction("IndexAdmin", "User");
-
-                    case 3:
-                        // Redirigir a la vista para domiciliario
-                        return RedirectToAction("IndexDomiciliario", "Delivery");
-
-                    default:
-                        // Redirigir a una vista genérica si el rol no coincide con ninguno de los casos anteriores
-                        return RedirectToAction("Index", "Home");
+                    // Redirigir a la vista para administrador
+                    ViewData["Layout"] = "_Layout - Admin.cshtml";
+                    return RedirectToAction("IndexAdmin", "User");
+                }
+                else if (userLogin.IdRol == 3)
+                {
+                    // Redirigir a la vista para domiciliario
+                    return RedirectToAction("IndexDomiciliario", "Delivery");
+                }
+                else
+                {
+                    // Redirigir a una vista genérica si el rol no coincide con ninguno de los casos anteriores
+                    return RedirectToAction("Index", "Home");
                 }
             }
             else
@@ -136,8 +136,9 @@ namespace CRACKED.Controllers
                 return View();
             }
         }
-               
-            
+
+
+
         [HttpPost]
         public ActionResult Cookiecakes(UserDto model, int quantity, string selectionInput)
         {
