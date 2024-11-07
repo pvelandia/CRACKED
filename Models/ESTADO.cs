@@ -17,9 +17,7 @@ namespace CRACKED.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ESTADO()
         {
-            this.CAJAs = new HashSet<CAJA>();
             this.CIUDADs = new HashSet<CIUDAD>();
-            this.COMBOes = new HashSet<COMBO>();
             this.DEPARTAMENTOes = new HashSet<DEPARTAMENTO>();
             this.PEDIDOes = new HashSet<PEDIDO>();
             this.PEDIDO_PRODUCTO = new HashSet<PEDIDO_PRODUCTO>();
@@ -33,11 +31,7 @@ namespace CRACKED.Models
         public string nombre { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CAJA> CAJAs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CIUDAD> CIUDADs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<COMBO> COMBOes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DEPARTAMENTO> DEPARTAMENTOes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

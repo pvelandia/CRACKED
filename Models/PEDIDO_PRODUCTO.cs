@@ -19,8 +19,8 @@ namespace CRACKED.Models
         public int Idproducto { get; set; }
         public int IdEstado { get; set; }
         public int IdCliente { get; set; }
-        public int cantidad { get; set; }
-        public double valorProducto { get; set; }
+        public Nullable<int> cantidad { get; set; }
+        public Nullable<double> valorProducto { get; set; }
     
         public virtual ESTADO ESTADO { get; set; }
         public virtual PEDIDO PEDIDO { get; set; }

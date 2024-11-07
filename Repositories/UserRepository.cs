@@ -20,7 +20,7 @@ namespace CRACKED.Repositories
             try
             {
                 //ACCESO DE DATOS
-                using (var db = new CRACKEDEntities17())
+                using (var db = new CRACKEDEntities20())
                 {
                  
                     if (usuario.Password != usuario.ConfirmPassword)
@@ -96,7 +96,7 @@ namespace CRACKED.Repositories
 
             try
             {
-                using (var db = new CRACKEDEntities17())
+                using (var db = new CRACKEDEntities20())
                 {
                     
                     var usuarios = db.USUARIOs.Select(u => new UserDto
@@ -126,7 +126,7 @@ namespace CRACKED.Repositories
 
             try
             {
-                using (var db = new CRACKEDEntities17())
+                using (var db = new CRACKEDEntities20())
                 {
                 
                     var userDb = db.USUARIOs.FirstOrDefault(u => u.nombre == username);
@@ -151,7 +151,7 @@ namespace CRACKED.Repositories
 
             try
             {
-                using (var db = new CRACKEDEntities17())
+                using (var db = new CRACKEDEntities20())
                 {
                     if (BuscarUsuario(user.Name))
                     {
@@ -193,7 +193,7 @@ namespace CRACKED.Repositories
         }
         public int ObtenerIdRol(int userId)
         {
-            using (var context = new CRACKEDEntities17())
+            using (var context = new CRACKEDEntities20())
             {
                 var user = context.USUARIOs.SingleOrDefault(u => u.idRol == userId);
                 return user != null ? user.idRol : 0;

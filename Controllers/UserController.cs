@@ -37,6 +37,14 @@ namespace CRACKED.Controllers
         {
             return View();
         }
+        public ActionResult IndexAdmin()
+        {
+            return View();
+        }
+        public ActionResult IndexDomiciliario()
+        {
+            return View();
+        }
         public ActionResult RegistroUsuarios()
         {
             UserDto usuario = new UserDto();
@@ -100,31 +108,36 @@ namespace CRACKED.Controllers
                     // Obtener el IdRol del usuario autenticado
                     int idRol = userService.ObtenerIdRol(userLogin.IdUser);
 
-                    // Seleccionar el layout basado en el rol
-                    if (idRol == 1)
-                    {
-                        // Asignar layout para el cliente
-                        ViewBag.Layout = "_Layout.cshtml";
-                    }
-                    else if (idRol == 2)
-                    {
-                        // Asignar layout para el administrador
-                        ViewBag.Layout = "Error.cshtml";
-                    }
-                    else if (idRol == 3)
-                    {
-                        // Asignar layout para el domiciliario
-                        ViewBag.Layout = "_LayoutDomiciliario";
-                    }
-
-                    return RedirectToAction("Index", "Home");
-                }
-                else
+                
+                switch (idRol)
                 {
-                    ViewBag.ErrorMessage = "Credenciales incorrectas.";
-                    return View();
+                    case 1:
+                        // Redirigir a la vista para rol de usuario regular
+                        return RedirectToAction("Index", "Home");
+
+                    case 2:
+                        // Redirigir a la vista para administrador
+                        ViewData["Layout"] = "_Layout - Admin.cshtml";
+                        return RedirectToAction("IndexAdmin", "User");
+
+                    case 3:
+                        // Redirigir a la vista para domiciliario
+                        return RedirectToAction("IndexDomiciliario", "Delivery");
+
+                    default:
+                        // Redirigir a una vista genérica si el rol no coincide con ninguno de los casos anteriores
+                        return RedirectToAction("Index", "Home");
                 }
             }
+            else
+            {
+                // Si las credenciales son incorrectas, mostrar mensaje de error
+                ViewBag.ErrorMessage = "Credenciales incorrectas.";
+                return View();
+            }
+        }
+               
+            
         [HttpPost]
         public ActionResult Cookiecakes(UserDto model, int quantity, string selectionInput)
         {

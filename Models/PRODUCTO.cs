@@ -17,8 +17,6 @@ namespace CRACKED.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PRODUCTO()
         {
-            this.CAJA_PRODUCTO = new HashSet<CAJA_PRODUCTO>();
-            this.COMBO_PRODUCTO = new HashSet<COMBO_PRODUCTO>();
             this.PEDIDO_PRODUCTO = new HashSet<PEDIDO_PRODUCTO>();
             this.USUARIO_PRODUCTO = new HashSet<USUARIO_PRODUCTO>();
         }
@@ -26,20 +24,15 @@ namespace CRACKED.Models
         public int idProducto { get; set; }
         public int idTipoProducto { get; set; }
         public int idEstado { get; set; }
-        public Nullable<int> idSabor { get; set; }
         public string nombre { get; set; }
-        public double valorUnitario { get; set; }
-        public int stock { get; set; }
-        public int porcion { get; set; }
+        public Nullable<double> valorUnitario { get; set; }
+        public Nullable<int> stock { get; set; }
+        public Nullable<int> porcion { get; set; }
+        public string imagen { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CAJA_PRODUCTO> CAJA_PRODUCTO { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<COMBO_PRODUCTO> COMBO_PRODUCTO { get; set; }
         public virtual ESTADO ESTADO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PEDIDO_PRODUCTO> PEDIDO_PRODUCTO { get; set; }
-        public virtual SABOR SABOR { get; set; }
         public virtual TIPO_PRODUCTO TIPO_PRODUCTO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<USUARIO_PRODUCTO> USUARIO_PRODUCTO { get; set; }
