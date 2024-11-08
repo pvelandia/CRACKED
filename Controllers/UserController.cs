@@ -121,7 +121,7 @@ namespace CRACKED.Controllers
                 else if (userLogin.IdRol == 3)
                 {
                     // Redirigir a la vista para domiciliario
-                    return RedirectToAction("IndexDomiciliario", "Delivery");
+                    return RedirectToAction("IndexDomiciliario", "User");
                 }
                 else
                 {
