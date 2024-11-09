@@ -19,17 +19,25 @@ namespace CRACKED.Controllers
         [HttpPost]
         public ActionResult AgregarProductoAlCarrito(int productoId, int cantidad, float precio)
         {
-            // Obtener idCliente desde la sesión
-            int idCliente = Convert.ToInt32(Session["IdCliente"]);
+           
+            if (Session["UserLogged"] == null)
+            {
+                // Redirige al login o maneja el caso en que no haya sesión
+                return RedirectToAction("Login", "Account");
+            }
+
+            var user = Session["UserLogged"] as UserDto;
+            int idCliente = user != null ? user.IdUser : 0;
+
 
             // Obtener el ID del pedido desde la sesión
             int idPedido = ObtenerIdPedidoDeSesion();
 
-            // Llamamos al servicio para agregar el producto al carrito
+            // Llamamos al servicio para agregar el producto al carrito con cantidad y precio unitario
             _carritoService.AgregarProductoAlCarrito(productoId, cantidad, precio, idPedido, idCliente);
 
             // Redirigimos a la vista del carrito
-            return RedirectToAction("VerCarrito");
+            return RedirectToAction("Carrito");
         }
 
         // Método para obtener los productos del carrito de un cliente

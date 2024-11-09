@@ -177,7 +177,9 @@ namespace CRACKED.Controllers
                 // Almacenar el usuario en la sesión
                 Session["UserLogged"] = userLogin;
 
-               
+                
+
+
                 // Verificar el rol y redirigir a la vista correspondiente
                 if (userLogin.IdRol == 1)
                 {

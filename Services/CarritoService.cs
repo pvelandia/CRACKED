@@ -29,6 +29,7 @@ namespace CRACKED.Services
                 {
                     Idproducto = productoId,
                     IdCliente = idCliente,
+                    IdEstado = 1,
                     idPedido = idPedido,
                     cantidad = cantidad,
                     valorProducto = precio
