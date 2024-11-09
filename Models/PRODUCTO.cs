@@ -29,10 +29,12 @@ namespace CRACKED.Models
         public Nullable<int> stock { get; set; }
         public Nullable<int> porcion { get; set; }
         public string imagen { get; set; }
+        public int idSabor { get; set; }
     
         public virtual ESTADO ESTADO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PEDIDO_PRODUCTO> PEDIDO_PRODUCTO { get; set; }
+        public virtual SABOR SABOR { get; set; }
         public virtual TIPO_PRODUCTO TIPO_PRODUCTO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<USUARIO_PRODUCTO> USUARIO_PRODUCTO { get; set; }

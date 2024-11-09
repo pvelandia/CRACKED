@@ -15,27 +15,99 @@ namespace CRACKED.Controllers
         {
             return View();
         }
+        private readonly ProductService _productService;
+
+        public UserController()
+        {
+            _productService = new ProductService();
+        }
 
         public ActionResult Productos()
         {
-            return View();
+            TipoProductListDto tiposDeProducto = _productService.ObtenerTiposDeProducto();
+            return View(tiposDeProducto); // Pasa ProductListDto a la vista
         }
+
         public ActionResult Cookiecakes()
         {
-            return View();
+
+            ProductService productService = new ProductService();
+
+            // Filtrar solo los productos de tipo 1 (Cookiecakes)
+            ProductListDto productList = productService.ObtenerProductosPorTipo(2);
+
+            return View(productList);
+
+
         }
 
         public ActionResult Detalle_Cookiecakes()
         {
-            return View();
+            ProductService productService = new ProductService();
+
+            // Filtrar solo los productos de tipo 1 (Cookiecakes)
+            ProductListDto productList = productService.ObtenerProductosPorId(4);
+
+            return View(productList);
         }
+
+        public ActionResult Detalle_Cookiecakes_Oreo()
+        {
+            ProductService productService = new ProductService();
+
+            // Filtrar solo los productos de tipo 1 (Cookiecakes)
+            ProductListDto productList = productService.ObtenerProductosPorId(5);
+
+            return View(productList);
+        }
+        public ActionResult Detalle_Cookiecakes_Chipcake()
+        {
+            ProductService productService = new ProductService();
+
+            // Filtrar solo los productos de tipo 1 (Cookiecakes)
+            ProductListDto productList = productService.ObtenerProductosPorId(6);
+
+            return View(productList);
+        }
+
         public ActionResult Galletas()
         {
-            return View();
+            ProductService productService = new ProductService();
+
+            // Filtrar solo los productos de tipo 1 (Cookiecakes)
+            ProductListDto productList = productService.ObtenerProductosPorTipo(1);
+
+            return View(productList);
+       
         }
         public ActionResult Detalle_Galletas()
         {
-            return View();
+            ProductService productService = new ProductService();
+
+            // Filtrar solo los productos de tipo 1 (Cookiecakes)
+            ProductListDto productList = productService.ObtenerProductosPorId(1);
+
+            return View(productList); 
+        }
+
+        public ActionResult Detalle_Galletas_CookieNute()
+        {
+            ProductService productService = new ProductService();
+
+            // Filtrar solo los productos de tipo 1 (Cookiecakes)
+            ProductListDto productList = productService.ObtenerProductosPorId(2);
+
+            return View(productList);
+        }
+
+        public ActionResult Detalle_Galletas_Rainbow()
+        {
+            ProductService productService = new ProductService();
+
+            // Filtrar solo los productos de tipo 1 (Cookiecakes)
+            ProductListDto productList = productService.ObtenerProductosPorId(3);
+
+            return View(productList);
         }
         public ActionResult IndexAdmin()
         {

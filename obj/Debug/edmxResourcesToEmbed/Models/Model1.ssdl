@@ -83,6 +83,7 @@
     <Property Name="stock" Type="int" />
     <Property Name="porcion" Type="int" />
     <Property Name="imagen" Type="varchar" MaxLength="1000" />
+    <Property Name="idSabor" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="ROL">
     <Key>
@@ -101,6 +102,16 @@
     <Property Name="idEstado" Type="int" Nullable="false" />
     <Property Name="nombre" Type="varchar" MaxLength="100" Nullable="false" />
   </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
   <EntityType Name="TIPO_PRODUCTO">
     <Key>
       <PropertyRef Name="idTipoProducto" />
@@ -108,7 +119,7 @@
     <Property Name="idTipoProducto" Type="int" Nullable="false" />
     <Property Name="idEstado" Type="int" Nullable="false" />
     <Property Name="nombre" Type="varchar" MaxLength="100" />
-    <Property Name="idSabor" Type="int" />
+    <Property Name="imagen" Type="varchar" MaxLength="1000" />
   </EntityType>
   <EntityType Name="USUARIO">
     <Key>
@@ -299,6 +310,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_PRODUCTO_SABOR">
+    <End Role="SABOR" Type="Self.SABOR" Multiplicity="1" />
+    <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SABOR">
+        <PropertyRef Name="idSabor" />
+      </Principal>
+      <Dependent Role="PRODUCTO">
+        <PropertyRef Name="idSabor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_PRODUCTO_TIPO_PRODUCTO">
     <End Role="TIPO_PRODUCTO" Type="Self.TIPO_PRODUCTO" Multiplicity="1" />
     <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="*" />
@@ -332,18 +355,6 @@
       </Principal>
       <Dependent Role="TIPO_PRODUCTO">
         <PropertyRef Name="idEstado" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_TIPO_PRODUCTO_SABOR">
-    <End Role="SABOR" Type="Self.SABOR" Multiplicity="0..1" />
-    <End Role="TIPO_PRODUCTO" Type="Self.TIPO_PRODUCTO" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="SABOR">
-        <PropertyRef Name="idSabor" />
-      </Principal>
-      <Dependent Role="TIPO_PRODUCTO">
-        <PropertyRef Name="idSabor" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -418,6 +429,7 @@
     <EntitySet Name="PRODUCTO" EntityType="Self.PRODUCTO" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ROL" EntityType="Self.ROL" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SABOR" EntityType="Self.SABOR" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TIPO_PRODUCTO" EntityType="Self.TIPO_PRODUCTO" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="USUARIO" EntityType="Self.USUARIO" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="USUARIO_PRODUCTO" EntityType="Self.USUARIO_PRODUCTO" Schema="dbo" store:Type="Tables" />
@@ -477,6 +489,10 @@
       <End Role="ESTADO" EntitySet="ESTADO" />
       <End Role="PRODUCTO" EntitySet="PRODUCTO" />
     </AssociationSet>
+    <AssociationSet Name="FK_PRODUCTO_SABOR" Association="Self.FK_PRODUCTO_SABOR">
+      <End Role="SABOR" EntitySet="SABOR" />
+      <End Role="PRODUCTO" EntitySet="PRODUCTO" />
+    </AssociationSet>
     <AssociationSet Name="FK_PRODUCTO_TIPO_PRODUCTO" Association="Self.FK_PRODUCTO_TIPO_PRODUCTO">
       <End Role="TIPO_PRODUCTO" EntitySet="TIPO_PRODUCTO" />
       <End Role="PRODUCTO" EntitySet="PRODUCTO" />
@@ -487,10 +503,6 @@
     </AssociationSet>
     <AssociationSet Name="FK_TIPO_PRODUCTO_ESTADO" Association="Self.FK_TIPO_PRODUCTO_ESTADO">
       <End Role="ESTADO" EntitySet="ESTADO" />
-      <End Role="TIPO_PRODUCTO" EntitySet="TIPO_PRODUCTO" />
-    </AssociationSet>
-    <AssociationSet Name="FK_TIPO_PRODUCTO_SABOR" Association="Self.FK_TIPO_PRODUCTO_SABOR">
-      <End Role="SABOR" EntitySet="SABOR" />
       <End Role="TIPO_PRODUCTO" EntitySet="TIPO_PRODUCTO" />
     </AssociationSet>
     <AssociationSet Name="FK_USUARIO_ESTADO" Association="Self.FK_USUARIO_ESTADO">

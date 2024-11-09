@@ -88,6 +88,7 @@
           <Property Name="stock" Type="int" />
           <Property Name="porcion" Type="int" />
           <Property Name="imagen" Type="varchar" MaxLength="1000" />
+          <Property Name="idSabor" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ROL">
           <Key>
@@ -106,6 +107,16 @@
           <Property Name="idEstado" Type="int" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="TIPO_PRODUCTO">
           <Key>
             <PropertyRef Name="idTipoProducto" />
@@ -113,7 +124,7 @@
           <Property Name="idTipoProducto" Type="int" Nullable="false" />
           <Property Name="idEstado" Type="int" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="100" />
-          <Property Name="idSabor" Type="int" />
+          <Property Name="imagen" Type="varchar" MaxLength="1000" />
         </EntityType>
         <EntityType Name="USUARIO">
           <Key>
@@ -304,6 +315,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PRODUCTO_SABOR">
+          <End Role="SABOR" Type="Self.SABOR" Multiplicity="1" />
+          <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SABOR">
+              <PropertyRef Name="idSabor" />
+            </Principal>
+            <Dependent Role="PRODUCTO">
+              <PropertyRef Name="idSabor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PRODUCTO_TIPO_PRODUCTO">
           <End Role="TIPO_PRODUCTO" Type="Self.TIPO_PRODUCTO" Multiplicity="1" />
           <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="*" />
@@ -337,18 +360,6 @@
             </Principal>
             <Dependent Role="TIPO_PRODUCTO">
               <PropertyRef Name="idEstado" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TIPO_PRODUCTO_SABOR">
-          <End Role="SABOR" Type="Self.SABOR" Multiplicity="0..1" />
-          <End Role="TIPO_PRODUCTO" Type="Self.TIPO_PRODUCTO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SABOR">
-              <PropertyRef Name="idSabor" />
-            </Principal>
-            <Dependent Role="TIPO_PRODUCTO">
-              <PropertyRef Name="idSabor" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -423,6 +434,7 @@
           <EntitySet Name="PRODUCTO" EntityType="Self.PRODUCTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ROL" EntityType="Self.ROL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SABOR" EntityType="Self.SABOR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TIPO_PRODUCTO" EntityType="Self.TIPO_PRODUCTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="USUARIO" EntityType="Self.USUARIO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="USUARIO_PRODUCTO" EntityType="Self.USUARIO_PRODUCTO" Schema="dbo" store:Type="Tables" />
@@ -482,6 +494,10 @@
             <End Role="ESTADO" EntitySet="ESTADO" />
             <End Role="PRODUCTO" EntitySet="PRODUCTO" />
           </AssociationSet>
+          <AssociationSet Name="FK_PRODUCTO_SABOR" Association="Self.FK_PRODUCTO_SABOR">
+            <End Role="SABOR" EntitySet="SABOR" />
+            <End Role="PRODUCTO" EntitySet="PRODUCTO" />
+          </AssociationSet>
           <AssociationSet Name="FK_PRODUCTO_TIPO_PRODUCTO" Association="Self.FK_PRODUCTO_TIPO_PRODUCTO">
             <End Role="TIPO_PRODUCTO" EntitySet="TIPO_PRODUCTO" />
             <End Role="PRODUCTO" EntitySet="PRODUCTO" />
@@ -492,10 +508,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_TIPO_PRODUCTO_ESTADO" Association="Self.FK_TIPO_PRODUCTO_ESTADO">
             <End Role="ESTADO" EntitySet="ESTADO" />
-            <End Role="TIPO_PRODUCTO" EntitySet="TIPO_PRODUCTO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TIPO_PRODUCTO_SABOR" Association="Self.FK_TIPO_PRODUCTO_SABOR">
-            <End Role="SABOR" EntitySet="SABOR" />
             <End Role="TIPO_PRODUCTO" EntitySet="TIPO_PRODUCTO" />
           </AssociationSet>
           <AssociationSet Name="FK_USUARIO_ESTADO" Association="Self.FK_USUARIO_ESTADO">
@@ -633,8 +645,10 @@
           <Property Name="stock" Type="Int32" />
           <Property Name="porcion" Type="Int32" />
           <Property Name="imagen" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="idSabor" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ESTADO" Relationship="Self.FK_PRODUCTO_ESTADO" FromRole="PRODUCTO" ToRole="ESTADO" />
           <NavigationProperty Name="PEDIDO_PRODUCTO" Relationship="Self.FK_PEDIDO_PRODUCTO_PRODUCTO" FromRole="PRODUCTO" ToRole="PEDIDO_PRODUCTO" />
+          <NavigationProperty Name="SABOR" Relationship="Self.FK_PRODUCTO_SABOR" FromRole="PRODUCTO" ToRole="SABOR" />
           <NavigationProperty Name="TIPO_PRODUCTO" Relationship="Self.FK_PRODUCTO_TIPO_PRODUCTO" FromRole="PRODUCTO" ToRole="TIPO_PRODUCTO" />
           <NavigationProperty Name="USUARIO_PRODUCTO" Relationship="Self.FK_USUARIO_PRODUCTO_PRODUCTO" FromRole="PRODUCTO" ToRole="USUARIO_PRODUCTO" />
         </EntityType>
@@ -656,7 +670,17 @@
           <Property Name="idSabor" Type="Int32" Nullable="false" />
           <Property Name="idEstado" Type="Int32" Nullable="false" />
           <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="TIPO_PRODUCTO" Relationship="Self.FK_TIPO_PRODUCTO_SABOR" FromRole="SABOR" ToRole="TIPO_PRODUCTO" />
+          <NavigationProperty Name="PRODUCTOes" Relationship="Self.FK_PRODUCTO_SABOR" FromRole="SABOR" ToRole="PRODUCTO" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="TIPO_PRODUCTO">
           <Key>
@@ -665,10 +689,9 @@
           <Property Name="idTipoProducto" Type="Int32" Nullable="false" />
           <Property Name="idEstado" Type="Int32" Nullable="false" />
           <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="idSabor" Type="Int32" />
+          <Property Name="imagen" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="ESTADO" Relationship="Self.FK_TIPO_PRODUCTO_ESTADO" FromRole="TIPO_PRODUCTO" ToRole="ESTADO" />
           <NavigationProperty Name="PRODUCTOes" Relationship="Self.FK_PRODUCTO_TIPO_PRODUCTO" FromRole="TIPO_PRODUCTO" ToRole="PRODUCTO" />
-          <NavigationProperty Name="SABOR" Relationship="Self.FK_TIPO_PRODUCTO_SABOR" FromRole="TIPO_PRODUCTO" ToRole="SABOR" />
         </EntityType>
         <EntityType Name="USUARIO">
           <Key>
@@ -905,6 +928,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PRODUCTO_SABOR">
+          <End Role="SABOR" Type="Self.SABOR" Multiplicity="1" />
+          <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SABOR">
+              <PropertyRef Name="idSabor" />
+            </Principal>
+            <Dependent Role="PRODUCTO">
+              <PropertyRef Name="idSabor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PRODUCTO_TIPO_PRODUCTO">
           <End Role="TIPO_PRODUCTO" Type="Self.TIPO_PRODUCTO" Multiplicity="1" />
           <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="*" />
@@ -941,18 +976,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TIPO_PRODUCTO_SABOR">
-          <End Role="SABOR" Type="Self.SABOR" Multiplicity="0..1" />
-          <End Role="TIPO_PRODUCTO" Type="Self.TIPO_PRODUCTO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SABOR">
-              <PropertyRef Name="idSabor" />
-            </Principal>
-            <Dependent Role="TIPO_PRODUCTO">
-              <PropertyRef Name="idSabor" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_USUARIO_PRODUCTO_USUARIO">
           <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
           <End Role="USUARIO_PRODUCTO" Type="Self.USUARIO_PRODUCTO" Multiplicity="*" />
@@ -977,7 +1000,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="CRACKEDEntities23" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="CRACKEDEntities27" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AUDITORIAs" EntityType="Self.AUDITORIA" />
           <EntitySet Name="CIUDADs" EntityType="Self.CIUDAD" />
           <EntitySet Name="DEPARTAMENTOes" EntityType="Self.DEPARTAMENTO" />
@@ -988,6 +1011,7 @@
           <EntitySet Name="PRODUCTOes" EntityType="Self.PRODUCTO" />
           <EntitySet Name="ROLs" EntityType="Self.ROL" />
           <EntitySet Name="SABORs" EntityType="Self.SABOR" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="TIPO_PRODUCTO" EntityType="Self.TIPO_PRODUCTO" />
           <EntitySet Name="USUARIOs" EntityType="Self.USUARIO" />
           <EntitySet Name="USUARIO_PRODUCTO" EntityType="Self.USUARIO_PRODUCTO" />
@@ -1059,6 +1083,10 @@
             <End Role="PRODUCTO" EntitySet="PRODUCTOes" />
             <End Role="PEDIDO_PRODUCTO" EntitySet="PEDIDO_PRODUCTO" />
           </AssociationSet>
+          <AssociationSet Name="FK_PRODUCTO_SABOR" Association="Self.FK_PRODUCTO_SABOR">
+            <End Role="SABOR" EntitySet="SABORs" />
+            <End Role="PRODUCTO" EntitySet="PRODUCTOes" />
+          </AssociationSet>
           <AssociationSet Name="FK_PRODUCTO_TIPO_PRODUCTO" Association="Self.FK_PRODUCTO_TIPO_PRODUCTO">
             <End Role="TIPO_PRODUCTO" EntitySet="TIPO_PRODUCTO" />
             <End Role="PRODUCTO" EntitySet="PRODUCTOes" />
@@ -1070,10 +1098,6 @@
           <AssociationSet Name="FK_USUARIO_ROL" Association="Self.FK_USUARIO_ROL">
             <End Role="ROL" EntitySet="ROLs" />
             <End Role="USUARIO" EntitySet="USUARIOs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TIPO_PRODUCTO_SABOR" Association="Self.FK_TIPO_PRODUCTO_SABOR">
-            <End Role="SABOR" EntitySet="SABORs" />
-            <End Role="TIPO_PRODUCTO" EntitySet="TIPO_PRODUCTO" />
           </AssociationSet>
           <AssociationSet Name="FK_USUARIO_PRODUCTO_USUARIO" Association="Self.FK_USUARIO_PRODUCTO_USUARIO">
             <End Role="USUARIO" EntitySet="USUARIOs" />
@@ -1089,7 +1113,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="CRACKEDModelStoreContainer" CdmEntityContainer="CRACKEDEntities23">
+        <EntityContainerMapping StorageEntityContainer="CRACKEDModelStoreContainer" CdmEntityContainer="CRACKEDEntities27">
           <EntitySetMapping Name="AUDITORIAs">
             <EntityTypeMapping TypeName="CRACKEDModel.AUDITORIA">
               <MappingFragment StoreEntitySet="AUDITORIA">
@@ -1179,6 +1203,7 @@
                 <ScalarProperty Name="stock" ColumnName="stock" />
                 <ScalarProperty Name="porcion" ColumnName="porcion" />
                 <ScalarProperty Name="imagen" ColumnName="imagen" />
+                <ScalarProperty Name="idSabor" ColumnName="idSabor" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1201,13 +1226,24 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="CRACKEDModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="TIPO_PRODUCTO">
             <EntityTypeMapping TypeName="CRACKEDModel.TIPO_PRODUCTO">
               <MappingFragment StoreEntitySet="TIPO_PRODUCTO">
                 <ScalarProperty Name="idTipoProducto" ColumnName="idTipoProducto" />
                 <ScalarProperty Name="idEstado" ColumnName="idEstado" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="idSabor" ColumnName="idSabor" />
+                <ScalarProperty Name="imagen" ColumnName="imagen" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

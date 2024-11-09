@@ -1,200 +1,77 @@
 ﻿using CRACKED.Dtos;
 using CRACKED.Models;
-using CRACKED.Utilities;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Security.Cryptography;
-using static CRACKED.Dtos.UserListDto;
-
 
 namespace CRACKED.Repositories
 {
-    public class UserRepository 
+    public class UserRepository
     {
-
-        public bool RegistroUsuarios(UserDto usuario)
+        public bool GuardarUsuario(USUARIO userDb)
         {
-            UserDto respuesta = new UserDto();
             try
             {
-                //ACCESO DE DATOS
-                using (var db = new CRACKEDEntities23())
+                using (var db = new CRACKEDEntities27())
                 {
-                 
-                    if (usuario.Password != usuario.ConfirmPassword)
-                    {
-                        throw new Exception("Las contraseñas no coinciden. Por favor, verifícalas.");
-
-                    }
-                 
-
-                    if (BuscarUsuario(usuario.Name))
-                    {
-                        throw new Exception("El nombre de usuario ya existe. Por favor, elija otro nombre.");
-                    }
-
-                    //metodo mas abajo valida
-                    if (!ValidarPassword(usuario.Password))
-                    {
-                        throw new Exception("La contraseña debe tener al menos 8 caracteres y máximo 15, incluir al menos un número y una letra mayúscula.");
-                    }
-
-                    USUARIO userDb = new USUARIO();
-
-                    userDb.idUsuario = usuario.IdUser;
-                    userDb.nombre = usuario.Name;
-                    usuario.PasswordE = BCrypt.Net.BCrypt.HashPassword(usuario.Password.Trim());
-                    userDb.contraseña = usuario.PasswordE;
-
-                    userDb.idRol = 2;
-                    userDb.idEstado = 1;
-                    userDb.apellido = usuario.Apellido;
-                    userDb.correoElectronico = usuario.Correo;
-                    userDb.numeroContacto = usuario.Numero;
-
                     db.USUARIOs.Add(userDb);
                     db.SaveChanges();
-                    usuario.Mensaje = "Usuario registrado exitosamente.";
                     return true;
                 }
             }
-            catch (System.Data.Entity.Validation.DbEntityValidationException ex)
+            catch (Exception)
             {
-                foreach (var validationErrors in ex.EntityValidationErrors)
-                {
-                    foreach (var validationError in validationErrors.ValidationErrors)
-                    {
-                        Console.WriteLine($"Property: {validationError.PropertyName} Error: {validationError.ErrorMessage}");
-                    }
-                }
-                return false; 
+                return false;
             }
         }
 
-        private bool ValidarPassword(string password)
+        public UserDto BuscarUsuario(string username)
         {
-            // La contraseña no debe estar vacía
-            if (string.IsNullOrWhiteSpace(password))
-                return false;
-
-            // La contraseña debe tener entre 8 y 15 caracteres, al menos una letra mayúscula y un número
-            if (password.Length < 8 || password.Length > 15)
-                return false;
-
-            bool tieneMayuscula = password.Any(char.IsUpper);
-            bool tieneNumero = password.Any(char.IsDigit);
-
-            return tieneMayuscula && tieneNumero;
+            try
+            {
+                using (var db = new CRACKEDEntities27())
+                {
+                    var userDb = db.USUARIOs.FirstOrDefault(u => u.nombre == username);
+                    if (userDb != null)
+                    {
+                        return new UserDto
+                        {
+                            IdUser = userDb.idUsuario,
+                            Name = userDb.nombre,
+                            PasswordE = userDb.contraseña,
+                            IdRol = (int)userDb.idRol,
+                            IdEstado = (int)userDb.idEstado
+                        };
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                // Manejo de error
+            }
+            return null;
         }
 
-        //lo usaremos despues  depronto usar tabla usuarios
         public UserListDto ListarUsuarios()
         {
             UserListDto userListDto = new UserListDto();
-
             try
             {
-                using (var db = new CRACKEDEntities23())
+                using (var db = new CRACKEDEntities27())
                 {
-                    
-                    var usuarios = db.USUARIOs.Select(u => new UserDto
+                    userListDto.Users = db.USUARIOs.Select(u => new UserDto
                     {
                         IdUser = u.idUsuario,
                         IdRol = (int)u.idRol,
                         IdEstado = (int)u.idEstado,
-                        Name = u.nombre,
-
+                        Name = u.nombre
                     }).ToList();
-
-                    userListDto.Users = usuarios;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine("Error al listar usuarios: " + ex.Message);
+                // Manejo de error
             }
-
             return userListDto;
         }
-
-        //se usa en el registro e inicio
-        public bool BuscarUsuario(string username)
-        {
-            bool result = false;
-
-            try
-            {
-                using (var db = new CRACKEDEntities23())
-                {
-                
-                    var userDb = db.USUARIOs.FirstOrDefault(u => u.nombre == username);
-
-                    if (userDb != null)
-                    {
-                        result = true;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
-            return result;
-        }
-
-        public UserDto inicioSesion(UserDto user)
-        {
-            UserDto result = new UserDto();
-
-            try
-            {
-                using (var db = new CRACKEDEntities23())
-                {
-                    if (BuscarUsuario(user.Name))
-                    {
-                        var userDb = db.USUARIOs.FirstOrDefault(u => u.nombre == user.Name);
-
-                        Console.WriteLine("Usuario encontrado.");
-                        bool isPasswordValid = BCrypt.Net.BCrypt.Verify(user.Password, userDb.contraseña);
-
-                        if (isPasswordValid == true) // Si la contraseña es correcta, crea un nuevo UserDto
-                        {
-                            // Obtener el IdRol llamando al método ObtenerIdRol
-                            result = new UserDto
-                            {
-                                IdUser = userDb.idUsuario,
-                                Name = userDb.nombre,
-                                Password = userDb.contraseña,
-                                IdRol = userDb.idRol
-
-                            };
-                            
-                            Console.WriteLine("Inicio de sesión exitoso.");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Contraseña incorrecta.");
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("El usuario no existe.");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error en el inicio de sesión: " + ex.Message);
-            }
-
-            return result; // Lo que retorna es el UserDto con el IdRol
-        }
-
-
-
-
     }
 }

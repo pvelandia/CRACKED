@@ -48,34 +48,25 @@
         @Html.ActionLink("Volver a la lista", "Index", "Home")
     </div>
 }
-
-
-
 <script>
-    <input type="hidden" id="hiddenQuantity" name="Cantidad" value="1" />
     document.addEventListener("DOMContentLoaded", function () {
         const incrementButton = document.getElementById("increment");
         const decrementButton = document.getElementById("decrement");
         const quantityInput = document.getElementById("quantity");
-        const hiddenQuantity = document.getElementById("hiddenQuantity");
 
         incrementButton.addEventListener("click", (event) => {
             event.preventDefault(); // Evita el comportamiento predeterminado
             quantityInput.value = Number(quantityInput.value) + 1;
-            hiddenQuantity.value = quantityInput.value; // Actualiza el valor en el campo oculto
         });
 
         decrementButton.addEventListener("click", (event) => {
             event.preventDefault(); // Evita el comportamiento predeterminado
             if (Number(quantityInput.value) > 1) {
                 quantityInput.value = Number(quantityInput.value) - 1;
-                hiddenQuantity.value = quantityInput.value; // Actualiza el valor en el campo oculto
             }
         });
-
-        // Inicializa el campo oculto al cargar la página
-        hiddenQuantity.value = quantityInput.value;
     });
+
 
 </script>
 <script>

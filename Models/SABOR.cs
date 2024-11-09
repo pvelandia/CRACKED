@@ -17,7 +17,7 @@ namespace CRACKED.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SABOR()
         {
-            this.TIPO_PRODUCTO = new HashSet<TIPO_PRODUCTO>();
+            this.PRODUCTOes = new HashSet<PRODUCTO>();
         }
     
         public int idSabor { get; set; }
@@ -25,6 +25,6 @@ namespace CRACKED.Models
         public string nombre { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TIPO_PRODUCTO> TIPO_PRODUCTO { get; set; }
+        public virtual ICollection<PRODUCTO> PRODUCTOes { get; set; }
     }
 }
