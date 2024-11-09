@@ -29,8 +29,9 @@ namespace CRACKED.Models
         public Nullable<System.DateTime> fechaEntrega { get; set; }
         public Nullable<System.DateTime> fechaVenta { get; set; }
         public string direccion { get; set; }
-        public Nullable<double> valor { get; set; }
-        public Nullable<double> iva { get; set; }
+        public Nullable<double> subtotal { get; set; }
+        public Nullable<double> valorDomicilio { get; set; }
+        public Nullable<double> totalPedido { get; set; }
     
         public virtual CIUDAD CIUDAD { get; set; }
         public virtual ESTADO ESTADO { get; set; }

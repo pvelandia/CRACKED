@@ -144,6 +144,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CarritoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -201,9 +202,6 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SABOR.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TIPO_PRODUCTO.cs">
@@ -434,6 +432,7 @@
     <Content Include="Views\User\Detalle_Cookiecakes_Chipcake.cshtml" />
     <Content Include="Views\User\Detalle_Galletas_CookieNute.cshtml" />
     <Content Include="Views\User\Detalle_Galletas_Rainbow.cshtml" />
+    <Content Include="Views\Admin\InfoUsuarios.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -17,10 +17,10 @@ namespace CRACKED.Controllers
         }
 
         // Constructor sin parámetros
-        public CarritoController() : this(new CarritoService(new CarritoRepository(new Models.CRACKEDEntities28())))
-        {
-            // Puedes inicializar los servicios aquí si no se está utilizando un contenedor de DI
-        }
+        //public CarritoController() : this(new CarritoService(new CarritoRepository(new Models.CRACKEDEntities25()))
+        //{
+        //    // Puedes inicializar los servicios aquí si no se está utilizando un contenedor de DI
+        //}
         // Método GET para mostrar el carrito (solo se utiliza [HttpGet] implícitamente)
         public ActionResult Carrito()
         {

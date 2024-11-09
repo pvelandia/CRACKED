@@ -55,8 +55,9 @@
     <Property Name="fechaEntrega" Type="date" />
     <Property Name="fechaVenta" Type="date" />
     <Property Name="direccion" Type="varchar" MaxLength="50" />
-    <Property Name="valor" Type="float" />
-    <Property Name="iva" Type="float" />
+    <Property Name="subtotal" Type="float" />
+    <Property Name="valorDomicilio" Type="float" />
+    <Property Name="totalPedido" Type="float" />
   </EntityType>
   <EntityType Name="PEDIDO_PRODUCTO">
     <Key>
@@ -100,16 +101,6 @@
     <Property Name="idSabor" Type="int" Nullable="false" />
     <Property Name="idEstado" Type="int" Nullable="false" />
     <Property Name="nombre" Type="varchar" MaxLength="100" Nullable="false" />
-  </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
   <EntityType Name="TIPO_PRODUCTO">
     <Key>
@@ -440,7 +431,6 @@
     <EntitySet Name="PRODUCTO" EntityType="Self.PRODUCTO" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ROL" EntityType="Self.ROL" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SABOR" EntityType="Self.SABOR" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TIPO_PRODUCTO" EntityType="Self.TIPO_PRODUCTO" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="USUARIO" EntityType="Self.USUARIO" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="USUARIO_PRODUCTO" EntityType="Self.USUARIO_PRODUCTO" Schema="dbo" store:Type="Tables" />

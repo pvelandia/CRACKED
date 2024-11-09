@@ -14,7 +14,7 @@ namespace CRACKED.Repositories
 
             try
             {
-                using (var db = new CRACKEDEntities28())
+                using (var db = new CRACKEDEntities25())
                 {
                     productListDto.Users = db.TIPO_PRODUCTO
                         .Select(t => new TipoProductoDto
@@ -41,7 +41,7 @@ namespace CRACKED.Repositories
 
         try
         {
-            using (var db = new CRACKEDEntities28())
+            using (var db = new CRACKEDEntities25())
             {
                 productsListDto.Products = db.PRODUCTOes
                     .Select(p => new ProductDto

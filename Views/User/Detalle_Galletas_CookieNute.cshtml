@@ -15,10 +15,12 @@
                 </div>
                 <div class="col-4">
                     <div>
-                        <h2 style="color: saddlebrown; font-family: cursive; text-align: left;">Nombre:@Model.Products[0].Nombre</h2>
-                        <h4 style="color: black; font-family: cursive; text-align: left; ">Precio: @Model.Products[0].Precio</h4>
-                        <h5 style="color: black; font-family: cursive; text-align: left;">Stock @Model.Products[0].Stock</h5>
-                       
+                        <h2 style="color: saddlebrown; font-family: cursive; text-align: left;">@Model.Products[0].Nombre</h2>
+                        <h4 style="color: black; font-family: cursive; text-align: left; ">$ @Model.Products[0].Precio</h4>
+                        <label style="color: black; font-family: cursive; text-align: left; display: block; margin-top: 10px;">
+                            Una deliciosa combinación de chocolate y avellanas que captura la esencia de la famosa crema de avellanas. Con una textura suave por dentro y un toque crujiente por fuera, esta galleta es un verdadero placer para los amantes de los sabores indulgentes. Cada bocado ofrece un equilibrio perfecto entre el sabor cremoso de Nutella y una base de galleta irresistible. Ideal para disfrutar en cualquier momento y dejarse llevar por la suavidad y dulzura que solo Nutella puede ofrecer
+                        </label>
+
                     </div>
                     <div class="js-qty__wrapper">
                         <button id="decrement" class="qty-button">-</button>
@@ -26,7 +28,7 @@
                         <button id="increment" class="qty-button">+</button>
                     </div>
 
-
+                    <input type="hidden" name="stock" value="@Model.Products[0].Stock" />
 
                     <div class="form-group">
                         <div class="col-sm-1">

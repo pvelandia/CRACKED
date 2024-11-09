@@ -4,29 +4,30 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
+<div class="form-horizontal">
 
-        <hr />
-        <div class="container-fluid">
-            <div class="row justify-content-evenly ">
-                <div class="col-4">
-                    <img src="~/Content/Imagen/@Model.Products[0].Imagen" width="580" height="460" class="img-fluid" />
+    <hr />
+    <div class="container-fluid">
+        <div class="row justify-content-evenly ">
+            <div class="col-4">
+                <img src="~/Content/Imagen/@Model.Products[0].Imagen" width="580" height="460" class="img-fluid" />
 
-                </div>
-                <div class="col-4">
-                    <div>
-                        <h2 style="color: saddlebrown; font-family: cursive; text-align: left;">Nombre:@Model.Products[0].Nombre</h2>
-                        <h4 style="color: black; font-family: cursive; text-align: left; ">Precio: @Model.Products[0].Precio</h4>
-                        <h5 style="color: black; font-family: cursive; text-align: left;">Stock @Model.Products[0].Stock</h5>
-                       
-                    </div>
+            </div>
+            <div class="col-4">
+                <div>
+                    <h2 style="color: saddlebrown; font-family: cursive; text-align: left;">@Model.Products[0].Nombre</h2>
+                    <h4 style="color: black; font-family: cursive; text-align: left; ">$ @Model.Products[0].Precio</h4>
+                    <label style="color: black; font-family: cursive; text-align: left; display: block; margin-top: 10px;">
+                        Una explosión de colores y sabores que te llevará a un mundo de diversión. Cada bocado ofrece una combinación dulce y afrutada, con un toque de frescura que despierta los sentidos. Con su textura crujiente y su vibrante mezcla de colores, esta galleta es perfecta para quienes buscan disfrutar de un sabor único y alegre en cada momento del día.
+                    </label>
+
                     <div class="js-qty__wrapper">
                         <button id="decrement" class="qty-button">-</button>
                         <input type="text" id="quantity" value="1" readonly>
                         <button id="increment" class="qty-button">+</button>
                     </div>
 
-
+                    <input type="hidden" name="stock" value="@Model.Products[0].Stock" />
 
                     <div class="form-group">
                         <div class="col-sm-1">
@@ -43,7 +44,7 @@
 
     </div>
 
-
+</div>
     <div>
         @Html.ActionLink("Volver a la lista", "Index", "Home")
     </div>

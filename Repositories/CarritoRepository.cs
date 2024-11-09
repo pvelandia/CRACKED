@@ -7,10 +7,10 @@ namespace CRACKED.Repositories
 {
     public class CarritoRepository
     {
-        private readonly CRACKEDEntities28 _context;
+        private readonly CRACKEDEntities25 _context;
 
         // Constructor para inyectar el contexto de la base de datos
-        public CarritoRepository(CRACKEDEntities28 context)
+        public CarritoRepository(CRACKEDEntities25 context)
         {
             _context = context;
         }
@@ -33,8 +33,8 @@ namespace CRACKED.Repositories
                 pedidoExistente.fechaEntrega = DateTime.Now;
                 pedidoExistente.fechaVenta = DateTime.Now;
                 pedidoExistente.direccion = direccion;
-                pedidoExistente.valor = valor;
-                pedidoExistente.iva = iva;
+                //pedidoExistente.valor = valor;
+                //pedidoExistente.iva = iva;
                 pedidoExistente.idDomiciliario = 4;
                 pedidoExistente.idCiudad = 1;
                 pedidoExistente.idMetodoPago = 1;
@@ -56,8 +56,8 @@ namespace CRACKED.Repositories
                     fechaEntrega = DateTime.Now,
                     fechaVenta = DateTime.Now,
                     direccion = direccion,
-                    valor = valor,
-                    iva = iva
+                    //valor = valor,
+                    //iva = iva
                 };
 
                 _context.PEDIDOes.Add(nuevoPedido);

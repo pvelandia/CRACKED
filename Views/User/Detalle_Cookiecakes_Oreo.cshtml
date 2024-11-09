@@ -4,21 +4,24 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <hr />
-        <div class="container-fluid">
-            <div class="row justify-content-evenly ">
-                <div class="col-4">
-                    <img src="~/Content/Imagen/@Model.Products[0].Imagen" width="580" height="460" class="img-fluid" />
+<div class="form-horizontal">
+    <hr />
+    <div class="container-fluid">
+        <div class="row justify-content-evenly ">
+            <div class="col-4">
+                <img src="~/Content/Imagen/@Model.Products[0].Imagen" width="580" height="460" class="img-fluid" />
 
-                </div>
-                <div class="col-4">
-                    <div>
-                        <h2 style="color: saddlebrown; font-family: cursive; text-align: left;">Nombre:@Model.Products[0].Nombre</h2>
-                        <h4 style="color: black; font-family: cursive; text-align: left; ">Precio: @Model.Products[0].Precio</h4>
-                        <h5 style="color: black; font-family: cursive; text-align: left;">Stock @Model.Products[0].Stock</h5>
+            </div>
+            <div class="col-4">
+                <div>
+                    <h2 style="color: saddlebrown; font-family: cursive; text-align: left;">@Model.Products[0].Nombre</h2>
+                    <h4 style="color: black; font-family: cursive; text-align: left; ">$ @Model.Products[0].Precio</h4>
+                    <label style="color: black; font-family: cursive; text-align: left; display: block; margin-top: 10px;">
+                        Un delicioso pastel inspirado en la famosa galleta, con capas suaves y esponjosas de chocolate que se combinan con el inconfundible sabor de las galletas Oreo trituradas. Cada bocado está lleno de trozos crujientes de Oreo que se fusionan con una suave crema, creando una experiencia dulce y decadente. Cubierto con una generosa capa de crema y más trozos de galleta, este pastel es el postre perfecto para los amantes de Oreo, ideal para cualquier ocasión especial o como un antojo irresistible.
+                    </label>
+                    <input type="hidden" name="stock" value="@Model.Products[0].Stock" />
 
-                    </div>
+
                     <div class="js-qty__wrapper">
                         <button id="decrement" class="qty-button" type="button">-</button>
                         <input type="number" id="quantity" name="quantity" value="1" min="1">
@@ -48,7 +51,7 @@
             </div>
         </div>
     </div>
-
+</div>
     <div>
         @Html.ActionLink("Volver a la lista", "Index", "Home")
     </div>
@@ -85,5 +88,107 @@
 </script>
 
 <style>
-    /* Tu CSS aquí (sin cambios) */
+    .btn-primary {
+        padding: 10px 30px;
+        font-size: 16px;
+        background-color: saddlebrown;
+        color: whitesmoke;
+        border: none;
+        border-radius: 5px;
+        margin-top: 10px;
+        cursor: pointer;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+
+    .form-group {
+        text-align: center;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+
+    .js-qty__wrapper {
+        display: flex;
+        align-items: center;
+    }
+
+    .qty-button, #quantity {
+        background-color: transparent;
+        border: 1px solid #ccc;
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    #quantity {
+        width: 50px;
+        text-align: center;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        margin: 0 5px;
+    }
+
+    .qty-button:first-of-type { /* Botón de decremento */
+        border-radius: 5px 0 0 5px; /* Borde redondeado a la izquierda */
+    }
+
+    .qty-button:last-of-type { /* Botón de incremento */
+        border-radius: 0 5px 5px 0; /* Borde redondeado a la derecha */
+    }
+
+    .qty-button {
+        background-color: transparent;
+        color: black;
+        cursor: pointer;
+        border: 1px solid #ddd;
+    }
+
+        .qty-button:hover {
+            background-color: saddlebrown;
+        }
+
+    .selection-wrapper {
+        display: flex;
+        align-items: center;
+    }
+
+    .select-button, #selectionInput {
+        border: 1px solid #ddd;
+        padding: 10px;
+        font-size: 16px;
+        cursor: pointer;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+
+    #selectionInput {
+        width: 50px;
+        height: 20px;
+        text-align: start;
+        border: none;
+        background-color: transparent;
+    }
+
+        #selectionInput:focus {
+            outline: none;
+        }
+
+    .select-button:first-of-type {
+        border-radius: 5px 0 0 5px;
+    }
+
+    .select-button:last-of-type {
+        border-radius: 0 5px 5px 0;
+    }
+
+    .select-button {
+        background-color: sienna;
+        color: white;
+    }
+
+        .select-button:hover {
+            background-color: saddlebrown;
+        }
+
+    .row-porcion {
+        height: stretch;
+        width: 60%;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
 </style>
