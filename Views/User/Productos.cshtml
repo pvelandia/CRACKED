@@ -1,0 +1,86 @@
+﻿@model CRACKED.Dtos.TipoProductListDto
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h1 style="color: saddlebrown; font-family: cursive; text-align: center;">Nuestros Productos</h1>
+        <hr />
+        <div class="row justify-content-around">
+            <!-- Primer Producto -->
+            <div class="col-4">
+                <img src="~/Content/Imagen/@Model.Users[0].Imagen" width="380" height="360" class="img-fluid" />
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="button" value="@Model.Users[0].Nombre" class="btn btn-primary"
+                               onclick="window.location.href='@Url.Action("Galletas", "User", new { nombre = Model.Users[0].Nombre })'" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Segundo Producto -->
+            <div class="col-4">
+                <img src="~/Content/Imagen/@Model.Users[1].Imagen" width="380" height="360" class="img-fluid" />
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="button" value="@Model.Users[1].Nombre" class="btn btn-primary"
+                               onclick="window.location.href='@Url.Action("Cookiecakes", "User", new { nombre = Model.Users[1].Nombre })'" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+}
+
+<div>
+    @Html.ActionLink("Volver a la lista", "Index", "Home")
+</div>
+<script>
+    // Script para toggle de visibilidad de la contraseña
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('txtContraseña');
+
+    togglePassword.addEventListener('click', function () {
+        const type = passwordInput.type === 'password' ? 'text' : 'password';
+        passwordInput.type = type;
+        togglePassword.innerHTML = type === 'password' ? '<i class="bi bi-eye-slash-fill" style="color:saddlebrown;"></i>' : '<i class="bi bi-eye-fill"  style="color:saddlebrown;"></i>';
+    });
+
+    // Script para toggle de visibilidad de la confirmación de contraseña
+    const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+    const confirmPasswordInput = document.getElementById('txtConfirmContraseña');
+
+    toggleConfirmPassword.addEventListener('click', function () {
+        const type = confirmPasswordInput.type === 'password' ? 'text' : 'password';
+        confirmPasswordInput.type = type;
+        toggleConfirmPassword.innerHTML = type === 'password' ? '<i class="bi bi-eye-slash-fill" style="color:saddlebrown;"></i>' : '<i class="bi bi-eye-fill" style="color:saddlebrown;"></i>';
+    });
+</script>
+<style>
+    .btn-primary {
+        padding: 10px 30px;
+        font-size: 16px;
+        background-color: saddlebrown;
+        color: whitesmoke;
+        border: none;
+        border-radius: 5px;
+        margin-top: 10px;
+        cursor: pointer;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+
+        .btn-primary:hover {
+            background-color: #542b1d;
+        }
+
+    .form-group {
+        text-align: center;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+</style>

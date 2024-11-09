@@ -1,0 +1,85 @@
+﻿
+@{
+    ViewBag.Title = "IndexDomiciliario";
+    Layout = "~/Views/Shared/_LayoutDomiciliario.cshtml";
+}
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="container-fluid">
+    <div class="row justify-content-between">
+        <div class="col-4">
+            <div class="image-container">
+                <img src="~/Content/Imagen/motorcycle.png" height="512" class="full-width-image" width="512" />
+            </div>
+        </div>
+        <div class="col-4">
+            <a href="@Url.Action("Galletas", "User")" class=" botonImag">
+                <img src="~/Content/Imagen/package.png" alt="Botón de imagen" class="img-fluid rounded img-button">
+
+            </a>
+        </div>
+    </div>
+
+</div>
+
+<style>
+    
+
+    .image-container {
+        position: relative; /* Necesario para posicionar el botón dentro de la imagen */
+        width: 100%; /* El contenedor tiene el mismo ancho que la pantalla */
+        overflow: hidden; /* Oculta cualquier parte de la imagen que sobresalga del contenedor */
+    }
+
+    .button-container {
+        position: absolute;
+        bottom: 10px; /* Coloca el botón 10px por encima de la parte inferior de la imagen */
+        left: 50%; /* Centra el botón horizontalmente */
+        transform: translateX(-50%); /* Asegura que el botón esté completamente centrado */
+    }
+
+    .btn-primary {
+        padding: 20px 50px;
+        font-size: 16px;
+        background-color: #efcbab;
+        color: saddlebrown;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .btn-primary:hover {
+            background-color: #542b1d;
+        }
+
+    .btn-primary {
+        padding: 10px 30px;
+        font-size: 16px;
+        background-color: saddlebrown;
+        color: whitesmoke;
+        border: none;
+        border-radius: 5px;
+        margin-top: 10px;
+        cursor: pointer;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+    .img-button {
+        transition: transform 0.2s ease;
+        border: groove;
+        border-color: saddlebrown;
+    }
+
+        .img-button:hover {
+            transform: scale(1.05); /* Efecto de agrandamiento */
+        }
+    .botonImag {
+        display: flex; /* Flexbox para el contenedor */
+        justify-content: center; /* Centrado horizontal */
+        align-items: center; /* Centrado vertical */
+        height: 100%; /* Esto asegura que el contenedor tenga el 100% de altura del espacio disponible */
+    }
+</style>
+

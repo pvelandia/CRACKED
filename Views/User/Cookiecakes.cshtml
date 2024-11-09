@@ -1,0 +1,71 @@
+﻿@model CRACKED.Dtos.ProductListDto
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h1 style="color: saddlebrown; font-family: cursive; text-align: center;">Nuestros Cookiecakes</h1>
+        <hr />
+
+        <div class="container text-center">
+            <div class="row align-items-center">
+                <div class="col">
+                    <img src="~/Content/Imagen/@Model.Products[0].Imagen" width="380" height="360" />
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="button" value="@Model.Products[0].Nombre" class="btn btn-primary" onclick="window.location='@Url.Action("Detalle_Cookiecakes", "User", new { nombre = Model.Products[0].Nombre })'" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <img src="~/Content/Imagen/@Model.Products[1].Imagen" width="380" height="360" />
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="button" value="@Model.Products[1].Nombre" class="btn btn-primary" onclick="window.location='@Url.Action("Detalle_Cookiecakes_Oreo", "User", new { nombre = Model.Products[1].Nombre })'" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <img src="~/Content/Imagen/@Model.Products[2].Imagen" width="380" height="360" />
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="button" value="@Model.Products[2].Nombre" class="btn btn-primary" onclick="window.location='@Url.Action("Detalle_Cookiecakes_Chipcake", "User", new { nombre = Model.Products[2].Nombre })'" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
+
+}
+
+<div>
+    @Html.ActionLink("Volver a la lista", "Index", "Home")
+</div>
+
+<style>
+    .btn-primary {
+        padding: 10px 30px;
+        font-size: 16px;
+        background-color: saddlebrown;
+        color: whitesmoke;
+        border: none;
+        border-radius: 5px;
+        margin-top: 10px;
+        cursor: pointer;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+
+    .form-group {
+        text-align: center;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+</style>
+

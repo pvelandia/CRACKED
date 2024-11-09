@@ -1,66 +1,77 @@
 ﻿using CRACKED.Dtos;
 using CRACKED.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace CRACKED.Repositories
 {
     public class UserRepository
     {
-        public bool RegistroUsuarios(UserDto usuario)
+        public bool GuardarUsuario(USUARIO userDb)
         {
-            UserDto respuesta = new UserDto();
             try
             {
-                //ACCESO DE DATOS
-                using (var db = new CRACKEDEntities4())
+                using (var db = new CRACKEDEntities28())
                 {
-                    USUARIO userDb = new USUARIO();
-
-                    //userDb.idUsuario = usuario.IdUsuario;
-                    userDb.nombre = usuario.Name;
-                    userDb.contraseña = usuario.Password;
-                    //userDb.idRol = usuario.IdRol;
-                    //userDb.idEstado = usuario.IdEstado;
-                    //userDb.apellido = usuario.Apellido;
-                    //userDb.correoElectronico = usuario.Correo;
-                    //userDb.numeroContacto = usuario.Numero;
-
                     db.USUARIOs.Add(userDb);
                     db.SaveChanges();
-
-
-                    //respuesta.Respuesta = true;
-                    //respuesta.Mensaje = "Usuario Creado Exitosamente";
-                    //if (userDb.idUsuario!=0)
-                    //{
-                    //    usuario.Id = userDb.idUsuario;
                     return true;
                 }
             }
-            catch (System.Data.Entity.Validation.DbEntityValidationException ex)
+            catch (Exception)
             {
-                foreach (var validationErrors in ex.EntityValidationErrors)
-                {
-                    foreach (var validationError in validationErrors.ValidationErrors)
-                    {
-                        // Aquí puedes registrar el error o lanzarlo
-                        Console.WriteLine($"Property: {validationError.PropertyName} Error: {validationError.ErrorMessage}");
-                    }
-                }
-                return false; // O maneja la excepción como sea necesario
+                return false;
             }
         }
-    } }
 
+        public UserDto BuscarUsuario(string username)
+        {
+            try
+            {
+                using (var db = new CRACKEDEntities28())
+                {
+                    var userDb = db.USUARIOs.FirstOrDefault(u => u.nombre == username);
+                    if (userDb != null)
+                    {
+                        return new UserDto
+                        {
+                            IdUser = userDb.idUsuario,
+                            Name = userDb.nombre,
+                            PasswordE = userDb.contraseña,
+                            IdRol = (int)userDb.idRol,
+                            IdEstado = (int)userDb.idEstado
+                        };
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                // Manejo de error
+            }
+            return null;
+        }
 
-            //}
-            //catch (Exception ex)
-            //{
-            //    //        //respuesta.Respuesta = false;
-            //    //        //respuesta.Mensaje = ex.Message;
-            //            return false;
-            //}
-        
+        public UserListDto ListarUsuarios()
+        {
+            UserListDto userListDto = new UserListDto();
+            try
+            {
+                using (var db = new CRACKEDEntities28())
+                {
+                    userListDto.Users = db.USUARIOs.Select(u => new UserDto
+                    {
+                        IdUser = u.idUsuario,
+                        IdRol = (int)u.idRol,
+                        IdEstado = (int)u.idEstado,
+                        Name = u.nombre
+                    }).ToList();
+                }
+            }
+            catch (Exception)
+            {
+                // Manejo de error
+            }
+            return userListDto;
+        }
+    }
+}

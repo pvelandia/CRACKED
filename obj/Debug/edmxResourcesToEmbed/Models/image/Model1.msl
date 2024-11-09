@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CRACKEDModelStoreContainer" CdmEntityContainer="CRACKEDEntities8">
+    <EntitySetMapping Name="AUDITORIAs">
+      <EntityTypeMapping TypeName="CRACKEDModel.AUDITORIA">
+        <MappingFragment StoreEntitySet="AUDITORIA">
+          <ScalarProperty Name="idAuditoria" ColumnName="idAuditoria" />
+          <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+          <ScalarProperty Name="accion" ColumnName="accion" />
+          <ScalarProperty Name="query" ColumnName="query" />
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CAJAs">
+      <EntityTypeMapping TypeName="CRACKEDModel.CAJA">
+        <MappingFragment StoreEntitySet="CAJA">
+          <ScalarProperty Name="idCaja" ColumnName="idCaja" />
+          <ScalarProperty Name="idEstado" ColumnName="idEstado" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CAJA_PRODUCTO">
+      <EntityTypeMapping TypeName="CRACKEDModel.CAJA_PRODUCTO">
+        <MappingFragment StoreEntitySet="CAJA_PRODUCTO">
+          <ScalarProperty Name="idCajaProducto" ColumnName="idCajaProducto" />
+          <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+          <ScalarProperty Name="IdCaja" ColumnName="IdCaja" />
+          <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CIUDADs">
+      <EntityTypeMapping TypeName="CRACKEDModel.CIUDAD">
+        <MappingFragment StoreEntitySet="CIUDAD">
+          <ScalarProperty Name="idCiudad" ColumnName="idCiudad" />
+          <ScalarProperty Name="idEstado" ColumnName="idEstado" />
+          <ScalarProperty Name="idDepartamento" ColumnName="idDepartamento" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="COMBOes">
+      <EntityTypeMapping TypeName="CRACKEDModel.COMBO">
+        <MappingFragment StoreEntitySet="COMBO">
+          <ScalarProperty Name="idCombo" ColumnName="idCombo" />
+          <ScalarProperty Name="idEstado" ColumnName="idEstado" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="COMBO_PRODUCTO">
+      <EntityTypeMapping TypeName="CRACKEDModel.COMBO_PRODUCTO">
+        <MappingFragment StoreEntitySet="COMBO_PRODUCTO">
+          <ScalarProperty Name="idComboProducto" ColumnName="idComboProducto" />
+          <ScalarProperty Name="idCombo" ColumnName="idCombo" />
+          <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+          <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DEPARTAMENTOes">
+      <EntityTypeMapping TypeName="CRACKEDModel.DEPARTAMENTO">
+        <MappingFragment StoreEntitySet="DEPARTAMENTO">
+          <ScalarProperty Name="idDepartamento" ColumnName="idDepartamento" />
+          <ScalarProperty Name="idEstado" ColumnName="idEstado" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ESTADOes">
+      <EntityTypeMapping TypeName="CRACKEDModel.ESTADO">
+        <MappingFragment StoreEntitySet="ESTADO">
+          <ScalarProperty Name="idEstado" ColumnName="idEstado" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="METODO_PAGO">
+      <EntityTypeMapping TypeName="CRACKEDModel.METODO_PAGO">
+        <MappingFragment StoreEntitySet="METODO_PAGO">
+          <ScalarProperty Name="idMetodoPago" ColumnName="idMetodoPago" />
+          <ScalarProperty Name="idEstado" ColumnName="idEstado" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PEDIDOes">
+      <EntityTypeMapping TypeName="CRACKEDModel.PEDIDO">
+        <MappingFragment StoreEntitySet="PEDIDO">
+          <ScalarProperty Name="idPedido" ColumnName="idPedido" />
+          <ScalarProperty Name="idCliente" ColumnName="idCliente" />
+          <ScalarProperty Name="idDomiciliario" ColumnName="idDomiciliario" />
+          <ScalarProperty Name="idCiudad" ColumnName="idCiudad" />
+          <ScalarProperty Name="idMetodoPago" ColumnName="idMetodoPago" />
+          <ScalarProperty Name="idEstado" ColumnName="idEstado" />
+          <ScalarProperty Name="fechaEntrega" ColumnName="fechaEntrega" />
+          <ScalarProperty Name="fechaVenta" ColumnName="fechaVenta" />
+          <ScalarProperty Name="direccion" ColumnName="direccion" />
+          <ScalarProperty Name="valor" ColumnName="valor" />
+          <ScalarProperty Name="iva" ColumnName="iva" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PEDIDO_PRODUCTO">
+      <EntityTypeMapping TypeName="CRACKEDModel.PEDIDO_PRODUCTO">
+        <MappingFragment StoreEntitySet="PEDIDO_PRODUCTO">
+          <ScalarProperty Name="idPedidoProducto" ColumnName="idPedidoProducto" />
+          <ScalarProperty Name="idPedido" ColumnName="idPedido" />
+          <ScalarProperty Name="Idproducto" ColumnName="Idproducto" />
+          <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+          <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+          <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+          <ScalarProperty Name="valorProducto" ColumnName="valorProducto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PRODUCTOes">
+      <EntityTypeMapping TypeName="CRACKEDModel.PRODUCTO">
+        <MappingFragment StoreEntitySet="PRODUCTO">
+          <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+          <ScalarProperty Name="idTipoProducto" ColumnName="idTipoProducto" />
+          <ScalarProperty Name="idEstado" ColumnName="idEstado" />
+          <ScalarProperty Name="idSabor" ColumnName="idSabor" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="valorUnitario" ColumnName="valorUnitario" />
+          <ScalarProperty Name="stock" ColumnName="stock" />
+          <ScalarProperty Name="porcion" ColumnName="porcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ROLs">
+      <EntityTypeMapping TypeName="CRACKEDModel.ROL">
+        <MappingFragment StoreEntitySet="ROL">
+          <ScalarProperty Name="idRol" ColumnName="idRol" />
+          <ScalarProperty Name="idEstado" ColumnName="idEstado" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SABORs">
+      <EntityTypeMapping TypeName="CRACKEDModel.SABOR">
+        <MappingFragment StoreEntitySet="SABOR">
+          <ScalarProperty Name="idSabor" ColumnName="idSabor" />
+          <ScalarProperty Name="idEstado" ColumnName="idEstado" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TIPO_PRODUCTO">
+      <EntityTypeMapping TypeName="CRACKEDModel.TIPO_PRODUCTO">
+        <MappingFragment StoreEntitySet="TIPO_PRODUCTO">
+          <ScalarProperty Name="idTipoProducto" ColumnName="idTipoProducto" />
+          <ScalarProperty Name="idEstado" ColumnName="idEstado" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="USUARIOs">
+      <EntityTypeMapping TypeName="CRACKEDModel.USUARIO">
+        <MappingFragment StoreEntitySet="USUARIO">
+          <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+          <ScalarProperty Name="idRol" ColumnName="idRol" />
+          <ScalarProperty Name="idEstado" ColumnName="idEstado" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="apellido" ColumnName="apellido" />
+          <ScalarProperty Name="numeroContacto" ColumnName="numeroContacto" />
+          <ScalarProperty Name="correoElectronico" ColumnName="correoElectronico" />
+          <ScalarProperty Name="contraseña" ColumnName="contraseña" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="USUARIO_PRODUCTO">
+      <EntityTypeMapping TypeName="CRACKEDModel.USUARIO_PRODUCTO">
+        <MappingFragment StoreEntitySet="USUARIO_PRODUCTO">
+          <ScalarProperty Name="idUsuarioProducto" ColumnName="idUsuarioProducto" />
+          <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+          <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -26,11 +26,11 @@ namespace CRACKED.Models
         public int idCiudad { get; set; }
         public int idMetodoPago { get; set; }
         public int idEstado { get; set; }
-        public System.DateTime fechaEntrega { get; set; }
-        public System.DateTime fechaVenta { get; set; }
+        public Nullable<System.DateTime> fechaEntrega { get; set; }
+        public Nullable<System.DateTime> fechaVenta { get; set; }
         public string direccion { get; set; }
-        public double valor { get; set; }
-        public double iva { get; set; }
+        public Nullable<double> valor { get; set; }
+        public Nullable<double> iva { get; set; }
     
         public virtual CIUDAD CIUDAD { get; set; }
         public virtual ESTADO ESTADO { get; set; }
