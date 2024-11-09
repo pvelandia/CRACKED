@@ -57,7 +57,6 @@
     <Property Name="direccion" Type="varchar" MaxLength="50" />
     <Property Name="valor" Type="float" />
     <Property Name="iva" Type="float" />
-    <Property Name="idProducto" Type="int" />
   </EntityType>
   <EntityType Name="PEDIDO_PRODUCTO">
     <Key>
@@ -274,6 +273,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_PEDIDO_PRODUCTO_USUARIO">
+    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+    <End Role="PEDIDO_PRODUCTO" Type="Self.PEDIDO_PRODUCTO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USUARIO">
+        <PropertyRef Name="idUsuario" />
+      </Principal>
+      <Dependent Role="PEDIDO_PRODUCTO">
+        <PropertyRef Name="IdCliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_PEDIDO_USUARIO">
     <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
     <End Role="PEDIDO" Type="Self.PEDIDO" Multiplicity="*" />
@@ -475,6 +486,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_PEDIDO_PRODUCTO_PRODUCTO" Association="Self.FK_PEDIDO_PRODUCTO_PRODUCTO">
       <End Role="PRODUCTO" EntitySet="PRODUCTO" />
+      <End Role="PEDIDO_PRODUCTO" EntitySet="PEDIDO_PRODUCTO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PEDIDO_PRODUCTO_USUARIO" Association="Self.FK_PEDIDO_PRODUCTO_USUARIO">
+      <End Role="USUARIO" EntitySet="USUARIO" />
       <End Role="PEDIDO_PRODUCTO" EntitySet="PEDIDO_PRODUCTO" />
     </AssociationSet>
     <AssociationSet Name="FK_PEDIDO_USUARIO" Association="Self.FK_PEDIDO_USUARIO">

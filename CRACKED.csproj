@@ -147,7 +147,8 @@
     <Compile Include="Controllers\CarritoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Dtos\CarritoProductoDto.cs" />
+    <Compile Include="Dtos\PedidoDto.cs" />
+    <Compile Include="Dtos\PEDIDO_PRODUCTO.cs" />
     <Compile Include="Dtos\ProductDto.cs" />
     <Compile Include="Dtos\ProductListDto.cs" />
     <Compile Include="Dtos\TipoProductListDto.cs" />

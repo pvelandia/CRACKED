@@ -13,10 +13,10 @@ namespace CRACKED.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class CRACKEDEntities27 : DbContext
+    public partial class CRACKEDEntities28 : DbContext
     {
-        public CRACKEDEntities27()
-            : base("name=CRACKEDEntities27")
+        public CRACKEDEntities28()
+            : base("name=CRACKEDEntities28")
         {
         }
     

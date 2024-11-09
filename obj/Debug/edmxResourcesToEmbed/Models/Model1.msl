@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="CRACKEDModelStoreContainer" CdmEntityContainer="CRACKEDEntities27">
+  <EntityContainerMapping StorageEntityContainer="CRACKEDModelStoreContainer" CdmEntityContainer="CRACKEDEntities28">
     <EntitySetMapping Name="AUDITORIAs">
       <EntityTypeMapping TypeName="CRACKEDModel.AUDITORIA">
         <MappingFragment StoreEntitySet="AUDITORIA">
@@ -62,7 +62,6 @@
           <ScalarProperty Name="direccion" ColumnName="direccion" />
           <ScalarProperty Name="valor" ColumnName="valor" />
           <ScalarProperty Name="iva" ColumnName="iva" />
-          <ScalarProperty Name="idProducto" ColumnName="idProducto" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

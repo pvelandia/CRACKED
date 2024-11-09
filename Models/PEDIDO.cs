@@ -31,7 +31,6 @@ namespace CRACKED.Models
         public string direccion { get; set; }
         public Nullable<double> valor { get; set; }
         public Nullable<double> iva { get; set; }
-        public Nullable<int> idProducto { get; set; }
     
         public virtual CIUDAD CIUDAD { get; set; }
         public virtual ESTADO ESTADO { get; set; }
