@@ -1,31 +1,62 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
-
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+<style>
+    
+</style>
+<div class="container-fluid">
+    <div class="image-container">
+        <img src="~/Content/Imagen/Sin título.jpg" class="full-width-image" />
+        <div class="button-container">
+            <button class="btn btn-primary" onclick="window.location='@Url.Action("Productos", "User")'">Ordena</button>
+        </div>
     </div>
 </div>
+
+<style>
+    .full-width-image {
+        width: 100%; /* La imagen ocupará todo el ancho del contenedor */
+        height: auto; /* Mantiene la altura proporcional original */
+        object-fit: cover; /* Ajusta la imagen sin deformarla */
+        opacity:0.8;
+    }
+
+    .image-container {
+        position: relative; /* Necesario para posicionar el botón dentro de la imagen */
+        width: 100%; /* El contenedor tiene el mismo ancho que la pantalla */
+        overflow: hidden; /* Oculta cualquier parte de la imagen que sobresalga del contenedor */
+    }
+
+    .button-container {
+        position: absolute;
+        bottom: 10px; /* Coloca el botón 10px por encima de la parte inferior de la imagen */
+        left: 50%; /* Centra el botón horizontalmente */
+        transform: translateX(-50%); /* Asegura que el botón esté completamente centrado */
+    }
+
+    .btn-primary {
+        padding: 20px 50px;
+        font-size: 16px;
+        background-color: #efcbab;
+        color: saddlebrown;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .btn-primary:hover {
+            background-color: #542b1d;
+        }
+    .btn-primary {
+        padding: 10px 30px;
+        font-size: 16px;
+        background-color: saddlebrown;
+        color: whitesmoke;
+        border: none;
+        border-radius: 5px;
+        margin-top: 10px;
+        cursor: pointer;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+    
+</style>
