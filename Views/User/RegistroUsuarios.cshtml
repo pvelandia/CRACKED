@@ -5,15 +5,19 @@
     @Html.AntiForgeryToken()
 
 <div class="form-horizontal">
-    <h4>Registro de Usuario</h4>
+    <h4 style="color:saddlebrown;  font-family: cursive;">Registro de Usuario</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-
+    @if (ViewBag.ErrorMessage != null)
+    {
+<div class="alert alert-danger">
+    @ViewBag.ErrorMessage
+</div>}
 
     <!-- Campo de Nombre -->
     <div class="form-group">
-        @Html.LabelFor(model => model.Name, "Nombre",htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.Name, "Nombre", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
@@ -48,17 +52,18 @@
     </div>
     <!-- Campo de Contraseña -->
     <div class="form-group">
-        @Html.LabelFor(model => model.Password,"contraseña", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.Password, "contraseña", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             <div class="input-group">
                 @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Contraseña", id = "txtContraseña" })
                 <span class="input-group-text" id="togglePassword" style="cursor: pointer;">
-                    <i class="bi bi-eye-slash-fill"></i>
+                    <i class="bi bi-eye-slash-fill" style="color:saddlebrown;"></i>
                 </span>
             </div>
             @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
         </div>
     </div>
+
 
     <!-- Campo de Confirmación de Contraseña -->
     <div class="form-group">
@@ -67,7 +72,7 @@
             <div class="input-group">
                 @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control", placeholder = "Confirmar Contraseña", id = "txtConfirmContraseña" })
                 <span class="input-group-text" id="toggleConfirmPassword" style="cursor: pointer;">
-                    <i class="bi bi-eye-slash-fill"></i>
+                    <i class="bi bi-eye-slash-fill" style="color:saddlebrown;"></i>
                 </span>
             </div>
             @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
@@ -95,7 +100,7 @@
     togglePassword.addEventListener('click', function () {
         const type = passwordInput.type === 'password' ? 'text' : 'password';
         passwordInput.type = type;
-        togglePassword.innerHTML = type === 'password' ? '<i class="bi bi-eye-slash-fill"></i>' : '<i class="bi bi-eye-fill"></i>';
+        togglePassword.innerHTML = type === 'password' ? '<i class="bi bi-eye-slash-fill" style="color:saddlebrown;"></i>' : '<i class="bi bi-eye-fill"  style="color:saddlebrown;"></i>' ;
     });
 
     // Script para toggle de visibilidad de la confirmación de contraseña
@@ -105,6 +110,22 @@
     toggleConfirmPassword.addEventListener('click', function () {
         const type = confirmPasswordInput.type === 'password' ? 'text' : 'password';
         confirmPasswordInput.type = type;
-        toggleConfirmPassword.innerHTML = type === 'password' ? '<i class="bi bi-eye-slash-fill"></i>' : '<i class="bi bi-eye-fill"></i>';
+        toggleConfirmPassword.innerHTML = type === 'password' ? '<i class="bi bi-eye-slash-fill" style="color:saddlebrown;"></i>' : '<i class="bi bi-eye-fill" style="color:saddlebrown;"></i>';
     });
 </script>
+<style>
+    .btn-primary {
+        padding: 10px 30px;
+        font-size: 16px;
+        background-color: saddlebrown;
+        color: whitesmoke;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+
+    .form-group {
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+</style>

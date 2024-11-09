@@ -8,12 +8,11 @@
     <div class="image-container">
         <img src="~/Content/Imagen/Sin título.jpg" class="full-width-image" />
         <div class="button-container">
-            <button class="btn btn-primary">Ordena</button>
+            <button class="btn btn-primary" onclick="window.location='@Url.Action("Productos", "User")'">Ordena</button>
         </div>
     </div>
 </div>
 
-<!-- Agregar el siguiente CSS -->
 <style>
     .full-width-image {
         width: 100%; /* La imagen ocupará todo el ancho del contenedor */
@@ -46,8 +45,18 @@
     }
 
         .btn-primary:hover {
-            background-color: #efcbab;
+            background-color: #542b1d;
         }
-
+    .btn-primary {
+        padding: 10px 30px;
+        font-size: 16px;
+        background-color: saddlebrown;
+        color: whitesmoke;
+        border: none;
+        border-radius: 5px;
+        margin-top: 10px;
+        cursor: pointer;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
     
 </style>

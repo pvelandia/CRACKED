@@ -1,0 +1,89 @@
+﻿@model CRACKED.Dtos.ProductListDto
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        <div class="container-fluid">
+            <div class="row justify-content-evenly ">
+                <div class="col-4">
+                    <img src="~/Content/Imagen/@Model.Products[0].Imagen" width="580" height="460" class="img-fluid" />
+
+                </div>
+                <div class="col-4">
+                    <div>
+                        <h2 style="color: saddlebrown; font-family: cursive; text-align: left;">Nombre:@Model.Products[0].Nombre</h2>
+                        <h4 style="color: black; font-family: cursive; text-align: left; ">Precio: @Model.Products[0].Precio</h4>
+                        <h5 style="color: black; font-family: cursive; text-align: left;">Stock @Model.Products[0].Stock</h5>
+
+                    </div>
+                    <div class="js-qty__wrapper">
+                        <button id="decrement" class="qty-button" type="button">-</button>
+                        <input type="number" id="quantity" name="quantity" value="1" min="1">
+                        <button id="increment" class="qty-button" type="button">+</button>
+                    </div>
+
+                    <div class="row justify-content-start row-porcion">
+                        <div class="col-sm-4">
+                            <h5 style="color: black; font-family: cursive; text-align: left;"> Porciones:</h5>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" id="selectionInput" name="selectionInput" value="x4">
+                        </div>
+                    </div>
+
+                    <div class="selection-wrapper">
+                        <button id="Buttonx4" class="select-button" type="button">x4</button>
+                        <button id="Buttonx8" class="select-button" type="button">x8</button>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-1">
+                            <input type="submit" value="AGREGAR AL CARRITO" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        @Html.ActionLink("Volver a la lista", "Index", "Home")
+    </div>
+}
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const incrementButton = document.getElementById("increment");
+        const decrementButton = document.getElementById("decrement");
+        const quantityInput = document.getElementById("quantity");
+
+        incrementButton.addEventListener("click", (event) => {
+            event.preventDefault(); // Evita el comportamiento predeterminado
+            quantityInput.value = Number(quantityInput.value) + 1;
+        });
+
+        decrementButton.addEventListener("click", (event) => {
+            event.preventDefault(); // Evita el comportamiento predeterminado
+            if (Number(quantityInput.value) > 1) {
+                quantityInput.value = Number(quantityInput.value) - 1;
+            }
+        });
+
+        document.getElementById("Buttonx4").addEventListener("click", (event) => {
+            event.preventDefault();
+            document.getElementById("selectionInput").value = "x4";
+        });
+
+        document.getElementById("Buttonx8").addEventListener("click", (event) => {
+            event.preventDefault();
+            document.getElementById("selectionInput").value = "x8";
+        });
+    });
+</script>
+
+<style>
+    /* Tu CSS aquí (sin cambios) */
+</style>

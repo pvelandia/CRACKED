@@ -18,7 +18,7 @@ namespace CRACKED.Models
         public int idUsuario { get; set; }
         public string accion { get; set; }
         public string query { get; set; }
-        public System.DateTime fecha { get; set; }
+        public Nullable<System.DateTime> fecha { get; set; }
     
         public virtual USUARIO USUARIO { get; set; }
     }

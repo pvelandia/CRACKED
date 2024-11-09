@@ -1,0 +1,147 @@
+﻿
+@{
+    ViewBag.Title = "Carrito";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    ViewBag.Title = "Carrito de Compras";
+}
+
+<div class="container">
+    <h1 style="color:saddlebrown;  font-family: cursive; text-align:center; font-weight:bold">Carrito de Compras</h1>
+
+    <!-- Si el carrito tiene productos, se muestra la tabla -->
+    <table class="table table-custom">
+        <thead>
+            <tr >
+                <th >Producto</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Total</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Aquí se agregan dinámicamente los productos -->
+            <tr>
+                <td>
+                    <img src="~/Content/Imagen/image (1).png" alt="Producto 2" style="width: 70px; height: 70px; object-fit: cover; margin-right: 10px;" />
+                    Producto 1
+                </td>
+                <td>$100</td>
+                <td>2</td>
+                <td>$200</td>
+                <td>
+                    <a href="#" class="btn btn-secondary">
+                        <i class="bi bi-trash nav-icon"></i>
+                    </a>
+                    <a href="#" class="btn btn-secondary">
+                        <i class=" bi bi-pencil-square nav-icon"></i>
+                    </a>
+                </td>
+               
+            </tr>
+         </tbody>
+    </table>
+
+    <!-- Total del carrito -->
+    <div class="total-container">
+        <h2 class="total-text">Subtotal: </h2>
+    </div>
+
+    <!-- Botones para continuar comprando o finalizar compra -->
+    <div class="d-flex justify-content-between">
+        <a href="#" class="btn btn-primary">Seguir comprando</a>
+        <a href="@Url.Action("DatosEntrega", "Carrito")" class="btn btn-success">Finalizar Pedido</a>
+    </div>
+
+    <!-- Mensaje cuando el carrito está vacío -->
+    <div class="alert alert-warning mt-3" style="display:none" id="carritoVacio">
+        No hay productos en el carrito.
+    </div>
+</div>
+
+<!-- Estilos -->
+<style>
+
+    .table-custom th {
+        background-color: #007bff; /* Fondo de los encabezados */
+        color: #3d2306; /* Color del texto de los encabezados */
+        font-weight: bold; /* Negrita en los encabezados */
+        text-align: center;
+    }
+    .table-custom td {
+        
+        color: black; /* Color del texto de los encabezados */
+        
+    }
+    .table-custom {
+        width: 100%;
+        background-color: transparent; /* Color de fondo claro */
+        font-size: 20px; /* Tamaño de fuente */
+        text-align: center;
+        
+    }
+
+    .table th, .table td {
+        background-color: transparent;
+        border-color: saddlebrown;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        vertical-align: middle;
+    }
+
+    .btn-secondary {
+       padding: 10px 30px;
+        font-size: 16px;
+        background-color: transparent;
+        color: whitesmoke;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+
+    .btn-success {
+        padding: 10px 30px;
+        font-size: 16px;
+        background-color: saddlebrown;
+        color: whitesmoke;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+
+    .btn-primary {
+        padding: 10px 30px;
+        font-size: 16px;
+        background-color: saddlebrown;
+        color: whitesmoke;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+    .total-container {
+        text-align: right;
+        margin-top: 20px;
+    }
+
+    .total-text {
+        font-size: 25px;
+        font-weight: bold;
+        color: saddlebrown;
+
+    }
+    .btn:hover {
+        opacity: 0.8;
+        color: white;
+        background-color: #a67145;
+    }
+    .nav-icon:hover{
+        color:white;
+    }
+</style>
+
+
