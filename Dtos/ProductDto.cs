@@ -4,6 +4,7 @@ namespace CRACKED.Dtos
 {
     public class ProductDto
     {
+        public static int IdPedido { get; internal set; }
         public int IdProducto { get; set; }
         public int IdEstado { get; set; }
         public string Nombre { get; set; }

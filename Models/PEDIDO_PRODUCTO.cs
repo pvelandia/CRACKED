@@ -25,5 +25,6 @@ namespace CRACKED.Models
         public virtual ESTADO ESTADO { get; set; }
         public virtual PEDIDO PEDIDO { get; set; }
         public virtual PRODUCTO PRODUCTO { get; set; }
+        public virtual USUARIO USUARIO { get; set; }
     }
 }

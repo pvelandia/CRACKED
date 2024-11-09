@@ -1,9 +1,6 @@
-﻿using CRACKED.Dtos;
-using CRACKED.Models;
+﻿using CRACKED.Models;
 using CRACKED.Repositories;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace CRACKED.Services
 {
@@ -11,60 +8,62 @@ namespace CRACKED.Services
     {
         private readonly CarritoRepository _carritoRepository;
 
-        public CarritoService()
+        // Constructor para inyectar el repositorio
+        public CarritoService(CarritoRepository carritoRepository)
         {
-            _carritoRepository = new CarritoRepository(); // Inicializamos el repositorio
+            _carritoRepository = carritoRepository;
         }
 
-        // Agrega un producto al carrito
+        // Agregar producto al carrito
         public void AgregarProductoAlCarrito(int productoId, int cantidad, float precio, int idPedido, int idCliente)
         {
-            // Verificamos si el producto ya está en el carrito
-            var productoExistente = _carritoRepository.ObtenerProductoEnCarrito(productoId, idCliente, idPedido);
-
-            if (productoExistente == null)
+            try
             {
-                // Si el producto no está en el carrito, lo agregamos
-                var nuevoProducto = new PEDIDO_PRODUCTO
-                {
-                    Idproducto = productoId,
-                    IdCliente = idCliente,
-                    IdEstado = 1,
-                    idPedido = idPedido,
-                    cantidad = cantidad,
-                    valorProducto = precio
-                };
+                // Verificar si el pedido existe
+                var pedidoExistente = _carritoRepository.ObtenerPedidoPorId(idPedido);
 
-                _carritoRepository.AgregarProductoAlCarrito(nuevoProducto);
+                if (pedidoExistente == null)
+                {
+                    // Si no existe el pedido, lo creamos
+                    var nuevoPedido = _carritoRepository.CrearPedido(idCliente, "Dirección de ejemplo", 45678, 19);
+                    idPedido = nuevoPedido.idPedido;  // Asignamos el id del nuevo pedido
+                }
+
+                // Verificar si el producto ya está en el carrito
+                var productoExistente = _carritoRepository.ObtenerProductoEnCarrito(productoId, idCliente, idPedido);
+
+                if (productoExistente == null)
+                {
+                    // Si el producto no está en el carrito, lo agregamos
+                    var nuevoProducto = new PEDIDO_PRODUCTO
+                    {
+                        Idproducto = productoId,
+                        IdCliente = idCliente,
+                        IdEstado = 1,  // Estado "activo"
+                        idPedido = idPedido,
+                        cantidad = cantidad,
+                        valorProducto = precio
+                    };
+
+                    // Agregar el producto al carrito
+                    _carritoRepository.AgregarProductoAlCarrito(nuevoProducto);
+                }
+                else
+                {
+                    // Si el producto ya existe en el carrito, solo actualizamos la cantidad
+                    productoExistente.cantidad += cantidad;  // Sumar la cantidad
+                    productoExistente.valorProducto = precio;  // Actualizamos el precio
+
+                    // Actualizamos el producto en el carrito
+                    _carritoRepository.ActualizarCantidadProducto(productoExistente);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                // Si el producto ya existe en el carrito, actualizamos la cantidad
-                productoExistente.cantidad += cantidad; // Se suma la cantidad
-                productoExistente.valorProducto = precio; // Se actualiza el precio si es necesario
-
-                _carritoRepository.ActualizarCantidadProducto(productoExistente);
+                // Manejar el error de manera adecuada
+                Console.WriteLine("Error al agregar producto al carrito: " + ex.Message);
+                throw new InvalidOperationException("Error al agregar el producto al carrito", ex);
             }
-        }
-
-        // Elimina un producto del carrito
-        public void EliminarProductoDelCarrito(int productoId, int idCliente, int idPedido)
-        {
-            _carritoRepository.EliminarProductoDelCarrito(productoId, idCliente, idPedido);
-        }
-
-        // Obtiene los productos del carrito de un cliente
-        public List<CarritoProductoDto> ObtenerProductosEnCarrito(int idCliente, int idPedido)
-        {
-            var productos = _carritoRepository.ObtenerProductosEnCarrito(idCliente, idPedido)
-                .Select(p => new CarritoProductoDto
-                {
-                    IdProducto = p.Idproducto,
-                    Cantidad = p.cantidad,
-                    Precio = (float)p.valorProducto
-                }).ToList();
-
-            return productos;
         }
     }
 }

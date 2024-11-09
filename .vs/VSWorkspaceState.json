@@ -1,8 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Repositories"
+    "\\Models",
+    "\\Repositories",
+    "\\Views",
+    "\\Views\\User"
   ],
-  "SelectedNode": "\\Repositories\\UserRepository.cs",
+  "SelectedNode": "\\Views\\User\\Detalle_Cookiecakes.cshtml",
   "PreviewInSolutionExplorer": false
 }

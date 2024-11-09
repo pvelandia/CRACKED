@@ -74,7 +74,6 @@
     <Property Name="direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="valor" Type="Double" />
     <Property Name="iva" Type="Double" />
-    <Property Name="idProducto" Type="Int32" />
     <NavigationProperty Name="CIUDAD" Relationship="Self.FK_PEDIDO_CIUDAD" FromRole="PEDIDO" ToRole="CIUDAD" />
     <NavigationProperty Name="ESTADO" Relationship="Self.FK_PEDIDO_ESTADO" FromRole="PEDIDO" ToRole="ESTADO" />
     <NavigationProperty Name="METODO_PAGO" Relationship="Self.FK_PEDIDO_METODO_PAGO" FromRole="PEDIDO" ToRole="METODO_PAGO" />
@@ -96,6 +95,7 @@
     <NavigationProperty Name="ESTADO" Relationship="Self.FK_PEDIDO_PRODUCTO_ESTADO" FromRole="PEDIDO_PRODUCTO" ToRole="ESTADO" />
     <NavigationProperty Name="PEDIDO" Relationship="Self.FK_PEDIDO_PRODUCTO_PEDIDO" FromRole="PEDIDO_PRODUCTO" ToRole="PEDIDO" />
     <NavigationProperty Name="PRODUCTO" Relationship="Self.FK_PEDIDO_PRODUCTO_PRODUCTO" FromRole="PEDIDO_PRODUCTO" ToRole="PRODUCTO" />
+    <NavigationProperty Name="USUARIO" Relationship="Self.FK_PEDIDO_PRODUCTO_USUARIO" FromRole="PEDIDO_PRODUCTO" ToRole="USUARIO" />
   </EntityType>
   <EntityType Name="PRODUCTO">
     <Key>
@@ -173,6 +173,7 @@
     <NavigationProperty Name="ESTADO" Relationship="Self.FK_USUARIO_ESTADO" FromRole="USUARIO" ToRole="ESTADO" />
     <NavigationProperty Name="PEDIDOes" Relationship="Self.FK_PEDIDO_USUARIO" FromRole="USUARIO" ToRole="PEDIDO" />
     <NavigationProperty Name="PEDIDOes1" Relationship="Self.FK_PEDIDO_USUARIO1" FromRole="USUARIO" ToRole="PEDIDO" />
+    <NavigationProperty Name="PEDIDO_PRODUCTO" Relationship="Self.FK_PEDIDO_PRODUCTO_USUARIO" FromRole="USUARIO" ToRole="PEDIDO_PRODUCTO" />
     <NavigationProperty Name="ROL" Relationship="Self.FK_USUARIO_ROL" FromRole="USUARIO" ToRole="ROL" />
     <NavigationProperty Name="USUARIO_PRODUCTO" Relationship="Self.FK_USUARIO_PRODUCTO_USUARIO" FromRole="USUARIO" ToRole="USUARIO_PRODUCTO" />
     <NavigationProperty Name="USUARIO1" Relationship="Self.FK_USUARIO_USUARIO" FromRole="USUARIO" ToRole="USUARIO1" />
@@ -392,6 +393,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_PEDIDO_PRODUCTO_USUARIO">
+    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+    <End Role="PEDIDO_PRODUCTO" Type="Self.PEDIDO_PRODUCTO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USUARIO">
+        <PropertyRef Name="idUsuario" />
+      </Principal>
+      <Dependent Role="PEDIDO_PRODUCTO">
+        <PropertyRef Name="IdCliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_PRODUCTO_SABOR">
     <End Role="SABOR" Type="Self.SABOR" Multiplicity="1" />
     <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="*" />
@@ -464,7 +477,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="CRACKEDEntities27" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="CRACKEDEntities28" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="AUDITORIAs" EntityType="Self.AUDITORIA" />
     <EntitySet Name="CIUDADs" EntityType="Self.CIUDAD" />
     <EntitySet Name="DEPARTAMENTOes" EntityType="Self.DEPARTAMENTO" />
@@ -545,6 +558,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_PEDIDO_PRODUCTO_PRODUCTO" Association="Self.FK_PEDIDO_PRODUCTO_PRODUCTO">
       <End Role="PRODUCTO" EntitySet="PRODUCTOes" />
+      <End Role="PEDIDO_PRODUCTO" EntitySet="PEDIDO_PRODUCTO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PEDIDO_PRODUCTO_USUARIO" Association="Self.FK_PEDIDO_PRODUCTO_USUARIO">
+      <End Role="USUARIO" EntitySet="USUARIOs" />
       <End Role="PEDIDO_PRODUCTO" EntitySet="PEDIDO_PRODUCTO" />
     </AssociationSet>
     <AssociationSet Name="FK_PRODUCTO_SABOR" Association="Self.FK_PRODUCTO_SABOR">

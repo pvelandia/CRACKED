@@ -5,7 +5,7 @@ using System.Web;
 
 namespace CRACKED.Dtos
 {
-    public class CarritoProductoDto
+    public class PEDIDO_PRODUCTO
     {
         public int IdCarrito { get; set; }
         public int IdProducto { get; set; }
