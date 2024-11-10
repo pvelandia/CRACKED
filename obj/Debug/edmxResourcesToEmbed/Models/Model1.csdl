@@ -93,6 +93,7 @@
     <Property Name="IdCliente" Type="Int32" Nullable="false" />
     <Property Name="cantidad" Type="Int32" />
     <Property Name="valorProducto" Type="Double" />
+    <Property Name="porcion" Type="Int32" />
     <NavigationProperty Name="ESTADO" Relationship="Self.FK_PEDIDO_PRODUCTO_ESTADO" FromRole="PEDIDO_PRODUCTO" ToRole="ESTADO" />
     <NavigationProperty Name="PEDIDO" Relationship="Self.FK_PEDIDO_PRODUCTO_PEDIDO" FromRole="PEDIDO_PRODUCTO" ToRole="PEDIDO" />
     <NavigationProperty Name="PRODUCTO" Relationship="Self.FK_PEDIDO_PRODUCTO_PRODUCTO" FromRole="PEDIDO_PRODUCTO" ToRole="PRODUCTO" />
@@ -108,7 +109,6 @@
     <Property Name="nombre" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="valorUnitario" Type="Double" />
     <Property Name="stock" Type="Int32" />
-    <Property Name="porcion" Type="Int32" />
     <Property Name="imagen" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
     <Property Name="idSabor" Type="Int32" Nullable="false" />
     <NavigationProperty Name="ESTADO" Relationship="Self.FK_PRODUCTO_ESTADO" FromRole="PRODUCTO" ToRole="ESTADO" />
@@ -136,6 +136,16 @@
     <Property Name="idEstado" Type="Int32" Nullable="false" />
     <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="PRODUCTOes" Relationship="Self.FK_PRODUCTO_SABOR" FromRole="SABOR" ToRole="PRODUCTO" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
   <EntityType Name="TIPO_PRODUCTO">
     <Key>
@@ -468,7 +478,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="CRACKEDEntities25" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="CRACKEDEntities31" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="AUDITORIAs" EntityType="Self.AUDITORIA" />
     <EntitySet Name="CIUDADs" EntityType="Self.CIUDAD" />
     <EntitySet Name="DEPARTAMENTOes" EntityType="Self.DEPARTAMENTO" />
@@ -479,6 +489,7 @@
     <EntitySet Name="PRODUCTOes" EntityType="Self.PRODUCTO" />
     <EntitySet Name="ROLs" EntityType="Self.ROL" />
     <EntitySet Name="SABORs" EntityType="Self.SABOR" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
     <EntitySet Name="TIPO_PRODUCTO" EntityType="Self.TIPO_PRODUCTO" />
     <EntitySet Name="USUARIOs" EntityType="Self.USUARIO" />
     <EntitySet Name="USUARIO_PRODUCTO" EntityType="Self.USUARIO_PRODUCTO" />

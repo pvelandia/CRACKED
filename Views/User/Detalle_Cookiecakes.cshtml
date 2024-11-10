@@ -1,12 +1,20 @@
 ﻿@model CRACKED.Dtos.ProductListDto
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("AgregarProductoAlCarrito", "Carrito", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
         <hr />
         <div class="container-fluid">
+            @{ // Verificar si hay un mensaje de error en ViewBag
+                                var errorMessage = ViewBag.ErrorMessage as string; }
+
+            @if (!string.IsNullOrEmpty(errorMessage))
+            {
+        <div class="alert alert-danger" role="alert">
+            @errorMessage
+        </div>}
             <div class="row justify-content-evenly ">
                 <div class="col-4">
                     <img src="~/Content/Imagen/@Model.Products[0].Imagen" width="580" height="460" class="img-fluid" />
@@ -19,13 +27,19 @@
                         <label style="color: black; font-family: cursive; text-align: left; display: block; margin-top: 10px;">
                             Una mezcla irresistible de sabores y texturas. Este pastel suave y esponjoso está cargado de chispas de chocolate y M&Ms de colores vibrantes, creando un contraste perfecto con el delicioso y fresco relleno de fresas que lo hace aún más especial. Cada bocado ofrece una experiencia única, con el sabor dulce y afrutado de las fresas complementando la suavidad de la galleta y el crujiente de los M&Ms. Ideal para quienes buscan un pastel que combine lo mejor de los dulces clásicos con un toque de frescura frutal.
                         </label>
+                        <div class="js-qty__wrapper">
+                            <button id="decrement" class="qty-button">-</button>
+                            <input type="text" id="quantity" value="1" readonly>
+                            <button id="increment" class="qty-button">+</button>
+                        </div>
+
+                        <!-- Campos Ocultos para IdProducto, Cantidad y Precio -->
+                        <input type="hidden" name="productoId" value="@Model.Products[0].IdProducto" />
+                        <input type="hidden" id="hiddenQuantity" name="cantidad" value="1" />
+                        <input type="hidden" name="precio" value="@Model.Products[0].Precio" />
+                        <input type="hidden" name="stock" value="@Model.Products[0].Stock" />
+                        <input type="hidden" id="hiddenPortion" name="porcion" value="1">
                     </div>
-                    <div class="js-qty__wrapper">
-                        <button id="decrement" class="qty-button" type="button">-</button>
-                        <input type="number" id="quantity" name="quantity" value="1" min="1">
-                        <button id="increment" class="qty-button" type="button">+</button>
-                    </div>
-                    <input type="hidden" name="stock" value="@Model.Products[0].Stock" />
                     <div class="row justify-content-start row-porcion">
                         <div class="col-sm-4">
                             <h5 style="color: black; font-family: cursive; text-align: left;"> Porciones:</h5>
@@ -60,29 +74,37 @@
         const incrementButton = document.getElementById("increment");
         const decrementButton = document.getElementById("decrement");
         const quantityInput = document.getElementById("quantity");
+        const hiddenQuantity = document.getElementById("hiddenQuantity");
+        const hiddenPortion = document.getElementById("hiddenPortion");
 
-        incrementButton.addEventListener("click", (event) => {
-            event.preventDefault(); // Evita el comportamiento predeterminado
+        incrementButton.addEventListener("click", function (event) {
+            event.preventDefault();
             quantityInput.value = Number(quantityInput.value) + 1;
+            hiddenQuantity.value = quantityInput.value;
         });
 
-        decrementButton.addEventListener("click", (event) => {
-            event.preventDefault(); // Evita el comportamiento predeterminado
+        decrementButton.addEventListener("click", function (event) {
+            event.preventDefault();
             if (Number(quantityInput.value) > 1) {
                 quantityInput.value = Number(quantityInput.value) - 1;
+                hiddenQuantity.value = quantityInput.value;
             }
         });
 
+        hiddenQuantity.value = quantityInput.value;
+
         document.getElementById("Buttonx4").addEventListener("click", (event) => {
             event.preventDefault();
-            document.getElementById("selectionInput").value = "x4";
+            hiddenPortion.value = 4;
         });
 
         document.getElementById("Buttonx8").addEventListener("click", (event) => {
             event.preventDefault();
-            document.getElementById("selectionInput").value = "x8";
+            hiddenPortion.value = 8;
         });
-    });
+   
+        });
+
 </script>
 
 <style>

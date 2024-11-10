@@ -5,7 +5,7 @@ using System.Web;
 
 namespace CRACKED.Dtos
 {
-    public class PEDIDO_PRODUCTO
+    public class Pedido_ProductoDto
     {
         public int IdCarrito { get; set; }
         public int IdProducto { get; set; }
@@ -13,7 +13,8 @@ namespace CRACKED.Dtos
         public int IdEstado{ get; set; }
         public int IdCliente { get; set; }
         public int? Cantidad { get; set; }
-        public float Precio { get; set; }
+        public int? Porcion { get; set; }
+        public double Precio { get; set; }
         
     }
 }

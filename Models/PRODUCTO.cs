@@ -27,7 +27,6 @@ namespace CRACKED.Models
         public string nombre { get; set; }
         public Nullable<double> valorUnitario { get; set; }
         public Nullable<int> stock { get; set; }
-        public Nullable<int> porcion { get; set; }
         public string imagen { get; set; }
         public int idSabor { get; set; }
     

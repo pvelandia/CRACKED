@@ -1,53 +1,65 @@
-﻿
+﻿@model List<CRACKED.Dtos.CarroDto>
+@using System.Linq
+
 @{
     ViewBag.Title = "Carrito";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@{
-    ViewBag.Title = "Carrito de Compras";
-}
-
 <div class="container">
-    <h1 style="color:saddlebrown;  font-family: cursive; text-align:center; font-weight:bold">Carrito de Compras</h1>
+    <h1 style="color:saddlebrown; font-family: cursive; text-align:center; font-weight:bold">Carrito de Compras</h1>
 
-    <!-- Si el carrito tiene productos, se muestra la tabla -->
-    <table class="table table-custom">
-        <thead>
-            <tr >
-                <th >Producto</th>
-                <th>Precio</th>
-                <th>Cantidad</th>
-                <th>Total</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Aquí se agregan dinámicamente los productos -->
-            <tr>
-                <td>
-                    <img src="~/Content/Imagen/image (1).png" alt="Producto 2" style="width: 70px; height: 70px; object-fit: cover; margin-right: 10px;" />
-                    Producto 1
-                </td>
-                <td>$100</td>
-                <td>2</td>
-                <td>$200</td>
-                <td>
-                    <a href="#" class="btn btn-secondary">
-                        <i class="bi bi-trash nav-icon"></i>
-                    </a>
-                    <a href="#" class="btn btn-secondary">
-                        <i class=" bi bi-pencil-square nav-icon"></i>
-                    </a>
-                </td>
-               
-            </tr>
-         </tbody>
-    </table>
+    @if (Model != null && Model.Any())
+    {
+        <table class="table table-custom">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Total</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <img src="~/Content/Imagen/image (1).png" alt="@item.Nombre" style="width: 70px; height: 70px; object-fit: cover; margin-right: 10px;" />
+                            @item.Nombre
+                        </td>
+                        <td>@item.PrecioUnit</td>
+                        <td>@item.Cantidad</td>
+                        <td>@item.PrecioTotal</td>
+                        <td>
+                            <a href="javascript:void(0);" class="btn btn-secondary delete-btn" data-id="@item.IdPedidoProducto">
+                                <i class="bi bi-trash nav-icon"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-warning mt-3">
+            No hay productos en el carrito.
+        </div>
+    }
+
+    @{
+        float precioSubtotal = 0;
+        foreach (var item in Model)
+        {
+            precioSubtotal += item.PrecioTotal;
+        }
+    }
 
     <!-- Total del carrito -->
     <div class="total-container">
-        <h2 class="total-text">Subtotal: </h2>
+        <h2 class="total-text">Subtotal: @precioSubtotal</h2>
     </div>
 
     <!-- Botones para continuar comprando o finalizar compra -->
@@ -56,32 +68,64 @@
         <a href="@Url.Action("DatosEntrega", "Carrito")" class="btn btn-success">Finalizar Pedido</a>
     </div>
 
-    <!-- Mensaje cuando el carrito está vacío -->
-    <div class="alert alert-warning mt-3" style="display:none" id="carritoVacio">
-        No hay productos en el carrito.
-    </div>
+    @if (Model == null || !Model.Any())
+    {
+        <div class="alert alert-warning mt-3" style="display:none" id="carritoVacio">
+            No hay productos en el carrito.
+        </div>
+    }
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".delete-btn").click(function () {
+            var idPedidoProducto = $(this).data("id"); // Obtiene el ID del producto a eliminar
+
+            // Confirmación antes de eliminar
+            if (confirm("¿Estás seguro de que quieres eliminar este producto del carrito?")) {
+                // Enviar la solicitud AJAX al controlador
+                $.ajax({
+                    url: '@Url.Action("EliminarProducto", "Carrito")', // Ruta al controlador y acción
+                    type: 'POST',
+                    data: { idPedidoProducto: idPedidoProducto }, // Enviar el ID del producto
+                    success: function (response) {
+                        // Si la eliminación es exitosa, actualiza la vista o redirige
+                        if (response.success) {
+                            alert("Producto eliminado correctamente.");
+                            location.reload(); // Recarga la página para ver los cambios
+                        } else {
+                            alert("No se pudo eliminar el producto.");
+                        }
+                    },
+                    error: function () {
+                        alert("Ocurrió un error al eliminar el producto.");
+                    }
+                });
+            }
+        });
+    });
+</script>
 
 <!-- Estilos -->
 <style>
-
     .table-custom th {
         background-color: #007bff; /* Fondo de los encabezados */
         color: #3d2306; /* Color del texto de los encabezados */
         font-weight: bold; /* Negrita en los encabezados */
         text-align: center;
     }
+
     .table-custom td {
-        
         color: black; /* Color del texto de los encabezados */
-        
     }
+
     .table-custom {
         width: 100%;
         background-color: transparent; /* Color de fondo claro */
         font-size: 20px; /* Tamaño de fuente */
         text-align: center;
-        
     }
 
     .table th, .table td {
@@ -92,7 +136,7 @@
     }
 
     .btn-secondary {
-       padding: 10px 30px;
+        padding: 10px 30px;
         font-size: 16px;
         background-color: transparent;
         color: whitesmoke;
@@ -123,6 +167,7 @@
         cursor: pointer;
         font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     }
+
     .total-container {
         text-align: right;
         margin-top: 20px;
@@ -132,16 +177,15 @@
         font-size: 25px;
         font-weight: bold;
         color: saddlebrown;
-
     }
+
     .btn:hover {
         opacity: 0.8;
         color: white;
         background-color: #a67145;
     }
-    .nav-icon:hover{
-        color:white;
+
+    .nav-icon:hover {
+        color: white;
     }
 </style>
-
-

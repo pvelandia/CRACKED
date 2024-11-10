@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using CRACKED.Dtos;
+using CRACKED.Models;
 using CRACKED.Repositories;
 using CRACKED.Services;
 
@@ -10,61 +11,106 @@ namespace CRACKED.Controllers
     {
         private readonly CarritoService _carritoService;
 
-        // Constructor con parámetros
+        // Constructor sin parámetros
+        public CarritoController()
+        {
+            // Aquí se pasa tanto CarritoRepository como ProductRepository al CarritoService
+            _carritoService = new CarritoService(
+                new CarritoRepository(new CRACKEDEntities31()),
+                new ProductRepository()
+            );
+        }
+
+        // Constructor con parámetros (necesario cuando tienes IoC configurado)
         public CarritoController(CarritoService carritoService)
         {
             _carritoService = carritoService;
         }
 
-        // Constructor sin parámetros
-        //public CarritoController() : this(new CarritoService(new CarritoRepository(new Models.CRACKEDEntities25()))
-        //{
-        //    // Puedes inicializar los servicios aquí si no se está utilizando un contenedor de DI
-        //}
-        // Método GET para mostrar el carrito (solo se utiliza [HttpGet] implícitamente)
-        public ActionResult Carrito()
-        {
-            // Aquí va la lógica para mostrar los productos en el carrito
-            return View();
-        }
+      
         public ActionResult DatosEntrega()
         {
-            
             return View();
         }
+
         // Método POST para agregar un producto al carrito
         [HttpPost]
-        public ActionResult AgregarProductoAlCarrito(int productoId, int cantidad, float precio)
+        public ActionResult AgregarProductoAlCarrito(int productoId, int cantidad, float precio, int porcion=1)
         {
-            // Obtener el Id del cliente desde la sesión
+            try
+            {
+                // Validación: asegurar que se haya seleccionado solo una porción y no ambas
+                // Validación: asegurar que se haya seleccionado una porción válida (4 o 8)
+                
+
+                var user = Session["UserLogged"] as UserDto;
+                if (user != null)
+                {
+                    
+                    float precioTotal = precio * cantidad;
+                    precio = precioTotal;
+
+                    int idCliente = user.IdUser;
+                    int idPedido = ObtenerIdPedido(idCliente); // Método que debe retornar el idPedido asociado
+                    if (porcion == 8)
+                    {
+                        precio = precio * 2;
+                    }
+
+                    // Llamamos al servicio para agregar el producto al carrito, pasando la porción seleccionada
+                    _carritoService.AgregarProductoAlCarrito(productoId, cantidad, precio, idPedido, idCliente, porcion);
+                }
+                else
+                {
+                    return RedirectToAction("inicioSesion", "User");
+                }
+
+                return RedirectToAction("Carrito");
+            }
+            catch (InvalidOperationException ex)
+            {
+                // Manejo de excepciones, si el stock es insuficiente o algo salió mal
+                ViewBag.ErrorMessage = "El stock es insuficiente para el producto que seleccionaste.";
+                return RedirectToAction("Productos", "User");
+            }
+        }
+        public ActionResult Carrito()
+        {
+            // Obtener el objeto UserDto desde la sesión
             var user = Session["UserLogged"] as UserDto;
 
-            if (user != null)
+            // Verificar si el objeto UserDto es null
+            if (user == null)
             {
-                // Accede a la propiedad IdUser dentro de UserDto
-                int idCliente = user.IdUser;
+                // Manejar el caso en que el usuario no esté logueado
+                return RedirectToAction("inicioSesion", "User");
+            }
 
-                //int idCliente = Convert.ToInt32(Session["UserLogged"]);
+            // Usar el idCliente desde el objeto UserDto
+            int idCliente = user.IdUser;
 
-                // Asumiendo que 'idPedido' se maneja de otra manera, si ya existe en la sesión o base de datos
-                int idPedido = ObtenerIdPedido(idCliente); // Método que debe retornar el idPedido asociado
+            // Ahora puedes pasar el idCliente al servicio para obtener los datos del carrito
+            var carritoItems = _carritoService.ObtenerCarritoPorCliente(idCliente);
+            return View(carritoItems);
+        }
+        [HttpPost]
+        public ActionResult EliminarProducto(int idPedidoProducto)
+        {
+            bool resultado = _carritoService.EliminarProducto(idPedidoProducto); // Llamamos al servicio para eliminar
 
-                // Llamada al servicio para agregar el producto al carrito
-                _carritoService.AgregarProductoAlCarrito(productoId, cantidad, precio, idPedido, idCliente);
+            if (resultado)
+            {
+                return Json(new { success = true }); // Retorna un JSON indicando que la eliminación fue exitosa
             }
             else
             {
-                // Manejo de error si el objeto en la sesión no es del tipo esperado
-                // Ejemplo: redirigir al usuario a la página de inicio de sesión
-                return RedirectToAction("Login", "Account");
+                return Json(new { success = false }); // Retorna un JSON indicando que hubo un error
             }
 
-                // Redirige a la vista del carrito después de agregar el producto
-                return RedirectToAction("Carrito");
         }
-        public ActionResult CrearPedido(int idCliente)
+
+            public ActionResult CrearPedido(int idCliente)
         {
-            // Crear el DTO con los datos necesarios
             var pedidoDto = new PedidoDto
             {
                 IdCliente = idCliente,
@@ -72,30 +118,32 @@ namespace CRACKED.Controllers
                 IdCiudad = 1,
                 IdMetodoPago = 1,
                 IdEstado = 1,
-                FechaEntrega = DateTime.Now,  // Arreglar
-                FechaVenta = DateTime.Now,  // Usamos la fecha actual para la venta
+                FechaEntrega = DateTime.Now,
+                FechaVenta = DateTime.Now,
                 Direccion = "cra 6 #14-53",
-                ValorTotal = 4567,  //Arreglar
-                Iva = 19,  // Asegúrate de tener este valor
-                Estado = "En progreso"  // O cualquier otro estado que corresponda
+                ValorTotal = 4567,
+                Iva = 19,
+                Estado = "En progreso"
             };
 
+            // Supongamos que no se han pasado los productos
             int productoId = 0;
             int cantidad = 0;
             float precio = 0;
             int idPedido = 0;
-            // Llamar al servicio para crear el pedido
-            _carritoService.AgregarProductoAlCarrito(productoId, cantidad, precio, idPedido, idCliente);
+            int porcion = 0;
 
-            // Redirigir o retornar alguna vista
+            // Agregar el producto al carrito
+            _carritoService.AgregarProductoAlCarrito(productoId, cantidad, precio, idPedido, idCliente, porcion);
+
+            // Redirige al inicio
             return RedirectToAction("Index", "Home");
         }
-        // Este método debería ser implementado para obtener el ID del pedido del cliente si es necesario
+
         private int ObtenerIdPedido(int idCliente)
         {
-            // Lógica para obtener el idPedido, puede ser desde la base de datos o alguna lógica propia
-            // Para simplificar, retorno un valor fijo (puedes personalizar esto según tu necesidad)
-            return 1; // ejemplo de idPedido
+            // Método de ejemplo que devuelve un idPedido
+            return 1; // Aquí deberías obtener el idPedido real asociado con el cliente
         }
     }
 }

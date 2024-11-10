@@ -7,6 +7,14 @@
 <div class="form-horizontal">
     <hr />
     <div class="container-fluid">
+        @{ // Verificar si hay un mensaje de error en ViewBag
+                            var errorMessage = ViewBag.ErrorMessage as string; }
+
+        @if (!string.IsNullOrEmpty(errorMessage))
+        {
+    <div class="alert alert-danger" role="alert">
+        @errorMessage
+    </div>}
         <div class="row justify-content-evenly">
             <div class="col-4">
                 <img src="~/Content/Imagen/@Model.Products[0].Imagen" width="580" height="460" class="img-fluid" />
@@ -32,6 +40,7 @@
                     <input type="hidden" id="hiddenQuantity" name="cantidad" value="1" />
                     <input type="hidden" name="precio" value="@Model.Products[0].Precio" />
                     <input type="hidden" name="stock" value="@Model.Products[0].Stock" />
+                    <input type="hidden" id="hiddenPortion" name="porcion" value="1">
                     <div class="form-group">
                         <div class="col-sm-1">
                             <input type="submit" value="AGREGAR AL CARRITO" class="btn btn-primary" />
@@ -73,6 +82,8 @@
         });
 
         hiddenQuantity.value = quantityInput.value;
+        hiddenPortion.value = 1;
+
     });
 </script>
 
