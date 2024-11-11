@@ -184,12 +184,12 @@ namespace CRACKED.Controllers
                     {
                         precio = precio * 2;
                     }
-                    bool stockReducido = _productRepository.ReducirStockProducto(productoId, cantidad);
+                    //bool stockReducido = _productRepository.ReducirStockProducto(productoId, cantidad);
 
-                    if (!stockReducido)
-                    {
-                        throw new InvalidOperationException("El stock es insuficiente para este producto.");
-                    }
+                    //if (!stockReducido)
+                    //{
+                    //    throw new InvalidOperationException("El stock es insuficiente para este producto.");
+                    //}
                     // Llamamos al servicio para agregar el producto al carrito, pasando la porción seleccionada
                     _carritoService.AgregarProductoAlCarrito(productoId, cantidad, precio, idPedido, idCliente, porcion);
                 }
