@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="CRACKEDModelStoreContainer" CdmEntityContainer="CRACKEDEntities31">
+  <EntityContainerMapping StorageEntityContainer="CRACKEDModelStoreContainer" CdmEntityContainer="CRACKEDEntities32">
     <EntitySetMapping Name="AUDITORIAs">
       <EntityTypeMapping TypeName="CRACKEDModel.AUDITORIA">
         <MappingFragment StoreEntitySet="AUDITORIA">
@@ -39,15 +39,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="METODO_PAGO">
-      <EntityTypeMapping TypeName="CRACKEDModel.METODO_PAGO">
-        <MappingFragment StoreEntitySet="METODO_PAGO">
-          <ScalarProperty Name="idMetodoPago" ColumnName="idMetodoPago" />
-          <ScalarProperty Name="idEstado" ColumnName="idEstado" />
-          <ScalarProperty Name="nombre" ColumnName="nombre" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="PEDIDOes">
       <EntityTypeMapping TypeName="CRACKEDModel.PEDIDO">
         <MappingFragment StoreEntitySet="PEDIDO">
@@ -55,7 +46,6 @@
           <ScalarProperty Name="idCliente" ColumnName="idCliente" />
           <ScalarProperty Name="idDomiciliario" ColumnName="idDomiciliario" />
           <ScalarProperty Name="idCiudad" ColumnName="idCiudad" />
-          <ScalarProperty Name="idMetodoPago" ColumnName="idMetodoPago" />
           <ScalarProperty Name="idEstado" ColumnName="idEstado" />
           <ScalarProperty Name="fechaEntrega" ColumnName="fechaEntrega" />
           <ScalarProperty Name="fechaVenta" ColumnName="fechaVenta" />
@@ -63,6 +53,8 @@
           <ScalarProperty Name="subtotal" ColumnName="subtotal" />
           <ScalarProperty Name="valorDomicilio" ColumnName="valorDomicilio" />
           <ScalarProperty Name="totalPedido" ColumnName="totalPedido" />
+          <ScalarProperty Name="telefonoEntrega" ColumnName="telefonoEntrega" />
+          <ScalarProperty Name="barrio" ColumnName="barrio" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -145,15 +137,6 @@
           <ScalarProperty Name="contraseña" ColumnName="contraseña" />
           <ScalarProperty Name="idRol" ColumnName="idRol" />
           <ScalarProperty Name="idEstado" ColumnName="idEstado" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="USUARIO_PRODUCTO">
-      <EntityTypeMapping TypeName="CRACKEDModel.USUARIO_PRODUCTO">
-        <MappingFragment StoreEntitySet="USUARIO_PRODUCTO">
-          <ScalarProperty Name="idUsuarioProducto" ColumnName="idUsuarioProducto" />
-          <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
-          <ScalarProperty Name="idProducto" ColumnName="idProducto" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

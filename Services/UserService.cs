@@ -41,7 +41,7 @@ namespace CRACKED.Services
                     idUsuario = usuario.IdUser,
                     nombre = usuario.Name,
                     contraseña = usuario.PasswordE,
-                    idRol = 3,
+                    idRol = 1,
                     idEstado = 1,
                     apellido = usuario.Apellido,
                     correoElectronico = usuario.Correo,

@@ -10,6 +10,7 @@ namespace CRACKED.Services
     {
         private readonly CarritoRepository _carritoRepository;
         private readonly ProductRepository _productRepository; // Aquí agregamos ProductRepository
+    
 
         public CarritoService(CarritoRepository carritoRepository, ProductRepository productRepository)
         {
@@ -18,12 +19,50 @@ namespace CRACKED.Services
         }
 
         // Agregar producto al carrito
+        public bool ActualizarPedido(PedidoDto pedido)
+        {
+            try
+            {
+                // Llamamos al repositorio para actualizar los datos en la base de datos
+                return _carritoRepository.ActualizarPedido(pedido);
+            }
+            catch (Exception ex)
+            {
+                // Manejar excepciones si ocurre algún error
+                Console.WriteLine("Error al actualizar el pedido: " + ex.Message);
+                return false;
+            }
+        }
+        public PedidoDto ObtenerPedidoPorId(int idPedido)
+        {
+            return _carritoRepository.ObtenerPedidoPorId(idPedido);
+        }
+        public bool ActualizarDatosEntrega(int idCliente, PedidoDto pedidoDto)
+        {
+            try
+            {
+                // Llamamos al método del repositorio
+                return _carritoRepository.ActualizarDatosEntrega(idCliente, pedidoDto);
+            }
+            catch (Exception ex)
+            {
+                // Manejo de excepciones en el servicio
+                throw new InvalidOperationException("Error al actualizar los datos de entrega en el servicio", ex);
+            }
+        }
+        public int? ObtenerIdCiudadSiNombreCoincide(string nombreCiudad)
+        {
+            return _carritoRepository.ObtenerIdCiudadPorNombre(nombreCiudad);
+        }
+
         public void AgregarProductoAlCarrito(int productoId, int cantidad, float precio, int idPedido, int idCliente, int porcion)
         {
             try
             {
+                
                 // Obtener stock del producto usando el DTO
                 ProductDto producto = _productRepository.ObtenerProductoPorId(productoId);
+                PedidoDto pedido = _carritoRepository.ObtenerPedidoPorId(idPedido);
 
                 if (producto == null)
                 {

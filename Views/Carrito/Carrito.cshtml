@@ -51,9 +51,12 @@
 
     @{
         float precioSubtotal = 0;
+        float domicilio = 15000;
+        float precioTotalTotal = 0;
         foreach (var item in Model)
         {
             precioSubtotal += item.PrecioTotal;
+            precioTotalTotal = precioSubtotal + domicilio;
         }
     }
 
@@ -61,6 +64,13 @@
     <div class="total-container">
         <h2 class="total-text">Subtotal: @precioSubtotal</h2>
     </div>
+    <div class="total-container">
+        <h2 class="total-text">Valor Domicilio: @domicilio</h2>
+    </div>
+    <div class="total-container">
+        <h2 class="total-text">Total Precio @precioTotalTotal</h2>
+    </div>
+
 
     <!-- Botones para continuar comprando o finalizar compra -->
     <div class="d-flex justify-content-between">

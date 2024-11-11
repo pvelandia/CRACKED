@@ -9,19 +9,104 @@ namespace CRACKED.Repositories
     public class CarritoRepository
     {
         // Método para obtener un pedido por su ID utilizando DTO
-        private readonly CRACKEDEntities31 _context;
+        private readonly CRACKEDEntities32 _context;
 
         // Constructor que acepta un CRACKEDEntities29 como argumento
-        public CarritoRepository(CRACKEDEntities31 context)
+        public CarritoRepository(CRACKEDEntities32 context)
         {
             _context = context;
         }
+        public bool ActualizarPedido(PedidoDto pedido)
+        {
+            using (var db = new CRACKEDEntities32()) // Asegúrate de usar tu contexto adecuado
+            {
+                // Obtener el pedido existente a partir del idPedido
+                var pedidoExistente = db.PEDIDOes.SingleOrDefault(p => p.idPedido == pedido.IdPedido);
 
+                if (pedidoExistente != null)
+                {
+                    // Actualizar los campos del pedido
+                    pedidoExistente.barrio = pedido.Barrio;
+                    pedidoExistente.direccion = pedido.Direccion;
+                    pedidoExistente.fechaEntrega = pedido.FechaEntrega;
+                    pedidoExistente.fechaVenta = DateTime.Now;
+                    pedidoExistente.telefonoEntrega = pedido.Telefono;
+                    //pedidoExistente.idCiudad = pedido.IdCiudad;
+                    pedidoExistente.subtotal = pedido.ValorTotal;
+                    pedidoExistente.valorDomicilio= 15000;
+                    float totali = (float)(pedidoExistente.subtotal + pedidoExistente.valorDomicilio);
+                    pedidoExistente.totalPedido = totali ;
+
+                    // Guardar los cambios
+                    db.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    // Si no se encuentra el pedido, devolver false
+                    return false;
+                }
+            }
+        }
+        public int? ObtenerIdCiudadPorNombre(string nombreCiudad)
+        {
+            var ciudad = _context.CIUDADs.FirstOrDefault(c => c.nombre == nombreCiudad);
+            return ciudad?.idCiudad;  // Devuelve el Id si encuentra coincidencia, o null si no la hay
+        }
+        public bool ActualizarDatosEntrega(int idCliente, PedidoDto pedidoDto)
+        {
+            try
+            {
+                using (var db = new CRACKEDEntities32())
+                {
+                    var pedido_productos = db.PEDIDO_PRODUCTO.Where(p => p.IdCliente == idCliente).ToList();
+                    var pedido = db.PEDIDOes.FirstOrDefault(p => p.idCliente == idCliente);
+                    if (pedido != null)
+                    {
+                        // Actualizamos los campos del pedido con los nuevos datos
+
+                        float sub = 0;
+                        foreach (var producto in pedido_productos)
+                        {
+                            sub += (float)producto.valorProducto; // Asegúrate de que valorProducto sea del tipo correcto
+                        }
+                        pedido.subtotal = sub;
+                        pedido.direccion = pedidoDto.Direccion;
+                        pedido.barrio = pedidoDto.Barrio;
+                        pedido.telefonoEntrega = pedidoDto.Telefono;
+                        pedido.valorDomicilio = 15000;
+                        float totali = (float)(pedido.valorDomicilio + pedido.subtotal);
+                        pedido.totalPedido = totali;
+                        pedido.idCiudad = pedidoDto.IdCiudads;
+                        pedido.fechaEntrega = pedidoDto.FechaEntrega;
+
+                        db.SaveChanges();  // Guardamos los cambios en la base de datos
+
+                        var productosPedido = db.PEDIDO_PRODUCTO.Where(pp => pp.IdCliente == idCliente).ToList();
+                        if (productosPedido.Any())
+                        {
+                            db.PEDIDO_PRODUCTO.RemoveRange(productosPedido); // Eliminar los productos asociados al pedido
+                            db.SaveChanges(); // Guardar los cambios en la base de datos
+                        }
+                        return true;  // Indicamos que la actualización fue exitosa
+                    }
+                    else
+                    {
+                        return false;  // Si no se encuentra el pedido
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejo de excepciones en caso de error
+                throw new InvalidOperationException("Error al actualizar los datos de entrega", ex);
+            }
+        }
         public PedidoDto ObtenerPedidoPorId(int idPedido)
         {
             try
             {
-                using (var db = new CRACKEDEntities31())
+                using (var db = new CRACKEDEntities32())
                 {
                     // Buscamos el pedido en la base de datos y lo mapeamos a un DTO
                     var pedido = db.PEDIDOes
@@ -52,7 +137,7 @@ namespace CRACKED.Repositories
         {
             try
             {
-                using (var db = new CRACKEDEntities31())
+                using (var db = new CRACKEDEntities32())
                 {
                     // Buscamos si ya existe un pedido para el cliente con la misma dirección
                     var pedidoExistente = db.PEDIDOes
@@ -66,7 +151,7 @@ namespace CRACKED.Repositories
                         pedidoExistente.direccion = direccion;
                         pedidoExistente.idDomiciliario = 4; // Asumimos que esto se establece de alguna manera
                         pedidoExistente.idCiudad = 1; // Lo mismo aquí
-                        pedidoExistente.idMetodoPago = 1; // Lo mismo
+                   
                         pedidoExistente.idEstado = 1; // Asumimos que el estado es 1
 
                         db.SaveChanges(); // Guardar los cambios
@@ -90,7 +175,7 @@ namespace CRACKED.Repositories
                             idCliente = idCliente,
                             idDomiciliario = 4,  // Asumimos que esto se establece de alguna manera
                             idCiudad = 1,        // Lo mismo aquí
-                            idMetodoPago = 1,    // Lo mismo
+        
                             idEstado = 1,        // Lo mismo
                             fechaEntrega = DateTime.Now,
                             fechaVenta = DateTime.Now,
@@ -125,7 +210,7 @@ namespace CRACKED.Repositories
         {
             try
             {
-                using (var db = new CRACKEDEntities31())
+                using (var db = new CRACKEDEntities32())
                 {
                     // Buscamos el producto en el carrito y lo mapeamos a un DTO
                     var producto = db.PEDIDO_PRODUCTO
@@ -157,7 +242,7 @@ namespace CRACKED.Repositories
         {
             try
             {
-                using (var db = new CRACKEDEntities31())
+                using (var db = new CRACKEDEntities32())
                 {
                     var nuevoProducto = new PEDIDO_PRODUCTO
                     {
@@ -185,7 +270,7 @@ namespace CRACKED.Repositories
         {
             try
             {
-                using (var db = new CRACKEDEntities31())
+                using (var db = new CRACKEDEntities32())
                 {
                     var productoExistente = db.PEDIDO_PRODUCTO
                         .FirstOrDefault(p => p.Idproducto == producto.IdProducto && p.IdCliente == producto.IdCliente && p.idPedido == producto.IdPedido);
@@ -206,7 +291,7 @@ namespace CRACKED.Repositories
         }
         public List<CarroDto> ObtenerCarritoPorCliente(int idCliente)
         {
-            using (var db = new CRACKEDEntities31())  // Usamos el contexto de la base de datos
+            using (var db = new CRACKEDEntities32())  // Usamos el contexto de la base de datos
             {
                 // Realizamos la consulta para obtener los productos del carrito
                 var carritoItems = db.PEDIDO_PRODUCTO
@@ -237,14 +322,34 @@ namespace CRACKED.Repositories
 
         public bool EliminarProductoDelCarrito(int idPedidoProducto)
         {
-            var producto = _context.PEDIDO_PRODUCTO.FirstOrDefault(p => p.idPedidoProducto== idPedidoProducto);
-            if (producto != null)
+            // Obtener el producto en el carrito
+            var pedidoProducto = _context.PEDIDO_PRODUCTO.FirstOrDefault(p => p.idPedidoProducto == idPedidoProducto);
+
+            if (pedidoProducto != null)
             {
-                _context.PEDIDO_PRODUCTO.Remove(producto);
+                // Obtener el producto de la tabla PRODUCTO correspondiente
+                var producto = _context.PRODUCTOes.FirstOrDefault(p => p.idProducto == pedidoProducto.Idproducto);
+
+                if (producto != null)
+                {
+                    // Aumentar el stock del producto
+                    producto.stock += pedidoProducto.cantidad;  // Se asume que la tabla PEDIDO_PRODUCTO tiene la cantidad
+
+                    // Guardar el cambio en el stock
+                    _context.SaveChanges();
+                }
+
+                // Eliminar el producto del carrito (de la tabla PEDIDO_PRODUCTO)
+                _context.PEDIDO_PRODUCTO.Remove(pedidoProducto);
+
+                // Guardar los cambios (eliminación del producto del carrito)
                 _context.SaveChanges();
+
                 return true;
             }
+
             return false;
         }
+
     }
 }

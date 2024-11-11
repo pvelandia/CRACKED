@@ -1,74 +1,81 @@
-﻿
-
+﻿@model CRACKED.Dtos.PedidoDto
 
 @{
     ViewBag.Title = "DatosEntrega";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-
+<form method="post" action="@Url.Action("DatosEntrega", "Carrito")">
     <div class="form-group">
         <fieldset disabled>
             <div class="mb-3">
-                <label for="disabledTextInput" class="form-label"><h8 style="color:saddlebrown; ">Correo para recibir la confirmación de tu pedido una vez diligencie los datos correctamente</h8> </label>
+                <label for="disabledTextInput" class="form-label">
+                    <h8 style="color:saddlebrown;">Correo para recibir la confirmación de tu pedido una vez diligencies los datos correctamente</h8>
+                </label>
                 <input type="text" id="disabledTextInput" class="form-control" placeholder="Disabled input" value="correousuario@sjdfskd.com">
             </div>
         </fieldset>
-        <h2 style="color:saddlebrown;  font-family: cursive;  font-weight:bold;">
-            Datos Entrega
-        </h2>
 
+        <h2 style="color:saddlebrown; font-family: cursive; font-weight: bold;">Datos Entrega</h2>
 
         <div class="row justify-content-between">
             <div class="col-4">
                 <div class="row justify-content-between">
+                    <!-- Dropdown de Departamentos -->
                     <div class="col-6">
-                        <label for="inputDepar" class="form-label">Departamento</label>
-                        <select id="inputDepar" class="form-select" aria-label="Default select example">
-                            <option selected>Selecciona</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <label for="inputDepartamento" class="form-label">Departamento</label>
+                        <select id="inputDepartamento" class="form-select" onchange="cargarCiudades()" aria-label="Default select example">
+                            <option selected>Selecciona un Departamento</option>
+                            <option value="1">Cundinamarca</option>
+                            <option value="2">Boyacá</option>
+                            <option value="3">Santander</option>
+                            <option value="4">Tolima</option>
+                            <option value="5">Huila</option>
+                            <option value="6">Quindío</option>
+                            <option value="7">Caldas</option>
+                            <option value="8">Risaralda</option>
                         </select>
                     </div>
 
-                    <div class="col-6">
-                        <label for="inputCiudad" class="form-label">Ciudad</label>
-                        <select id="inputCiudad" class="form-select" aria-label="Default select example">
-                            <option selected>Selecciona</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
-                    </div>
+                    <!-- Barrio -->
                     <div class="col-md-6">
                         <label for="inputBarrio" class="form-label">Barrio o localidad</label>
-                        <input type="email" class="form-control" id="inputEmail4">
+                        @Html.TextBoxFor(model => model.Barrio, new { @class = "form-control", id = "inputBarrio", placeholder = "Escriba su barrio" })
                     </div>
-                    <div class="col-6">
-                        <label for="inputAddress" class="form-label">Direccion</label>
-                        <input type="text" class="form-control" id="inputAddress" placeholder="ej: cra 5 b # 3-08 ">
-                    </div>
-                    <div class="col-6">
-                        <label for="fecha"  class="form-label">Fecha:</label>
 
-                        <input type="date" id="fecha" name="fecha" class="form-control" />
-                    </div>
+                    <!-- Dropdown de Ciudades -->
                     <div class="col-6">
-                        <label for="inputTelefono" class="form-label">Telefono</label>
-                        <input type="text" class="form-control" id="inputTelefono" placeholder="De quien recibe el pedido">
+                        <label for="inputCiudad" class="form-label">Ciudad</label>
+                        @Html.DropDownListFor(model => model.IdCiudad, new List<SelectListItem>(), "Seleccione una Ciudad", new { @class = "form-control", id = "inputCiudad" })
                     </div>
+
+                    <!-- Dirección -->
+                    <div class="col-6">
+                        <label for="inputAddress" class="form-label">Dirección</label>
+                        @Html.TextBoxFor(model => model.Direccion, new { @class = "form-control", id = "inputAddress", placeholder = "Ej: cra 5 b # 3-08" })
+                    </div>
+
+                    <!-- Fecha -->
+                    <div class="col-6">
+                        <label for="fecha" class="form-label">Fecha de Entrega</label>
+                        @Html.TextBoxFor(model => model.FechaEntrega, "{0:yyyy-MM-dd}", new { @class = "form-control", id = "fecha" })
+                    </div>
+
+
+                    <!-- Teléfono -->
+                    <div class="col-6">
+                        <label for="inputTelefono" class="form-label">Teléfono</label>
+                        @Html.TextBoxFor(model => model.Telefono, new { @class = "form-control", id = "inputTelefono", placeholder = "De quien recibe el pedido" })
+                    </div>
+
                 </div>
-
             </div>
 
-            <div class="col-4">
-
-            </div>
+            <div class="col-4"></div>
 
         </div>
     </div>
+
     <hr style="border: 1px solid saddlebrown; margin: 2rem 0;">
 
     <div class="container">
@@ -77,140 +84,120 @@
                 <div class="col-4 align-self-center">
                     <div class="alert alert-primary d-flex align-items-center small-alert" role="alert">
                         <svg class="bi flex-shrink-0 " role="img" aria-label="Info:" width="50" height="50"><use xlink:href="#info-fill" /></svg>
-                        <div style="padding-left: 0.5rem;  ">
-                            <h6 style="color: black; font-weight: bold;"> Recuerda que el pago es Contra entrega</h6>
+                        <div style="padding-left: 0.5rem;">
+                            <h6 style="color: black; font-weight: bold;">Recuerda que el pago es Contra entrega</h6>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="col-4 colored-container">
-                    <div class="total-container">
-                        <fieldset disabled>
-                            <div class="mb-3">
-                                <label for="disabledTextInput" class="form-label" style="color: saddlebrown; font-size: 20px "> Subtotal:</label>
-                                <input type="text" id="disabledTextInput" class="form-control" placeholder="Disabled input" value="$$$$$">
-                            </div>
-                            <div class="mb-3">
-                                <label for="disabledTextInput" class="form-label" style="color:saddlebrown; font-size:20px ">Costo Pedido: </label>
-                                <input type="text" id="disabledTextInput" class="form-control" placeholder="Disabled input" value="$$$$$">
-                            </div>
-                            <hr style="border: 1px solid saddlebrown; margin: 2rem 0;">
-                            <div class="mb-3">
-                                <label for="disabledTextInput" class="form-label" style="color: saddlebrown; font-size: 20px">Total Pedido:</label>
-                                <input type="text" id="disabledTextInput" class="form-control" placeholder="Disabled input" value="$$$$$">
-                            </div>
-                        </fieldset>
+            <div class="col-12">
+                <!-- Cambiar el botón de type="button" a type="submit" -->
+                <button type="submit" class="btn btn-primary">
+                    Pide ahora
+                </button>
+            </div>
 
-                    </div>
-                    <div class="col-12">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                            Pide ahora
-                        </button>
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="false" data-bs-focus="true" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 
-                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="false"  data-bs-focus="true" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header" style="background-color:antiquewhite">
 
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header" style="background-color:antiquewhite">
-                                        
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body" style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;"">
-                                        <h3 style="color:saddlebrown">¡Gracias por tu pedido!</h3>
-                                        Toda la información ha sido enviada a tu correo electrónico.
-                                    </div>
-                                    <div class="modal-footer">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;" ">
+                            <h3 style="color:saddlebrown">¡Gracias por tu pedido!</h3>
+                            Toda la información ha sido enviada a tu correo electrónico.
+                        </div>
+                        <div class="modal-footer">
 
-                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
-                                    </div>
-                                </div>
-                            </div>
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
                         </div>
                     </div>
                 </div>
-                    </div>
-            <p style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">
-
-            </p>
+            </div>
         </div>
     </div>
+    </div>
+
     <script src="~/Scripts/bootstrap.bundle.min.js"></script>
-    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<svg xmlns="http://www.w3.org/2000/svg" class="d-none" >
-    <symbol id="info-fill" viewBox="0 0 16 16" >
-        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
-    </symbol>
-</svg>
-<style>  
-    .form-group {
-        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    <!-- jQuery UI -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script>
+        function cargarCiudades() {
+            // Obtén el valor del departamento seleccionado
+            const departamentoId = document.getElementById("inputDepartamento").value;
+            const ciudadDropdown = document.getElementById("inputCiudad");
 
-    }
-    .form-label {
-        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-        font-weight: bold;
-    }
-    .colored-container {
-        background-color: whitesmoke; /* Cambia el color al que prefieras */
-        padding: 50px; /* Agrega un poco de relleno */
-     
-        opacity:0.8;
-    }
-    .form-control {
-        background-color: #efcbab;
-    }
-        .form-control:disabled {
-            background-color: #f3d8bf;
-            opacity:0.8;
+            // Limpia el dropdown de ciudades
+            ciudadDropdown.innerHTML = '<option selected>Selecciona una Ciudad</option>';
+
+            // Define las ciudades para cada departamento
+            let ciudades = [];
+
+            switch (departamentoId) {
+                case '1': // Cundinamarca
+                    ciudades = ['Bogotá', 'Soacha', 'Chocontá', 'Zipaquirá', 'Funza', 'Mosquera', 'Cota'];
+                    break;
+                case '2': // Boyacá
+                    ciudades = ['Tunja', 'Duitama', 'Sogamoso', 'Paipa', 'Chiquinquirá', 'Belén', 'Tibasosa'];
+                    break;
+                case '3': // Santander
+                    ciudades = ['Bucaramanga', 'Girón', 'Barrancabermeja', 'Floridablanca', 'San Gil', 'Piedecuesta', 'Zapatoca'];
+                    break;
+                case '4': // Tolima
+                    ciudades = ['Ibagué', 'Espinal', 'Cajamarca', 'Melgar', 'Honda', 'Lérida', 'Mariquita'];
+                    break;
+                case '5': // Huila
+                    ciudades = ['Neiva', 'Pitalito', 'Garzón', 'La Plata', 'Campoalegre', 'El Agrado', 'Isnos'];
+                    break;
+                case '6': // Quindío
+                    ciudades = ['Armenia', 'Calarcá', 'Quimbaya', 'Salento', 'Circasia'];
+                    break;
+                case '7': // Caldas
+                    ciudades = ['Manizales', 'Villamaría', 'Neira', 'Chinchiná', 'Marquetalia'];
+                    break;
+                case '8': // Risaralda
+                    ciudades = ['Pereira', 'Dosquebradas', 'Santa Rosa de Cabal', 'La Virginia', 'Marsella'];
+                    break;
+                default:
+                    ciudades = [];
+            }
+
+            // Agrega las ciudades al dropdown
+            ciudades.forEach(ciudad => {
+                const option = document.createElement("option");
+                option.value = ciudad;
+                option.textContent = ciudad;
+                ciudadDropdown.appendChild(option);
+            });
         }
-    .form-select {
-        background-color: #efcfb2;
-    }
-    .alert {
-        background-color: #efcbab;
-        border-color:saddlebrown;
-    }
-    .small-alert {
-        padding: 4px; /* Reduce el espaciado general */
-        font-size: 0.875rem; /* Tamaño de fuente más pequeño */
-    }
+    </script>
 
-    .small-alert-text {
-        padding-left: 6px; /* Espacio entre el ícono y el texto */
-    }
-    .btn-primary {
-        padding: 10px 30px;
-        font-size: 16px;
-        background-color: saddlebrown;
-        color: whitesmoke;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    }
-    .form-select{
-        background-color: #efcbab;
-    }
-    .modal {
-       
-    }
-   
-</style>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        
+    <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+        <symbol id="info-fill" viewBox="0 0 16 16">
+            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+        </symbol>
+    </svg>
 
-        var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'));
-        // Ahora puedes interactuar con el modal
-        myModal.hide();  // Asegúrate de que el modal esté cargado antes de intentar ocultarlo
-    });
-    var modalElement = document.getElementById('staticBackdrop');
-    if (modalElement) {
-        var myModal = new bootstrap.Modal(modalElement);
-        myModal.hide(); // Esto solo se ejecutará si el modal existe
-    } else {
-        console.log('El modal no fue encontrado.');
-    }
+    <style>
+        /* Estilos adicionales */
+        .form-control, .form-select {
+            background-color: #efcbab;
+        }
 
-</script>
+        .form-label {
+            font-weight: bold;
+        }
+
+        .alert {
+            background-color: #efcbab;
+            border-color: saddlebrown;
+        }
+    </style>
+</form>
