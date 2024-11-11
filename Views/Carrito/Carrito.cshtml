@@ -74,8 +74,8 @@
 
     <!-- Botones para continuar comprando o finalizar compra -->
     <div class="d-flex justify-content-between">
-        <a href="#" class="btn btn-primary">Seguir comprando</a>
-        <a href="@Url.Action("DatosEntrega", "Carrito")" class="btn btn-success">Finalizar Pedido</a>
+        <a href="@Url.Action("Productos", "User")" class="btn btn-primary">Seguir comprando</a>
+        <a href="@Url.Action("DatosEntrega", "User")" class="btn btn-success">Finalizar Pedido</a>
     </div>
 
     @if (Model == null || !Model.Any())
