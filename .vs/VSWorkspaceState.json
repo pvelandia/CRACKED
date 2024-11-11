@@ -1,13 +1,6 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\Controllers",
-    "\\Models",
-    "\\Repositories",
-    "\\Services",
-    "\\Views",
-    "\\Views\\User"
+    ""
   ],
-  "SelectedNode": "\\Repositories\\CarritoRepository.cs",
   "PreviewInSolutionExplorer": false
 }

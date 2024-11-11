@@ -1,28 +1,30 @@
 ﻿@{
-    ViewBag.Title = "InfoUsuarios";
+    ViewBag.Title = "Pedidos";
     Layout = "~/Views/Shared/_Layout - Admin.cshtml";
 }
 
-<h1 style="color:saddlebrown;  font-family: cursive; text-align:center; font-weight:bold">Usuarios</h1>
 
-<div class="container text-center">
+
+
+<h1 style="color:saddlebrown;  font-family: cursive; text-align:center; font-weight:bold">Pedidos</h1>
+
+<div class="container text-start">
     <div class="row justify-content-start">
-        <div class="col">
+        <div class="col-auto">
             <div class="row ">
-                <div class="col">
+                <div class="col-auto">
 
                     <select id="filterRoleState" class="form-select" onchange="filterTable()">
-                        <option value="">Filtrar por rol o estado...</option>
-                        <option value="admin">Administrador</option>
-                        <option value="domiciliario">Domiciliario</option>
-                        <option value="cliente">Cliente</option>
-                        <option value="activo">Activo</option>
-                        <option value="inactivo">Inactivo</option>
+                        <option value="">Filtrar por estado o domiciliario</option>
+                        <option value="domiciliario 1">domiciliario 1</option>  @*creo que aca se cargan los nombres de la bd como con los departamentos *@
+                        <option value="pendiente">Pendiente</option>
+                        <option value="entregado">Entregado</option>
+                        <option value="cancelado">Cancelado</option>
                     </select>
                 </div>
             </div>
         </div>
-        <div class="col">
+        <div class="col-6">
             <div class="input-group mb-3">
                 <span class="input-group-text " id="basic-addon1">
                     <i class=" bi bi-search-heart-fill nav-icon " style="font-size: 30px;color: white"></i>
@@ -31,26 +33,24 @@
 
             </div>
         </div>
-        <div class="col">
-            <div id="noResultsMessage" class="alert alert-warning" style="display: none;">
-                No se encontraron resultados para los filtros aplicados. Intente modificar los criterios de búsqueda.
-            </div>
 
-        </div>
     </div>
 </div>
+<div class="col">
+    <div id="noResultsMessage" class="alert alert-warning" style="display: none;">
+        No se encontraron resultados para los filtros aplicados. Intente modificar los criterios de búsqueda.
+    </div>
 
+</div>
 <table class="table table-custom">
     <thead>
         <tr>
-            <th>Codigo</th>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Teléfono</th>
-            <th>Correo</th>
-            <th>Rol</th>
+            <th>Pedido</th>
+            <th>Cliente</th>
+            <th>Fecha Entrega</th>
+            <th>Domiciliario</th>
             <th>Estado</th>
-            <th>Accción</th>
+            <th>Ver detalles</th>
 
         </tr>
     </thead>
@@ -58,15 +58,13 @@
         <!-- Aquí se agregan dinámicamente los productos -->
         <tr>
             <td>25</td>
-            <td>Marta</td>
-            <td>ASDAJK</td>
-            <td>3212345121</td>
-            <td>martajsd@dius.djd</td>
-            <td>admin</td>
-            <td>activo</td>
+            <td>Sara</td>
+            <td>25/09/2024</td>
+            <td>Domiciliario 1</td>
+            <td>Pendiente</td>
             <td>
-                <a href="@Url.Action("DatosUsuario", "Admin")" class="btn btn-secondary">
-                    <i class=" bi bi-pencil-square nav-icon"></i>
+                <a href="@Url.Action("DetallePedido", "Admin")" class="btn btn-secondary">
+                    <i class=" bi bi-eye-fill nav-icon"></i>
                 </a>
             </td>
 
@@ -195,10 +193,10 @@
             }
 
             // Aplicar filtro de rol o estado
-            let role = cells[5].textContent.toLowerCase(); // Columna de Rol
-            let state = cells[6].textContent.toLowerCase(); // Columna de Estado
+            let estado = cells[4].textContent.toLowerCase(); // Columna de Rol
+            let domici = cells[3].textContent.toLowerCase(); // Columna de Rol
 
-            if (filterValue === "" || role === filterValue || state === filterValue) {
+            if (filterValue === "" || estado === filterValue || domici === filterValue ) {
                 if (match) {
                     rows[i].style.display = ""; // Mostrar fila si coincide con la búsqueda y el filtro
                     noResults = false;

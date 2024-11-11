@@ -17,5 +17,33 @@ namespace CRACKED.Controllers
         {
             return View();
         }
+        public ActionResult Pedidos()
+        {
+            return View();
+        }
+        public ActionResult Productos()
+        {
+            return View();
+        }
+        public ActionResult Reportes()
+        {
+            return View();
+        }
+        public ActionResult DatosUsuario()
+        {
+            return View();
+        }
+        public ActionResult AgregarProducto()
+        {
+            return View();
+        }
+        public ActionResult DetallePedido()
+        {
+            return View();
+        }
+        public ActionResult ProductosPedido()
+        {
+            return View();
+        }
     }
 }

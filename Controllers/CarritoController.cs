@@ -18,7 +18,7 @@ namespace CRACKED.Controllers
         {
             // Aquí se pasa tanto CarritoRepository como ProductRepository al CarritoService
             _carritoService = new CarritoService(
-                new CarritoRepository(new CRACKEDEntities32()),
+                new CarritoRepository(new CRACKEDEntities34()),
                 new ProductRepository()
             );
         }

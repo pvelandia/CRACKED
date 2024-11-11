@@ -9,16 +9,16 @@ namespace CRACKED.Repositories
     public class CarritoRepository
     {
         // Método para obtener un pedido por su ID utilizando DTO
-        private readonly CRACKEDEntities32 _context;
+        private readonly CRACKEDEntities34 _context;
 
         // Constructor que acepta un CRACKEDEntities29 como argumento
-        public CarritoRepository(CRACKEDEntities32 context)
+        public CarritoRepository(CRACKEDEntities34 context)
         {
             _context = context;
         }
         public bool ActualizarPedido(PedidoDto pedido)
         {
-            using (var db = new CRACKEDEntities32()) // Asegúrate de usar tu contexto adecuado
+            using (var db = new CRACKEDEntities34()) // Asegúrate de usar tu contexto adecuado
             {
                 // Obtener el pedido existente a partir del idPedido
                 var pedidoExistente = db.PEDIDOes.SingleOrDefault(p => p.idPedido == pedido.IdPedido);
@@ -57,7 +57,7 @@ namespace CRACKED.Repositories
         {
             try
             {
-                using (var db = new CRACKEDEntities32())
+                using (var db = new CRACKEDEntities34())
                 {
                     var pedido_productos = db.PEDIDO_PRODUCTO.Where(p => p.IdCliente == idCliente).ToList();
                     var pedido = db.PEDIDOes.FirstOrDefault(p => p.idCliente == idCliente);
@@ -106,7 +106,7 @@ namespace CRACKED.Repositories
         {
             try
             {
-                using (var db = new CRACKEDEntities32())
+                using (var db = new CRACKEDEntities34())
                 {
                     // Buscamos el pedido en la base de datos y lo mapeamos a un DTO
                     var pedido = db.PEDIDOes
@@ -137,7 +137,7 @@ namespace CRACKED.Repositories
         {
             try
             {
-                using (var db = new CRACKEDEntities32())
+                using (var db = new CRACKEDEntities34())
                 {
                     // Buscamos si ya existe un pedido para el cliente con la misma dirección
                     var pedidoExistente = db.PEDIDOes
@@ -210,7 +210,7 @@ namespace CRACKED.Repositories
         {
             try
             {
-                using (var db = new CRACKEDEntities32())
+                using (var db = new CRACKEDEntities34())
                 {
                     // Buscamos el producto en el carrito y lo mapeamos a un DTO
                     var producto = db.PEDIDO_PRODUCTO
@@ -242,7 +242,7 @@ namespace CRACKED.Repositories
         {
             try
             {
-                using (var db = new CRACKEDEntities32())
+                using (var db = new CRACKEDEntities34())
                 {
                     var nuevoProducto = new PEDIDO_PRODUCTO
                     {
@@ -270,7 +270,7 @@ namespace CRACKED.Repositories
         {
             try
             {
-                using (var db = new CRACKEDEntities32())
+                using (var db = new CRACKEDEntities34())
                 {
                     var productoExistente = db.PEDIDO_PRODUCTO
                         .FirstOrDefault(p => p.Idproducto == producto.IdProducto && p.IdCliente == producto.IdCliente && p.idPedido == producto.IdPedido);
@@ -291,7 +291,7 @@ namespace CRACKED.Repositories
         }
         public List<CarroDto> ObtenerCarritoPorCliente(int idCliente)
         {
-            using (var db = new CRACKEDEntities32())  // Usamos el contexto de la base de datos
+            using (var db = new CRACKEDEntities34())  // Usamos el contexto de la base de datos
             {
                 // Realizamos la consulta para obtener los productos del carrito
                 var carritoItems = db.PEDIDO_PRODUCTO

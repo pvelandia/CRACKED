@@ -11,7 +11,7 @@ namespace CRACKED.Repositories
         {
             try
             {
-                using (var db = new CRACKEDEntities32())
+                using (var db = new CRACKEDEntities34())
                 {
                     db.USUARIOs.Add(userDb);
                     db.SaveChanges();
@@ -28,7 +28,7 @@ namespace CRACKED.Repositories
         {
             try
             {
-                using (var db = new CRACKEDEntities32())
+                using (var db = new CRACKEDEntities34())
                 {
                     var userDb = db.USUARIOs.FirstOrDefault(u => u.nombre == username);
                     if (userDb != null)
@@ -56,7 +56,7 @@ namespace CRACKED.Repositories
             UserListDto userListDto = new UserListDto();
             try
             {
-                using (var db = new CRACKEDEntities32())
+                using (var db = new CRACKEDEntities34())
                 {
                     userListDto.Users = db.USUARIOs.Select(u => new UserDto
                     {
