@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CRACKED.Repositories;
+using CRACKED.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +10,13 @@ namespace CRACKED.Controllers
 {
     public class AdminController : Controller
     {
+        private User_AdminService _usuarioService;
+        public AdminController()
+        {
+            _usuarioService = new User_AdminService(new User_AdminRepository());
+        }
+
+
         // GET: Admin
         public ActionResult Index()
         {
@@ -15,8 +24,17 @@ namespace CRACKED.Controllers
         }
         public ActionResult InfoUsuarios()
         {
-            return View();
+            var usuarios = _usuarioService.ObtenerUsuariosFiltrados("", "");
+            return View(usuarios);
         }
+
+        [HttpGet]
+        public ActionResult InfoUsuariosFiltered(string search, string filter)
+        {
+            var usuariosFiltrados = _usuarioService.ObtenerUsuariosFiltrados(search, filter);
+            return PartialView("_UsuariosTablePartial", usuariosFiltrados);
+        }
+
         public ActionResult Pedidos()
         {
             return View();

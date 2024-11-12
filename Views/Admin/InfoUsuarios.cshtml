@@ -1,41 +1,35 @@
-﻿@{
+﻿@model List<CRACKED.Models.USUARIO>
+
+@{
     ViewBag.Title = "InfoUsuarios";
     Layout = "~/Views/Shared/_Layout - Admin.cshtml";
+
+    // Diccionarios para roles y estados
+    var roles = new Dictionary<int, string> { { 1, "Cliente" }, { 2, "Administrador" }, { 3, "Domiciliario" } };
+    var estados = new Dictionary<int, string> { { 1, "Activo" }, { 0, "Inactivo" } };
 }
 
-<h1 style="color:saddlebrown;  font-family: cursive; text-align:center; font-weight:bold">Usuarios</h1>
+<h1 style="color:saddlebrown; font-family: cursive; text-align:center; font-weight:bold">Usuarios</h1>
 
 <div class="container text-center">
     <div class="row justify-content-start">
         <div class="col">
-            <div class="row ">
-                <div class="col">
-
-                    <select id="filterRoleState" class="form-select" onchange="filterTable()">
-                        <option value="">Filtrar por rol o estado...</option>
-                        <option value="admin">Administrador</option>
-                        <option value="domiciliario">Domiciliario</option>
-                        <option value="cliente">Cliente</option>
-                        <option value="activo">Activo</option>
-                        <option value="inactivo">Inactivo</option>
-                    </select>
-                </div>
-            </div>
+            <select id="filterRoleState" class="form-select" onchange="applyFilters()">
+                <option value="">Filtrar por rol o estado...</option>
+                <option value="administrador">Administrador</option>
+                <option value="domiciliario">Domiciliario</option>
+                <option value="cliente">Cliente</option>
+                <option value="activo">Activo</option>
+                <option value="inactivo">Inactivo</option>
+            </select>
         </div>
         <div class="col">
             <div class="input-group mb-3">
-                <span class="input-group-text " id="basic-addon1">
-                    <i class=" bi bi-search-heart-fill nav-icon " style="font-size: 30px;color: white"></i>
+                <span class="input-group-text" id="basic-addon1">
+                    <i class="bi bi-search-heart-fill nav-icon" style="font-size: 30px; color: white"></i>
                 </span>
-                <input type="text" id="searchInput" class="form-control " placeholder="Buscar en la tabla..." onkeyup="filterTable()" aria-describedby="basic-addon1">
-
+                <input type="text" id="searchInput" class="form-control" placeholder="Buscar en la tabla..." onkeyup="applyFilters()" aria-describedby="basic-addon1">
             </div>
-        </div>
-        <div class="col">
-            <div id="noResultsMessage" class="alert alert-warning" style="display: none;">
-                No se encontraron resultados para los filtros aplicados. Intente modificar los criterios de búsqueda.
-            </div>
-
         </div>
     </div>
 </div>
@@ -50,167 +44,40 @@
             <th>Correo</th>
             <th>Rol</th>
             <th>Estado</th>
-            <th>Accción</th>
-
+            <th>Acción</th>
         </tr>
     </thead>
     <tbody id="tableBody">
-        <!-- Aquí se agregan dinámicamente los productos -->
-        <tr>
-            <td>25</td>
-            <td>Marta</td>
-            <td>ASDAJK</td>
-            <td>3212345121</td>
-            <td>martajsd@dius.djd</td>
-            <td>admin</td>
-            <td>activo</td>
-            <td>
-                <a href="@Url.Action("DatosUsuario", "Admin")" class="btn btn-secondary">
-                    <i class=" bi bi-pencil-square nav-icon"></i>
-                </a>
-            </td>
-
-        </tr>
+        @foreach (var usuario in Model)
+        {
+            <tr>
+                <td>@usuario.idUsuario</td>
+                <td>@usuario.nombre</td>
+                <td>@usuario.apellido</td>
+                <td>@usuario.numeroContacto</td>
+                <td>@usuario.correoElectronico</td>
+                <td>@roles[usuario.idRol]</td>
+                <td>@estados[usuario.idEstado]</td>
+                <td>
+                    <a href="@Url.Action("DatosUsuario", "Admin", new { id = usuario.idUsuario })" class="btn btn-secondary">
+                        <i class="bi bi-pencil-square nav-icon"></i>
+                    </a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 
-<style>
-
-    .table-custom th {
-        background-color: #efcbab; /* Fondo de los encabezados */
-        color: #3d2306; /* Color del texto de los encabezados */
-        font-weight: bold; /* Negrita en los encabezados */
-        text-align: center;
-    }
-
-    .table-custom td {
-        color: black; /* Color del texto de los encabezados */
-        background-color: whitesmoke;
-    }
-
-    .table-custom {
-        width: 100%;
-        font-size: 20px; /* Tamaño de fuente */
-        text-align: center;
-    }
-
-    .table th, .table td {
-        border-color: saddlebrown;
-        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-        vertical-align: middle;
-    }
-
-    .btn-secondary {
-        padding: 10px 30px;
-        font-size: 16px;
-        background-color: transparent;
-        color: whitesmoke;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    }
-
-    .btn-success {
-        padding: 10px 30px;
-        font-size: 16px;
-        background-color: saddlebrown;
-        color: whitesmoke;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    }
-
-    .btn-primary {
-        padding: 10px 30px;
-        font-size: 16px;
-        background-color: saddlebrown;
-        color: whitesmoke;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    }
-
-    .total-container {
-        text-align: right;
-        margin-top: 20px;
-    }
-
-    .total-text {
-        font-size: 25px;
-        font-weight: bold;
-        color: saddlebrown;
-    }
-
-    .btn:hover {
-        opacity: 0.8;
-        color: white;
-        background-color: #a67145;
-    }
-
-    .nav-icon:hover {
-        color: white;
-    }
-
-    .form-select {
-        background-color: #efcfb2;
-        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    }
-
-    .input-group-text {
-        background-color: saddlebrown;
-        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    }
-
-    .form-control {
-        background-color: #efcfb2;
-        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    }
-</style>
 <script>
-    function filterTable() {
-        // Obtener el valor del buscador y el filtro seleccionado
-        let searchValue = document.getElementById("searchInput").value.toLowerCase();
-        let filterValue = document.getElementById("filterRoleState").value.toLowerCase();
-        let table = document.getElementById("tableBody");
-        let rows = table.getElementsByTagName("tr");
-        let noResults = true;
+    function applyFilters() {
+        const searchValue = document.getElementById("searchInput").value.toLowerCase();
+        const filterValue = document.getElementById("filterRoleState").value.toLowerCase();
 
-        // Recorrer todas las filas de la tabla
-        for (let i = 0; i < rows.length; i++) {
-            let cells = rows[i].getElementsByTagName("td");
-            let match = false;
-
-            // Aplicar el filtro de búsqueda (busca en todas las celdas excepto en la última columna)
-            for (let j = 0; j < cells.length - 1; j++) {
-                if (cells[j]) {
-                    let cellText = cells[j].textContent || cells[j].innerText;
-                    if (cellText.toLowerCase().indexOf(searchValue) > -1) {
-                        match = true;
-                        break;
-                    }
-                }
-            }
-
-            // Aplicar filtro de rol o estado
-            let role = cells[5].textContent.toLowerCase(); // Columna de Rol
-            let state = cells[6].textContent.toLowerCase(); // Columna de Estado
-
-            if (filterValue === "" || role === filterValue || state === filterValue) {
-                if (match) {
-                    rows[i].style.display = ""; // Mostrar fila si coincide con la búsqueda y el filtro
-                    noResults = false;
-                } else {
-                    rows[i].style.display = "none"; // Ocultar fila si no coincide con la búsqueda
-                }
-            } else {
-                rows[i].style.display = "none"; // Ocultar fila si no coincide con el filtro
-            }
-        }
-
-        // Mostrar mensaje si no hubo resultados
-        document.getElementById("noResultsMessage").style.display = noResults ? "block" : "none";
+        fetch(`/Admin/InfoUsuariosFiltered?search=${searchValue}&filter=${filterValue}`)
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById("tableBody").innerHTML = html;
+            })
+            .catch(error => console.error('Error:', error));
     }
 </script>

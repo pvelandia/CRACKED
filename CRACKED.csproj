@@ -215,9 +215,11 @@
     <Compile Include="Repositories\CarritoRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Repositories\User_AdminRepository.cs" />
     <Compile Include="Services\CarritoService.cs" />
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="Services\UserService.cs" />
+    <Compile Include="Services\User_AdminService.cs" />
     <Compile Include="Utilities\Correo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -438,6 +440,7 @@
     <Content Include="Views\Admin\AgregarProducto.cshtml" />
     <Content Include="Views\Admin\DetallePedido.cshtml" />
     <Content Include="Views\Admin\ProductosPedido.cshtml" />
+    <Content Include="Views\Admin\_UsuariosTablePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
