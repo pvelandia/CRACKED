@@ -12,7 +12,7 @@ namespace CRACKED.Repositories
         {
             try
             {
-                using (var db = new CRACKEDEntities34())
+                using (var db = new CRACKEDEntities36())
                 {
                     // Buscamos el producto en la base de datos y obtenemos su stock
                     var producto = db.PRODUCTOes
@@ -41,7 +41,7 @@ namespace CRACKED.Repositories
 
             try
             {
-                using (var db = new CRACKEDEntities34())
+                using (var db = new CRACKEDEntities36())
                 {
                     productListDto.Users = db.TIPO_PRODUCTO
                         .Select(t => new TipoProductoDto
@@ -66,7 +66,7 @@ namespace CRACKED.Repositories
 
             try
             {
-                using (var db = new CRACKEDEntities34())
+                using (var db = new CRACKEDEntities36())
                 {
                     productsListDto.Products = db.PRODUCTOes
                         .Select(p => new ProductDto
@@ -96,7 +96,7 @@ namespace CRACKED.Repositories
 
             try
             {
-                using (var db = new CRACKEDEntities34())
+                using (var db = new CRACKEDEntities36())
                 {
                     productDto = db.PRODUCTOes
                         .Where(p => p.idProducto == productoId)
@@ -123,7 +123,7 @@ namespace CRACKED.Repositories
         {
             try
             {
-                using (var db = new CRACKEDEntities34())
+                using (var db = new CRACKEDEntities36())
                 {
                     // Buscamos el producto en la base de datos
                     var producto = db.PRODUCTOes.FirstOrDefault(p => p.idProducto == productoId);

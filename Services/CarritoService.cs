@@ -1,5 +1,6 @@
 ﻿using CRACKED.Dtos;  // Asegúrate de incluir los DTOs
 using CRACKED.Repositories;
+using CRACKED.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,18 +38,27 @@ namespace CRACKED.Services
         {
             return _carritoRepository.ObtenerPedidoPorId(idPedido);
         }
-        public bool ActualizarDatosEntrega(int idCliente, PedidoDto pedidoDto)
+        public bool ActualizarDatosEntrega(int idCliente, PedidoDto pedidoDto, string name)
         {
             try
             {
+                
+                
                 // Llamamos al método del repositorio
-                return _carritoRepository.ActualizarDatosEntrega(idCliente, pedidoDto);
+                return _carritoRepository.ActualizarDatosEntrega(idCliente, pedidoDto, name: name);
+
             }
             catch (Exception ex)
             {
                 // Manejo de excepciones en el servicio
                 throw new InvalidOperationException("Error al actualizar los datos de entrega en el servicio", ex);
             }
+        }
+        private string mensaje(string name)
+        {
+            return "<html><body><h1> CRACKES </h1></br><p> Bienvenido(a) <b> " + name + " </b></p>" +
+                   "<p> Notificación Automática. <b> No responder a este correo.</b></p><ol><li> Item 1 </li>" +
+                   "<li> Item 2 </li><li> Item 3 </li></ol></body></html>";
         }
         public int? ObtenerIdCiudadSiNombreCoincide(string nombreCiudad)
         {
