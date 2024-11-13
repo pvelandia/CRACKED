@@ -22,5 +22,22 @@ namespace CRACKED.Services
         {
             return _userAdminRepository.ObtenerUsuariosFiltrados(searchValue, filterValue);
         }
+        public void ActualizarUsuario(USUARIO usuario)
+        {
+            _userAdminRepository.ActualizarUsuario(usuario);
+        }
+
+
+
+
+        public UserDto ObtenerUsuarioPorId(int idUsuario)
+        {
+            return _userAdminRepository.ObtenerUsuarioPorId(idUsuario);
+        }
+        public void EliminarUsuario(int idUsuario)
+        {
+            _userAdminRepository.EliminarUsuario(idUsuario);
+        }
+
     }
-    }
+}

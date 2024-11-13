@@ -50,6 +50,62 @@ namespace CRACKED.Repositories
                 return query.ToList();
             }
         }
-    }
+        public void ActualizarUsuario(USUARIO usuario)
+        {
+            using (var db = new CRACKEDEntities36())
+            {
+                var usuarioExistente = db.USUARIOs.Find(usuario.idUsuario);
+                if (usuarioExistente != null)
+                {
+                    usuarioExistente.nombre = usuario.nombre;
+                    usuarioExistente.apellido = usuario.apellido;
+                    usuarioExistente.numeroContacto = usuario.numeroContacto;
+                    usuarioExistente.correoElectronico = usuario.correoElectronico;
+                    usuarioExistente.idEstado = usuario.idEstado;
+                    usuarioExistente.idRol = usuario.idRol;
 
+                    db.SaveChanges();
+                }
+            }
+        }
+
+
+
+        public void EliminarUsuario(int idUsuario)
+            {
+                using (var db = new CRACKEDEntities36())
+                {
+                    var usuario = db.USUARIOs.FirstOrDefault(u => u.idUsuario == idUsuario);
+                    if (usuario != null)
+                    {
+                        db.USUARIOs.Remove(usuario);
+                        db.SaveChanges();
+                    }
+                }
+            }
+        public UserDto ObtenerUsuarioPorId(int idUsuario)
+        {
+            using (var db = new CRACKEDEntities36())
+            {
+                var usuario = db.USUARIOs.Find(idUsuario);
+                if (usuario != null)
+                {
+                    return new UserDto
+                    {
+                        IdUser = usuario.idUsuario,
+                        Name = usuario.nombre,
+                        Apellido = usuario.apellido,
+                        Numero = usuario.numeroContacto,
+                        Correo = usuario.correoElectronico,
+                        IdEstado = usuario.idEstado,
+                        IdRol = usuario.idRol
+                    };
+                }
+                return null;
+            }
+        }
+
+
+    }
 }
+

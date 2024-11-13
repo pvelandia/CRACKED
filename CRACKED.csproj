@@ -157,6 +157,7 @@
     <Compile Include="Dtos\TipoProductoDto.cs" />
     <Compile Include="Dtos\UserDto.cs" />
     <Compile Include="Dtos\UserListDto.cs" />
+    <Compile Include="Dtos\UsuarioViewModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
