@@ -146,6 +146,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CarritoController.cs" />
+    <Compile Include="Controllers\DomiciliarioController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Dtos\CarroDto.cs" />
@@ -442,6 +443,9 @@
     <Content Include="Views\Admin\DetallePedido.cshtml" />
     <Content Include="Views\Admin\ProductosPedido.cshtml" />
     <Content Include="Views\Admin\_UsuariosTablePartial.cshtml" />
+    <Content Include="Views\Domiciliario\Pedidos.cshtml" />
+    <Content Include="Views\Domiciliario\DetallesPedidos.cshtml" />
+    <Content Include="Views\Domiciliario\ProductosPedidos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
