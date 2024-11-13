@@ -18,7 +18,7 @@ namespace CRACKED.Controllers
         {
             // Aquí se pasa tanto CarritoRepository como ProductRepository al CarritoService
             _carritoService = new CarritoService(
-                new CarritoRepository(new CRACKEDEntities32()),
+                new CarritoRepository(new CRACKEDEntities36()),
                 new ProductRepository()
             );
         }
@@ -59,12 +59,12 @@ namespace CRACKED.Controllers
                         ViewBag.ErrorMessage = "La ciudad especificada no se encuentra.";
                     }
                     int idCliente = user.IdUser;
-
+                  
+                    string name = user.Name;
                     // Actualizamos los datos de entrega en el servicio
-                    bool actualizado = _carritoService.ActualizarDatosEntrega(idCliente, model);
-
+                    bool actualizado = _carritoService.ActualizarDatosEntrega(idCliente, model, name);
                     
-                        return RedirectToAction("ConfirmacionPedido");
+                        return RedirectToAction("Productos", "User");
                     
                     
                 }

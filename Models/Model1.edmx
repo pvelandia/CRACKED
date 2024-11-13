@@ -83,6 +83,19 @@
           <Property Name="imagen" Type="varchar" MaxLength="1000" />
           <Property Name="idSabor" Type="int" Nullable="false" />
         </EntityType>
+        <!--Errores durante la generación:
+advertencia 6013: La tabla o vista 'CRACKED.dbo.REGISTRO_PRODUCTOS' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
+        <EntityType Name="REGISTRO_PRODUCTOS">
+          <Property Name="idPedidoProducto" Type="int" />
+          <Property Name="idPedido" Type="int" />
+          <Property Name="idCliente" Type="int" />
+          <Property Name="idProducto" Type="int" />
+          <Property Name="cantidad" Type="int" />
+          <Property Name="idEstado" Type="int" />
+          <Property Name="valorProducto" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="porcion" Type="int" />
+          <Property Name="fecha_eliminacionTabla" Type="datetime" />
+        </EntityType>-->
         <EntityType Name="ROL">
           <Key>
             <PropertyRef Name="idRol" />
@@ -908,7 +921,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="CRACKEDEntities32" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="CRACKEDEntities36" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AUDITORIAs" EntityType="Self.AUDITORIA" />
           <EntitySet Name="CIUDADs" EntityType="Self.CIUDAD" />
           <EntitySet Name="DEPARTAMENTOes" EntityType="Self.DEPARTAMENTO" />
@@ -1011,7 +1024,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="CRACKEDModelStoreContainer" CdmEntityContainer="CRACKEDEntities32">
+        <EntityContainerMapping StorageEntityContainer="CRACKEDModelStoreContainer" CdmEntityContainer="CRACKEDEntities36">
           <EntitySetMapping Name="AUDITORIAs">
             <EntityTypeMapping TypeName="CRACKEDModel.AUDITORIA">
               <MappingFragment StoreEntitySet="AUDITORIA">

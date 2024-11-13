@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Inicio";
     Layout = "~/Views/Shared/_Layout - Admin.cshtml";
 }
@@ -8,38 +7,38 @@
     <div class="container text-center">
         <div class="row align-items-start">
             <div class="col">
-                <a href="@Url.Action("InfoUsuarios", "Admin")">
-                    <img src="~/Content/Imagen/people_3239045.png" alt="Botón de imagen" class="img-fluid rounded img-button">
-                
+                <a href="@Url.Action("InfoUsuarios", "Admin")" class="btn img-button">
+                    <img src="~/Content/Imagen/people_3239045.png" alt="Botón de imagen" class="img-fluid ">
+                    <span class="img-button-text">Usuarios</span>
                 </a>
             </div>
             <div class="col">
-                <a href="@Url.Action("Galletas", "User")">
-                    <img src="~/Content/Imagen/package.png" alt="Botón de imagen" class="img-fluid rounded img-button">
-                    
+                <a href="@Url.Action("Pedidos", "Admin")" class="btn img-button">
+                    <img src="~/Content/Imagen/package.png" alt="Botón de imagen" class="img-fluid ">
+                    <span class="img-button-text">Pedidos</span>
                 </a>
             </div>
-           
-            <div class="col">
-              
-                <a href="@Url.Action("Galletas", "User")">
-                    <img src="~/Content/Imagen/cookies_3858837.png" alt="Botón de imagen" class="img-fluid rounded img-button">
 
+            <div class="col">
+
+                <a href="@Url.Action("Productos", "Admin")" class="btn img-button">
+                    <img src="~/Content/Imagen/cookies_3858837.png" alt="Botón de imagen" class="img-fluid ">
+                    <span class="img-button-text">Productos</span>
                 </a>
             </div>
         </div>
         <div>
             <div class="row justify-content-evenly">
                 <div class="col-4">
-                    <a href="@Url.Action("Galletas", "User")">
-                        <img src="~/Content/Imagen/report_2912794.png" alt="Botón de imagen" class="img-fluid rounded img-button">
-                      
+                    <a href="@Url.Action("Reportes", "Admin")" class="btn img-button">
+                        <img src="~/Content/Imagen/report_2912794.png" alt="Botón de imagen" class="img-fluid">
+                        <span class="img-button-text">Reportes</span>
                     </a>
                 </div>
                 <div class="col-4">
-                    <a href="@Url.Action("Galletas", "User")">
-                        <img src="~/Content/Imagen/statistics_1580913.png" alt="Botón de imagen" class="img-fluid rounded img-button">
-                     
+                    <a href="@Url.Action("Galletas", "User")" class="btn img-button">
+                        <img src="~/Content/Imagen/statistics_1580913.png" alt="Botón de imagen" class="img-fluid">
+                        <span class="img-button-text">Estadisticas</span>
                     </a>
                 </div>
             </div>
@@ -93,15 +92,26 @@
         cursor: pointer;
         font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     }
+
     .img-button {
         transition: transform 0.2s ease;
-        border:groove;
-        border-color:saddlebrown;
+        border: groove;
+        border-color: saddlebrown;
     }
 
         .img-button:hover {
             transform: scale(1.05); /* Efecto de agrandamiento */
         }
+
+
+
+
+    .img-button-text {
+        font-size: 30px; /* Tamaño del texto */
+        color: #3d2306; /* Color del texto */
+        font-family: 'Arial', sans-serif; /* Fuente personalizada */
+        display: block; /* Hace que el texto esté en su propia línea */
+    }
 </style>
 
 

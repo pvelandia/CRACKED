@@ -1,0 +1,28 @@
+﻿
+
+@model List<CRACKED.Models.USUARIO>
+
+
+@{
+    var roles = new Dictionary<int, string> { { 1, "Cliente" }, { 2, "Administrador" }, { 3, "Domiciliario" } };
+    var estados = new Dictionary<int, string> { { 1, "Activo" }, { 0, "Inactivo" } };
+}
+
+
+@foreach (var usuario in Model)
+{
+    <tr>
+        <td>@usuario.idUsuario</td>
+        <td>@usuario.nombre</td>
+        <td>@usuario.apellido</td>
+        <td>@usuario.numeroContacto</td>
+        <td>@usuario.correoElectronico</td>
+        <td>@roles[usuario.idRol]</td>
+        <td>@estados[usuario.idEstado]</td>
+        <td>
+            <a href="@Url.Action("DatosUsuario", "Admin", new { id = usuario.idUsuario })" class="btn btn-secondary">
+                <i class="bi bi-pencil-square nav-icon"></i>
+            </a>
+        </td>
+    </tr>
+}

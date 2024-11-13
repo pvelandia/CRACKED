@@ -40,12 +40,12 @@
                         <input type="hidden" name="stock" value="@Model.Products[0].Stock" />
                         <input type="hidden" id="hiddenPortion" name="porcion" value="1">
                     </div>
-                    <div class="row justify-content-start row-porcion">
+                    <div class="row justify-content-start ">
                         <div class="col-sm-4">
                             <h5 style="color: black; font-family: cursive; text-align: left;"> Porciones:</h5>
                         </div>
                         <div class="col-sm-4">
-                            <input type="text" id="selectionInput" name="selectionInput" value="x4">
+                            <input type="text" id="selectionInput" name="selectionInput" value="x4" style="background-color:whitesmoke">
                         </div>
                     </div>
 
@@ -102,7 +102,15 @@
             hiddenPortion.value = 8;
         });
 
+        document.getElementById("Buttonx4").addEventListener("click", (event) => {
+            event.preventDefault();
+            document.getElementById("selectionInput").value = "x4";
+        });
 
+        document.getElementById("Buttonx8").addEventListener("click", (event) => {
+            event.preventDefault();
+            document.getElementById("selectionInput").value = "x8";
+        });
     });
 </script>
 

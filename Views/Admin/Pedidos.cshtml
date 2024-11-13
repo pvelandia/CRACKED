@@ -1,0 +1,214 @@
+﻿@{
+    ViewBag.Title = "Pedidos";
+    Layout = "~/Views/Shared/_Layout - Admin.cshtml";
+}
+
+
+
+
+<h1 style="color:saddlebrown;  font-family: cursive; text-align:center; font-weight:bold">Pedidos</h1>
+
+<div class="container text-start">
+    <div class="row justify-content-start">
+        <div class="col-auto">
+            <div class="row ">
+                <div class="col-auto">
+
+                    <select id="filterRoleState" class="form-select" onchange="filterTable()">
+                        <option value="">Filtrar por estado o domiciliario</option>
+                        <option value="domiciliario 1">domiciliario 1</option>  @*creo que aca se cargan los nombres de la bd como con los departamentos *@
+                        <option value="pendiente">Pendiente</option>
+                        <option value="entregado">Entregado</option>
+                        <option value="cancelado">Cancelado</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="input-group mb-3">
+                <span class="input-group-text " id="basic-addon1">
+                    <i class=" bi bi-search-heart-fill nav-icon " style="font-size: 30px;color: white"></i>
+                </span>
+                <input type="text" id="searchInput" class="form-control " placeholder="Buscar en la tabla..." onkeyup="filterTable()" aria-describedby="basic-addon1">
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="col">
+    <div id="noResultsMessage" class="alert alert-warning" style="display: none;">
+        No se encontraron resultados para los filtros aplicados. Intente modificar los criterios de búsqueda.
+    </div>
+
+</div>
+<table class="table table-custom">
+    <thead>
+        <tr>
+            <th>Pedido</th>
+            <th>Cliente</th>
+            <th>Fecha Entrega</th>
+            <th>Domiciliario</th>
+            <th>Estado</th>
+            <th>Ver detalles</th>
+
+        </tr>
+    </thead>
+    <tbody id="tableBody">
+        <!-- Aquí se agregan dinámicamente los productos -->
+        <tr>
+            <td>25</td>
+            <td>Sara</td>
+            <td>25/09/2024</td>
+            <td>Domiciliario 1</td>
+            <td>Pendiente</td>
+            <td>
+                <a href="@Url.Action("DetallePedido", "Admin")" class="btn btn-secondary">
+                    <i class=" bi bi-eye-fill nav-icon"></i>
+                </a>
+            </td>
+
+        </tr>
+    </tbody>
+</table>
+
+<style>
+
+    .table-custom th {
+        background-color: #efcbab; /* Fondo de los encabezados */
+        color: #3d2306; /* Color del texto de los encabezados */
+        font-weight: bold; /* Negrita en los encabezados */
+        text-align: center;
+    }
+
+    .table-custom td {
+        color: black; /* Color del texto de los encabezados */
+        background-color: whitesmoke;
+    }
+
+    .table-custom {
+        width: 100%;
+        font-size: 20px; /* Tamaño de fuente */
+        text-align: center;
+    }
+
+    .table th, .table td {
+        border-color: saddlebrown;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        vertical-align: middle;
+    }
+
+    .btn-secondary {
+        padding: 10px 30px;
+        font-size: 16px;
+        background-color: transparent;
+        color: whitesmoke;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+
+    .btn-success {
+        padding: 10px 30px;
+        font-size: 16px;
+        background-color: saddlebrown;
+        color: whitesmoke;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+
+    .btn-primary {
+        padding: 10px 30px;
+        font-size: 16px;
+        background-color: saddlebrown;
+        color: whitesmoke;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+
+    .total-container {
+        text-align: right;
+        margin-top: 20px;
+    }
+
+    .total-text {
+        font-size: 25px;
+        font-weight: bold;
+        color: saddlebrown;
+    }
+
+    .btn:hover {
+        opacity: 0.8;
+        color: white;
+        background-color: #a67145;
+    }
+
+    .nav-icon:hover {
+        color: white;
+    }
+
+    .form-select {
+        background-color: #efcfb2;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+
+    .input-group-text {
+        background-color: saddlebrown;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+
+    .form-control {
+        background-color: #efcfb2;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+</style>
+<script>
+    function filterTable() {
+        // Obtener el valor del buscador y el filtro seleccionado
+        let searchValue = document.getElementById("searchInput").value.toLowerCase();
+        let filterValue = document.getElementById("filterRoleState").value.toLowerCase();
+        let table = document.getElementById("tableBody");
+        let rows = table.getElementsByTagName("tr");
+        let noResults = true;
+
+        // Recorrer todas las filas de la tabla
+        for (let i = 0; i < rows.length; i++) {
+            let cells = rows[i].getElementsByTagName("td");
+            let match = false;
+
+            // Aplicar el filtro de búsqueda (busca en todas las celdas excepto en la última columna)
+            for (let j = 0; j < cells.length - 1; j++) {
+                if (cells[j]) {
+                    let cellText = cells[j].textContent || cells[j].innerText;
+                    if (cellText.toLowerCase().indexOf(searchValue) > -1) {
+                        match = true;
+                        break;
+                    }
+                }
+            }
+
+            // Aplicar filtro de rol o estado
+            let estado = cells[4].textContent.toLowerCase(); // Columna de Rol
+            let domici = cells[3].textContent.toLowerCase(); // Columna de Rol
+
+            if (filterValue === "" || estado === filterValue || domici === filterValue ) {
+                if (match) {
+                    rows[i].style.display = ""; // Mostrar fila si coincide con la búsqueda y el filtro
+                    noResults = false;
+                } else {
+                    rows[i].style.display = "none"; // Ocultar fila si no coincide con la búsqueda
+                }
+            } else {
+                rows[i].style.display = "none"; // Ocultar fila si no coincide con el filtro
+            }
+        }
+
+        // Mostrar mensaje si no hubo resultados
+        document.getElementById("noResultsMessage").style.display = noResults ? "block" : "none";
+    }
+</script>

@@ -45,8 +45,8 @@
 
                     <!-- Dropdown de Ciudades -->
                     <div class="col-6">
-                        <label for="inputCiudad" class="form-label">Ciudad</label>
-                        @Html.DropDownListFor(model => model.IdCiudad, new List<SelectListItem>(), "Seleccione una Ciudad", new { @class = "form-control", id = "inputCiudad" })
+                        <label for="inputCiudad" class="form-label ">Ciudad</label>
+                        @Html.DropDownListFor(model => model.IdCiudad, new List<SelectListItem>(), "Seleccione una Ciudad", new { @class = "form-select ", id = "inputCiudad" })
                     </div>
 
                     <!-- Dirección -->
@@ -69,33 +69,30 @@
                     </div>
 
                 </div>
+                <div class="col-12">
+                            <!-- Cambiar el botón de type="button" a type="submit" -->
+                            <button type="submit" class="btn btn-primary">
+                                Pide ahora
+                            </button>
+                        </div>
             </div>
 
-            <div class="col-4"></div>
-
-        </div>
-    </div>
-
-    <hr style="border: 1px solid saddlebrown; margin: 2rem 0;">
-
-    <div class="container">
-        <div class="form-group">
-            <div class="row justify-content-between">
-                <div class="col-4 align-self-center">
-                    <div class="alert alert-primary d-flex align-items-center small-alert" role="alert">
-                        <svg class="bi flex-shrink-0 " role="img" aria-label="Info:" width="50" height="50"><use xlink:href="#info-fill" /></svg>
-                        <div style="padding-left: 0.5rem;">
-                            <h6 style="color: black; font-weight: bold;">Recuerda que el pago es Contra entrega</h6>
+            <div class="col-8">
+                <div class="container">
+                    <div class="form-group">
+                        <div class="row justify-content-between">
+                            <div class="col-6 align-self-center">
+                                <div class="alert alert-primary d-flex align-items-center small-alert" role="alert">
+                                    <svg class="bi flex-shrink-0 " role="img" aria-label="Info:" width="50" height="50"><use xlink:href="#info-fill" /></svg>
+                                    <div style="padding-left: 0.5rem;">
+                                        <h6 style="color: black; font-weight: bold;">Recuerda que el pago es Contra entrega</h6>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <div class="col-12">
-                <!-- Cambiar el botón de type="button" a type="submit" -->
-                <button type="submit" class="btn btn-primary">
-                    Pide ahora
-                </button>
+                </div>
             </div>
 
             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="false" data-bs-focus="true" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -106,7 +103,7 @@
 
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body" style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;" ">
+                        <div class="modal-body" style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;" >
                             <h3 style="color:saddlebrown">¡Gracias por tu pedido!</h3>
                             Toda la información ha sido enviada a tu correo electrónico.
                         </div>
@@ -119,7 +116,7 @@
             </div>
         </div>
     </div>
-    </div>
+
 
     <script src="~/Scripts/bootstrap.bundle.min.js"></script>
     <!-- jQuery -->
@@ -186,9 +183,60 @@
     </svg>
 
     <style>
-        /* Estilos adicionales */
-        .form-control, .form-select {
+        .form-group {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        .form-label {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-weight: bold;
+        }
+        .form-control {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+           
+        }
+        
+        .colored-container {
+            background-color: whitesmoke; /* Cambia el color al que prefieras */
+            padding: 50px; /* Agrega un poco de relleno */
+
+            opacity: 0.8;
+        }
+          
+      .form-control:disabled {
+                background-color: #f3d8bf;
+                opacity: 0.8;
+            }
+
+     
+
+        .alert {
             background-color: #efcbab;
+            border-color: saddlebrown;
+        }
+
+        .small-alert {
+            padding: 4px; /* Reduce el espaciado general */
+            font-size: 0.875rem; /* Tamaño de fuente más pequeño */
+        }
+
+        .small-alert-text {
+            padding-left: 6px; /* Espacio entre el ícono y el texto */
+        }
+
+        .btn-primary {
+            padding: 10px 30px;
+            font-size: 16px;
+            background-color: saddlebrown;
+            color: whitesmoke;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        .form-control, .form-select {
+            background-color: #efcfb2;
         }
 
         .form-label {

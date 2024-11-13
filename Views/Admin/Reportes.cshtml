@@ -1,0 +1,82 @@
+﻿@{
+    ViewBag.Title = "Reportes";
+    Layout = "~/Views/Shared/_Layout - Admin.cshtml";
+}
+
+<h1 style="color:saddlebrown;  font-family: cursive; text-align:center; font-weight:bold">Reportes</h1>
+<div class="container-fluid d-flex justify-content-center ">
+    <div class="form-group p-lg-4 bg rounded shadow" style="max-width: 800px; width: 100%;">
+        <div class="container text-center">
+            <div class="row justify-content-evenly">
+                <div class="col-4">
+                    <label for="fechaInicio" class="form-label">Fecha Inicio:</label>
+
+                    <input type="date" id="fechaInicio" name="fechaInicio" class="form-control" />
+                </div>
+                <div class="col-4">
+                    <label for="fechaFin" class="form-label">Fecha Fin:</label>
+
+                    <input type="date" id="fechaFin" name="fechaFin" class="form-control" />
+                </div>
+            </div>
+
+
+            <div class="row justify-content-evenly">
+                <div class="col-4">
+                    <select id="filterRoleState" class="form-select" onchange="filterTable()">
+                        <option value=""> reporte por: </option>
+                        <option value="VentasGener">Ventas Generales</option>
+                        <option value="Stock">Estado Stock</option>
+                    </select>
+                </div>
+                <div class="col-4">
+                    <a href="#" class="btn btn-primary">
+                        <i class="bi bi-clipboard2-data-fill nav-icon" style="font-size: 20px;color: white"></i> Generar reporte
+                    </a>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+        <style>
+            .form-label {
+                font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+                font-weight: bold;
+            }
+
+            .form-control {
+                background-color: #efcbab;
+            }
+
+            .btn:hover {
+                opacity: 0.8;
+                color: white;
+                background-color: #a67145;
+            }
+
+            .form-select {
+                background-color: #efcfb2;
+                font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            }
+
+            .form-control:disabled {
+                background-color: #f3d8bf;
+                opacity: 0.8;
+            }
+
+            .btn-primary {
+                padding: 10px 30px;
+                font-size: 16px;
+                background-color: saddlebrown;
+                color: whitesmoke;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            }
+            .bg {
+                background-color: floralwhite;
+            }
+        </style>
+
+

@@ -1,13 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Controllers",
-    "\\Models",
-    "\\Repositories",
-    "\\Services",
     "\\Views",
-    "\\Views\\User"
+    "\\Views\\Admin"
   ],
-  "SelectedNode": "\\Repositories\\CarritoRepository.cs",
+  "SelectedNode": "\\Views\\Admin\\DatosUsuario.cshtml",
   "PreviewInSolutionExplorer": false
 }
