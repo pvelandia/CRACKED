@@ -10,16 +10,16 @@ namespace CRACKED.Repositories
     public class CarritoRepository
     {
         // Método para obtener un pedido por su ID utilizando DTO
-        private readonly CRACKEDEntities35 _context;
+        private readonly CRACKEDEntities40 _context;
 
         // Constructor que acepta un CRACKEDEntities29 como argumento
-        public CarritoRepository(CRACKEDEntities35 context)
+        public CarritoRepository(CRACKEDEntities40 context)
         {
             _context = context;
         }
         public bool ActualizarPedido(PedidoDto pedido)
         {
-            using (var db = new CRACKEDEntities35()) // Asegúrate de usar tu contexto adecuado
+            using (var db = new CRACKEDEntities40()) // Asegúrate de usar tu contexto adecuado
             {
                 // Obtener el pedido existente a partir del idPedido
                 var pedidoExistente = db.PEDIDOes.SingleOrDefault(p => p.idPedido == pedido.IdPedido);
@@ -58,7 +58,7 @@ namespace CRACKED.Repositories
         {
             try
             {
-                using (var db = new CRACKEDEntities35())
+                using (var db = new CRACKEDEntities40())
                 {
                     // Obtener el correo del usuario desde la tabla USUARIOS
                     var usuario = db.USUARIOs.FirstOrDefault(u => u.idUsuario == idCliente);
@@ -117,7 +117,7 @@ namespace CRACKED.Repositories
 
         private string ObtenerNombreProductoPorId(int idProducto)
         {
-            using (var db = new CRACKEDEntities35())
+            using (var db = new CRACKEDEntities40())
             {
                 var producto = db.PRODUCTOes.FirstOrDefault(p => p.idProducto == idProducto);
                 return producto != null ? producto.nombre : "Producto no encontrado";
@@ -176,7 +176,7 @@ namespace CRACKED.Repositories
         {
             try
             {
-                using (var db = new CRACKEDEntities35())
+                using (var db = new CRACKEDEntities40())
                 {
                     // Buscamos el pedido en la base de datos y lo mapeamos a un DTO
                     var pedido = db.PEDIDOes
@@ -207,7 +207,7 @@ namespace CRACKED.Repositories
         {
             try
             {
-                using (var db = new CRACKEDEntities35())
+                using (var db = new CRACKEDEntities40())
                 {
                     // Buscamos si ya existe un pedido para el cliente con la misma dirección
                     var pedidoExistente = db.PEDIDOes
@@ -280,7 +280,7 @@ namespace CRACKED.Repositories
         {
             try
             {
-                using (var db = new CRACKEDEntities35())
+                using (var db = new CRACKEDEntities40())
                 {
                     // Buscamos el producto en el carrito y lo mapeamos a un DTO
                     var producto = db.PEDIDO_PRODUCTO
@@ -312,7 +312,7 @@ namespace CRACKED.Repositories
         {
             try
             {
-                using (var db = new CRACKEDEntities35())
+                using (var db = new CRACKEDEntities40())
                 {
                     var nuevoProducto = new PEDIDO_PRODUCTO
                     {
@@ -340,7 +340,7 @@ namespace CRACKED.Repositories
         {
             try
             {
-                using (var db = new CRACKEDEntities35())
+                using (var db = new CRACKEDEntities40())
                 {
                     var productoExistente = db.PEDIDO_PRODUCTO
                         .FirstOrDefault(p => p.Idproducto == producto.IdProducto && p.IdCliente == producto.IdCliente && p.idPedido == producto.IdPedido);
@@ -361,7 +361,7 @@ namespace CRACKED.Repositories
         }
         public List<CarroDto> ObtenerCarritoPorCliente(int idCliente)
         {
-            using (var db = new CRACKEDEntities35 ())  // Usamos el contexto de la base de datos
+            using (var db = new CRACKEDEntities40 ())  // Usamos el contexto de la base de datos
             {
                 // Realizamos la consulta para obtener los productos del carrito
                 var carritoItems = db.PEDIDO_PRODUCTO

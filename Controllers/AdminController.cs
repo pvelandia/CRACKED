@@ -2,6 +2,7 @@
 using CRACKED.Models;
 using CRACKED.Repositories;
 using CRACKED.Services;
+using Rotativa;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,16 +17,19 @@ namespace CRACKED.Controllers
         private User_AdminService _usuarioService;
         private readonly ProductService _productService;
         private readonly PedidoService _pedidoService;
+        private readonly ReporteService _reporteService;
 
         public AdminController()
         {
             _usuarioService = new User_AdminService(new User_AdminRepository());
             _productService = new ProductService();
             _pedidoService = new PedidoService();
+            _reporteService = new ReporteService();
 
         }
-
-       
+        
+        
+      
         // GET: Admin
         public ActionResult Index()
         {
@@ -228,6 +232,27 @@ namespace CRACKED.Controllers
         public ActionResult ProductosPedido()
         {
             return View();
+        }
+        [HttpPost]
+
+        public ActionResult User_AdminReportPrint(string tipoReporte)
+        {
+            // Verifica el tipo de reporte y genera los datos correspondientes
+            var report = new ReportDto2
+            {
+                List = tipoReporte == "Pedidos" ?
+                    _reporteService.ObtenerReportePedidos() :
+                    _reporteService.ObtenerReporteUsuarios(),
+                GeneradoPor = "UserLogado", // Nombre del usuario logueado
+                Fecha = DateTime.Now.ToString(),
+                TipoReporte = tipoReporte  // Pasa el tipo de reporte
+            };
+
+            // Usa la misma vista para mostrar el reporte o generar el PDF
+            return new ViewAsPdf("User_AdminReportPrint", report)
+            {
+                FileName = "Reporte-" + tipoReporte + "-" + Guid.NewGuid() + ".pdf"
+            };
         }
     }
 }

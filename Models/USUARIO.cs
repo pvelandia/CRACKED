@@ -17,7 +17,6 @@ namespace CRACKED.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public USUARIO()
         {
-            this.AUDITORIAs = new HashSet<AUDITORIA>();
             this.PEDIDOes = new HashSet<PEDIDO>();
             this.PEDIDOes1 = new HashSet<PEDIDO>();
             this.PEDIDO_PRODUCTO = new HashSet<PEDIDO_PRODUCTO>();
@@ -32,8 +31,6 @@ namespace CRACKED.Models
         public int idRol { get; set; }
         public int idEstado { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AUDITORIA> AUDITORIAs { get; set; }
         public virtual ESTADO ESTADO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PEDIDO> PEDIDOes { get; set; }
