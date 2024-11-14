@@ -10,17 +10,24 @@ namespace CRACKED.Dtos
         public int IdPedido { get; set; }
         public int IdCliente { get; set; }
         public int IdDomiciliario { get; set; }
-        public int IdCiudad { get; set; }
-        public int IdMetodoPago { get; set; }
+        public String IdCiudad { get; set; }
+        public int IdCiudads { get; set; }
+        public int IdDepartamento { get; set; }
         public int IdEstado{ get; set; }
         public DateTime FechaEntrega { get; set; }
         public DateTime FechaVenta { get; set; }
         public String Direccion { get; set; }
+        public String Barrio { get; set; }
+        public String Telefono { get; set; }
         public float ValorTotal { get; set; }
-        public float Iva { get; set; }
-        public string Estado { get; set; }
-       
-  
 
-}
+        public string NombreCliente { get; set; }
+        public string NombreDomiciliario { get; set; }
+        public string NombreEstado { get; set; }
+        public string NombreCiudad { get; set; }
+        public string NombreDepartamento { get; set; }
+
+
+
+    }
 }

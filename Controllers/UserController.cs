@@ -21,7 +21,7 @@ namespace CRACKED.Controllers
         {
             _productService = new ProductService();
         }
-
+     
         public ActionResult Productos()
         {
             TipoProductListDto tiposDeProducto = _productService.ObtenerTiposDeProducto();
@@ -211,7 +211,13 @@ namespace CRACKED.Controllers
             }
         }
 
-
+        [HttpPost]
+        public ActionResult Logout()
+        {
+            // Eliminar los datos del usuario de la sesión
+            Session["UserLogged"] = null;
+            return RedirectToAction("Index", "Home");  // Redirigir al inicio después de cerrar sesión
+        }
 
         [HttpPost]
         public ActionResult Cookiecakes(UserDto model, int quantity, string selectionInput)

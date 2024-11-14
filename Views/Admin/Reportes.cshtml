@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewBag.Title = "Reportes";
+    Layout = "~/Views/Shared/_Layout - Admin.cshtml";
+}
+
+<h1 style="color:saddlebrown;  font-family: cursive; text-align:center; font-weight:bold">Reportes</h1>
+<div class="container-fluid d-flex justify-content-center ">
+    <div class="form-group p-lg-4 bg rounded shadow" style="max-width: 800px; width: 100%;">
+        <div class="container text-center">
+
+
+
+            <div class="row justify-content-evenly">
+                <div class="col-4">
+                    <!-- El formulario debe envolver todo lo que se quiere enviar -->
+                    <form method="post" action="@Url.Action("User_AdminReportPrint", "Admin")">
+
+                        <div class="col-12">
+                            <select id="filterRoleState" name="tipoReporte" class="form-select">
+                                <option value="">Reporte por:</option>
+                                <option value="Pedidos">Pedidos</option>
+                                <option value="Usuarios">Usuarios</option>
+                            </select>
+                        </div>
+                        <div class="col-12 mt-2">
+                            <button type="submit" class="btn btn-primary">Generar reporte</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <style>
+                .form-label {
+                    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+                    font-weight: bold;
+                }
+
+                .form-control {
+                    background-color: #efcbab;
+                }
+
+                .btn:hover {
+                    opacity: 0.8;
+                    color: white;
+                    background-color: #a67145;
+                }
+
+                .form-select {
+                    background-color: #efcfb2;
+                    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+                }
+
+                .form-control:disabled {
+                    background-color: #f3d8bf;
+                    opacity: 0.8;
+                }
+
+                .btn-primary {
+                    padding: 10px 30px;
+                    font-size: 16px;
+                    background-color: saddlebrown;
+                    color: whitesmoke;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+                }
+
+                .bg {
+                    background-color: floralwhite;
+                }
+            </style>
+
+

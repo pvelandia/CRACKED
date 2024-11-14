@@ -1,11 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="CRACKEDModelStoreContainer" CdmEntityContainer="CRACKEDEntities28">
+  <EntityContainerMapping StorageEntityContainer="CRACKEDModelStoreContainer" CdmEntityContainer="CRACKEDEntities40">
     <EntitySetMapping Name="AUDITORIAs">
       <EntityTypeMapping TypeName="CRACKEDModel.AUDITORIA">
         <MappingFragment StoreEntitySet="AUDITORIA">
           <ScalarProperty Name="idAuditoria" ColumnName="idAuditoria" />
-          <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
           <ScalarProperty Name="accion" ColumnName="accion" />
           <ScalarProperty Name="query" ColumnName="query" />
           <ScalarProperty Name="fecha" ColumnName="fecha" />
@@ -39,15 +38,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="METODO_PAGO">
-      <EntityTypeMapping TypeName="CRACKEDModel.METODO_PAGO">
-        <MappingFragment StoreEntitySet="METODO_PAGO">
-          <ScalarProperty Name="idMetodoPago" ColumnName="idMetodoPago" />
-          <ScalarProperty Name="idEstado" ColumnName="idEstado" />
-          <ScalarProperty Name="nombre" ColumnName="nombre" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="PEDIDOes">
       <EntityTypeMapping TypeName="CRACKEDModel.PEDIDO">
         <MappingFragment StoreEntitySet="PEDIDO">
@@ -55,13 +45,15 @@
           <ScalarProperty Name="idCliente" ColumnName="idCliente" />
           <ScalarProperty Name="idDomiciliario" ColumnName="idDomiciliario" />
           <ScalarProperty Name="idCiudad" ColumnName="idCiudad" />
-          <ScalarProperty Name="idMetodoPago" ColumnName="idMetodoPago" />
           <ScalarProperty Name="idEstado" ColumnName="idEstado" />
           <ScalarProperty Name="fechaEntrega" ColumnName="fechaEntrega" />
           <ScalarProperty Name="fechaVenta" ColumnName="fechaVenta" />
           <ScalarProperty Name="direccion" ColumnName="direccion" />
-          <ScalarProperty Name="valor" ColumnName="valor" />
-          <ScalarProperty Name="iva" ColumnName="iva" />
+          <ScalarProperty Name="subtotal" ColumnName="subtotal" />
+          <ScalarProperty Name="valorDomicilio" ColumnName="valorDomicilio" />
+          <ScalarProperty Name="totalPedido" ColumnName="totalPedido" />
+          <ScalarProperty Name="telefonoEntrega" ColumnName="telefonoEntrega" />
+          <ScalarProperty Name="barrio" ColumnName="barrio" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -75,6 +67,7 @@
           <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
           <ScalarProperty Name="cantidad" ColumnName="cantidad" />
           <ScalarProperty Name="valorProducto" ColumnName="valorProducto" />
+          <ScalarProperty Name="porcion" ColumnName="porcion" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -87,7 +80,6 @@
           <ScalarProperty Name="nombre" ColumnName="nombre" />
           <ScalarProperty Name="valorUnitario" ColumnName="valorUnitario" />
           <ScalarProperty Name="stock" ColumnName="stock" />
-          <ScalarProperty Name="porcion" ColumnName="porcion" />
           <ScalarProperty Name="imagen" ColumnName="imagen" />
           <ScalarProperty Name="idSabor" ColumnName="idSabor" />
         </MappingFragment>
@@ -147,12 +139,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="USUARIO_PRODUCTO">
-      <EntityTypeMapping TypeName="CRACKEDModel.USUARIO_PRODUCTO">
-        <MappingFragment StoreEntitySet="USUARIO_PRODUCTO">
-          <ScalarProperty Name="idUsuarioProducto" ColumnName="idUsuarioProducto" />
-          <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
-          <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+    <EntitySetMapping Name="USUARIO_HISTORIAL">
+      <EntityTypeMapping TypeName="CRACKEDModel.USUARIO_HISTORIAL">
+        <MappingFragment StoreEntitySet="USUARIO_HISTORIAL">
+          <ScalarProperty Name="IdHistorial" ColumnName="IdHistorial" />
+          <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+          <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
+          <ScalarProperty Name="CorreoUsuario" ColumnName="CorreoUsuario" />
+          <ScalarProperty Name="FechaEliminacion" ColumnName="FechaEliminacion" />
+          <ScalarProperty Name="Accion" ColumnName="Accion" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -4,19 +4,31 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <hr />
-        <div class="container-fluid">
-            <div class="row justify-content-evenly">
-                <div class="col-4">
-                    <img src="~/Content/Imagen/@Model.Products[0].Imagen" width="580" height="460" class="img-fluid" />
-                </div>
-                <div class="col-4">
-                    <div>
-                        <h2 style="color: saddlebrown; font-family: cursive; text-align: left;">Nombre: @Model.Products[0].Nombre</h2>
-                        <h4 style="color: black; font-family: cursive; text-align: left;">Precio: @Model.Products[0].Precio</h4>
-                        <h5 style="color: black; font-family: cursive; text-align: left;">Stock: @Model.Products[0].Stock</h5>
-                    </div>
+<div class="form-horizontal">
+    <hr />
+    <div class="container-fluid">
+        @{ // Verificar si hay un mensaje de error en ViewBag
+                            var errorMessage = ViewBag.ErrorMessage as string; }
+
+        @if (!string.IsNullOrEmpty(errorMessage))
+        {
+    <div class="alert alert-danger" role="alert">
+        @errorMessage
+    </div>}
+        <div class="row justify-content-evenly">
+            <div class="col-4">
+                <img src="~/Content/Imagen/@Model.Products[0].Imagen" width="580" height="460" class="img-fluid" />
+            </div>
+            <div class="col-4 ">
+                <div class="container" style="display: flex; flex-direction: column; justify-content: center; ">
+                    <h2 style="color: saddlebrown; font-family: cursive; text-align: left;"> @Model.Products[0].Nombre</h2>
+                    <h4 style="color: black; font-family: cursive; text-align: left;">$ @Model.Products[0].Precio</h4>
+
+
+                    <label style="color: black; font-family: cursive; text-align: left; display: block; margin-top: 10px;">
+                        Una deliciosa mezcla de cremoso chocolate y suave leche que recrea el sabor clásico de Kinder en cada bocado. Con una textura crujiente por fuera y un relleno irresistible, es perfecta para los amantes de los sabores dulces y suaves. Ideal para compartir o disfrutar en cualquier momento, esta galleta ofrece un toque especial que deleita a chicos y grandes.
+                    </label>
+
                     <div class="js-qty__wrapper">
                         <button id="decrement" class="qty-button">-</button>
                         <input type="text" id="quantity" value="1" readonly>
@@ -27,7 +39,8 @@
                     <input type="hidden" name="productoId" value="@Model.Products[0].IdProducto" />
                     <input type="hidden" id="hiddenQuantity" name="cantidad" value="1" />
                     <input type="hidden" name="precio" value="@Model.Products[0].Precio" />
-
+                    <input type="hidden" name="stock" value="@Model.Products[0].Stock" />
+                    <input type="hidden" id="hiddenPortion" name="porcion" value="1">
                     <div class="form-group">
                         <div class="col-sm-1">
                             <input type="submit" value="AGREGAR AL CARRITO" class="btn btn-primary" />
@@ -37,13 +50,13 @@
             </div>
         </div>
     </div>
-
+</div>
     <div>
         @Html.ActionLink("Volver a la lista", "Index", "Home")
     </div>
 }
 
-}
+
 
 
 
@@ -69,6 +82,8 @@
         });
 
         hiddenQuantity.value = quantityInput.value;
+        hiddenPortion.value = 1;
+
     });
 </script>
 

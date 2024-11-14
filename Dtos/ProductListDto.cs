@@ -8,6 +8,6 @@ namespace CRACKED.Dtos
     public class ProductListDto
     {
 
-        public List<ProductDto> Products { get; set; }
+        public List<ProductDto> Products { get; set; } = new List<ProductDto>();
     }
 }
