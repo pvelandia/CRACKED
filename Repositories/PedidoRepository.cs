@@ -1,59 +1,60 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 using CRACKED.Dtos;
 using CRACKED.Models;
-
 
 namespace CRACKED.Repositories
 {
     public class PedidoRepository
     {
-        //    public PedidoListDto ObtenerPedidosAdmin()
-        //    {
-        //        PedidoListDto pedidoListDto = new PedidoListDto();
+        public PedidoListDto ObtenerPedidos()
+        {
+            var pedidoListDto = new PedidoListDto();
 
-        //        try
-        //        {
-        //            using (var db = new CRACKEDEntities35())
-        //            {
-        //                pedidoListDto.Pedidos = db.PEDIDOes
-        //                    .Select(p => new PedidoDto
-        //                    {
-        //                        IdPedido = p.idPedido,
-        //                        IdCliente = p.idCliente,
-        //                        IdDomiciliario = p.idDomiciliario,
-        //                        IdCiudad = p.idCiudad,
-        //                        IdCiudads = p.idCiudads,
-        //                        IdDepartamento = p.idDepartamento,
-        //                        IdEstado = p.idEstado,
-        //                        FechaEntrega = p.fechaEntrega,
-        //                        FechaVenta = p.fechaVenta,
-        //                        Direccion = p.direccion,
-        //                        Barrio = p.barrio,
-        //                        Telefono = p.telefono,
-        //                        ValorTotal = (float)p.valorTotal,
+            try
+            {
+                using (var db = new CRACKEDEntities35())
+                {
+                    // Realizamos los joins para traer la información relacionada
+                    var pedidos = (from p in db.PEDIDOes
+                                   join c in db.USUARIOs on p.idCliente equals c.idUsuario into clienteJoin
+                                   from c in clienteJoin.DefaultIfEmpty()  // Left join para Cliente
+                                   join d in db.USUARIOs on p.idDomiciliario equals d.idUsuario into domiciliarioJoin
+                                   from d in domiciliarioJoin.DefaultIfEmpty()  // Left join para Domiciliario
+                                   join e in db.ESTADOes on p.idEstado equals e.idEstado
+                                   join ci in db.CIUDADs on p.idCiudad equals ci.idCiudad
+                                  
+                                   select new PedidoDto
+                                   {
+                                       IdPedido = p.idPedido,
+                                       IdCliente = p.idCliente,
+                                       IdDomiciliario = p.idDomiciliario,
+                                       IdCiudads = p.idCiudad, 
+                                       IdEstado = p.idEstado,
+                                       FechaEntrega = p.fechaEntrega.HasValue ? p.fechaEntrega.Value : default(DateTime),
+                                       FechaVenta = p.fechaVenta.HasValue ? p.fechaVenta.Value : default(DateTime),
+                                       Direccion = p.direccion,
+                                       Barrio = p.barrio,
+                                       Telefono = p.telefonoEntrega,
+                                       ValorTotal = (float)p.totalPedido,
+                                       NombreCliente = c != null ? c.nombre : "Desconocido",  // Si Cliente es null
+                                       NombreDomiciliario = d != null ? d.nombre : "Desconocido",  // Lo mismo para Domiciliario
+                                       NombreEstado = e.nombre,
+                                       NombreCiudad = ci.nombre,
+                                      
+                                   }).ToList();
 
-        //                        // Mapea los nombres de las entidades relacionadas
-        //                        NombreCliente = p.CLIENTE != null ? p.CLIENTE.nombre : "",  // Mapea nombre del cliente
-        //                        NombreDomiciliario = p.DOMICILIARIO != null ? p.DOMICILIARIO.nombre : "",  // Mapea nombre del domiciliario
-        //                        NombreEstado = p.ESTADO != null ? p.ESTADO.nombre : "",  // Mapea nombre del estado del pedido
-        //                        NombreCiudad = p.CIUDAD != null ? p.CIUDAD.nombre : "",  // Mapea nombre de la ciudad
-        //                        NombreDepartamento = p.DEPARTAMENTO != null ? p.DEPARTAMENTO.nombre : ""  // Mapea nombre del departamento
-        //                    })
-        //                    .ToList();
-        //            }
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            Console.WriteLine("Error al obtener pedidos: " + ex.Message);
-        //        }
+                    // Asignamos los pedidos a la propiedad Pedidos de PedidoListDto
+                    pedidoListDto.Pedidos = pedidos;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al obtener pedidos: " + ex.Message);
+            }
 
-        //        return pedidoListDto;
-        //    }
-
-        //}
+            return pedidoListDto;
+        }
     }
 }

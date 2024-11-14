@@ -218,6 +218,7 @@
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Repositories\User_AdminRepository.cs" />
     <Compile Include="Services\CarritoService.cs" />
+    <Compile Include="Services\PedidoService.cs" />
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\User_AdminService.cs" />
@@ -451,6 +452,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Views\PedidoListDto\" />
     <Folder Include="Views\PedidoRepository\" />
+    <Folder Include="Views\Pedido\" />
     <Folder Include="Views\Productos\" />
     <Folder Include="Views\Producto\" />
     <Folder Include="Views\Product\" />

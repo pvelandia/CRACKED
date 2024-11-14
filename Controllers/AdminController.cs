@@ -12,17 +12,20 @@ namespace CRACKED.Controllers
 {
     public class AdminController : Controller
     {
+      
         private User_AdminService _usuarioService;
         private readonly ProductService _productService;
+        private readonly PedidoService _pedidoService;
 
-        
         public AdminController()
         {
             _usuarioService = new User_AdminService(new User_AdminRepository());
             _productService = new ProductService();
+            _pedidoService = new PedidoService();
+
         }
 
-
+       
         // GET: Admin
         public ActionResult Index()
         {
@@ -116,7 +119,13 @@ namespace CRACKED.Controllers
 
         public ActionResult Pedidos()
         {
-            return View();
+            
+                // Usamos el servicio para obtener la lista de pedidos
+                PedidoListDto pedidoListDto = _pedidoService.ObtenerPedidos();
+
+                // Pasamos el DTO a la vista
+                return View(pedidoListDto);
+            
         }
         public ActionResult Productos()
         {
