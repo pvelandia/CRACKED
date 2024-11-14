@@ -21,9 +21,13 @@ namespace CRACKED.Dtos
         public String Telefono { get; set; }
         public float ValorTotal { get; set; }
 
-   
-       
-  
+        public string NombreCliente { get; set; }
+        public string NombreDomiciliario { get; set; }
+        public string NombreEstado { get; set; }
+        public string NombreCiudad { get; set; }
+        public string NombreDepartamento { get; set; }
 
-}
+
+
+    }
 }

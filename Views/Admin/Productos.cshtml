@@ -1,4 +1,6 @@
-﻿@{
+﻿@model CRACKED.Dtos.ProductListDto
+
+@{
     ViewBag.Title = "Productos";
     Layout = "~/Views/Shared/_Layout - Admin.cshtml";
 }
@@ -57,23 +59,26 @@
         </tr>
     </thead>
     <tbody id="tableBody">
-        <!-- Aquí se agregan dinámicamente los productos -->
-        <tr>
-            <td>25</td>
-            <td>Rainbow</td>
-            <td>cookiecake</td>
-            <td>2</td>
-            <td>15000</td>
-            <td>
-                <a href="@Url.Action("AgregarProducto", "Admin")" class="btn btn-secondary">
-                    <i class=" bi bi-pencil-square nav-icon"></i>
-                </a>
-                <a href="#" class="btn btn-secondary">
-                    <i class="bi bi-trash nav-icon"></i>
-                </a>
-            </td>
+ 
+            @foreach (var producto in Model.Products)
+            {
+    <tr>
+        <td>@producto.IdProducto</td>
+        <td>@producto.Nombre</td>
+        <td>@producto.NombreTipoProducto</td>
+        <td>@producto.Stock</td>
+        <td>@producto.Precio</td>
+        <td>
+            <a href="@Url.Action("EditarProducto", "Admin", new { id = producto.IdProducto })" class="btn btn-secondary">
+                <i class="bi bi-pencil-square nav-icon"></i>
+            </a>
 
-        </tr>
+            <button type="button" class="btn btn-danger" onclick="eliminarProducto(@producto.IdProducto)">
+                <i class="bi bi-trash nav-icon"></i>
+            </button>
+        </td>
+    </tr> }
+               
     </tbody>
 </table>
 
@@ -201,7 +206,7 @@
             let tipe = cells[2].textContent.toLowerCase(); // Columna de Rol
 
 
-            if (filterValue === "" || tipe === filterValue ) {
+            if (filterValue === "" || tipe === filterValue) {
                 if (match) {
                     rows[i].style.display = ""; // Mostrar fila si coincide con la búsqueda y el filtro
                     noResults = false;
@@ -215,5 +220,31 @@
 
         // Mostrar mensaje si no hubo resultados
         document.getElementById("noResultsMessage").style.display = noResults ? "block" : "none";
+    }
+</script>
+<script>
+    function eliminarProducto(idProducto) {
+        // Confirmación antes de eliminar
+        if (confirm('¿Estás seguro de que deseas eliminar este producto?')) {
+            // Enviar solicitud AJAX al controlador
+            $.ajax({
+                url: '@Url.Action("Eliminar", "Admin")', // URL de la acción de eliminar
+                type: 'POST',
+                data: { idProducto: idProducto },
+                success: function (response) {
+                    if (response.success) {
+                        // Eliminar la fila de la tabla
+                        $('#producto_' + idProducto).remove();
+                        alert('Producto eliminado exitosamente');
+                        window.location.reload(); // Recarga la página
+                    } else {
+                        alert('Error: ' + response.message);
+                    }
+                },
+                error: function () {
+                    alert('Error al intentar eliminar el producto');
+                }
+            });
+        }
     }
 </script>

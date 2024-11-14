@@ -13,9 +13,13 @@ namespace CRACKED.Controllers
     public class AdminController : Controller
     {
         private User_AdminService _usuarioService;
+        private readonly ProductService _productService;
+
+        
         public AdminController()
         {
             _usuarioService = new User_AdminService(new User_AdminRepository());
+            _productService = new ProductService();
         }
 
 
@@ -116,17 +120,98 @@ namespace CRACKED.Controllers
         }
         public ActionResult Productos()
         {
-            return View();
+            ProductListDto products = _productService.ObtenerProductosAdmin();
+            return View(products);
         }
         public ActionResult Reportes()
         {
             return View();
         }
-      
-        public ActionResult AgregarProducto()
+
+        
+        public ActionResult EditarProducto(int id)
+        {
+            var producto = _productService.ObtenerProductoPorId(id);
+            if (producto == null)
+            {
+                return HttpNotFound();  // Si no encuentra el producto, devuelve un error 404
+            }
+
+            return View(producto); // Muestra los detalles para editar
+        }
+
+        // Acción para actualizar el producto
+        [HttpPost]
+        public ActionResult Editar(ProductDto productDto)
+        {
+            if (ModelState.IsValid)
+            {
+                bool actualizado = _productService.ActualizarProducto(productDto);
+                if (actualizado)
+                {
+                    return RedirectToAction("Index");  // Redirige a la lista de productos
+                }
+                else
+                {
+                    ViewBag.Message="No se pudo actualizar el producto.";
+                }
+            }
+
+            return View(productDto);  // Si hay un error, vuelve a mostrar el formulario
+        }
+    
+    public ActionResult AgregarProducto()
         {
             return View();
         }
+        [HttpPost]
+        public ActionResult AgregarProducto(ProductDto productDto)
+        {
+            try
+            {
+                if (_productService.CrearProducto(productDto))
+                {
+                    ViewBag.Message = "¡Producto agregado exitosamente!";
+                }
+                else
+                {
+                    ViewBag.Error = "No se pudo agregar el producto.";
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = $"Error al guardar el producto: {ex.Message}";
+            }
+
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult Eliminar(int idProducto)
+        {
+            try
+            {
+                // Llamar al servicio para eliminar el producto
+                var resultado = _productService.DeleteProduct(idProducto);
+
+                if (resultado)
+                {
+                    return Json(new { success = true });
+                }
+                else
+                {
+                    return Json(new { success = false, message = "No se pudo eliminar el producto." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+        }
+
+
+
         public ActionResult DetallePedido()
         {
             return View();

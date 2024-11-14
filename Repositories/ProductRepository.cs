@@ -7,12 +7,30 @@ namespace CRACKED.Repositories
 {
     public class ProductRepository
     {
+        public bool GuardarProducto(PRODUCTO producto)
+        {
+            try
+            {
+                using (var db = new CRACKEDEntities35()) // Usando el contexto de tu base de datos
+                {
+                    db.PRODUCTOes.Add(producto); // Agregar el producto a la base de datos
+                    db.SaveChanges(); // Guardar cambios
+                    return true; // Si todo fue exitoso, retorna true
+                }
+            }
+            catch (Exception ex)
+            {
+                // Aquí podrías loguear el error si tienes un sistema de logs
+                throw new Exception($"Error al guardar el producto: {ex.Message}");
+            }
+        }
+
         // Método para obtener el stock de un producto específico utilizando DTO
         public int ObtenerStockProducto(int productoId)
         {
             try
             {
-                using (var db = new CRACKEDEntities36())
+                using (var db = new CRACKEDEntities35())
                 {
                     // Buscamos el producto en la base de datos y obtenemos su stock
                     var producto = db.PRODUCTOes
@@ -41,7 +59,7 @@ namespace CRACKED.Repositories
 
             try
             {
-                using (var db = new CRACKEDEntities36())
+                using (var db = new CRACKEDEntities35())
                 {
                     productListDto.Users = db.TIPO_PRODUCTO
                         .Select(t => new TipoProductoDto
@@ -59,14 +77,12 @@ namespace CRACKED.Repositories
 
             return productListDto;
         }
-
-        public ProductListDto ObtenerProductos()
+        public ProductListDto ObtenerProductosAdmin()
         {
             ProductListDto productsListDto = new ProductListDto();
-
             try
             {
-                using (var db = new CRACKEDEntities36())
+                using (var db = new CRACKEDEntities35())  // Asegúrate de usar el nombre de tu contexto
                 {
                     productsListDto.Products = db.PRODUCTOes
                         .Select(p => new ProductDto
@@ -76,7 +92,40 @@ namespace CRACKED.Repositories
                             Nombre = p.nombre,
                             Precio = (float?)p.valorUnitario,
                             Stock = p.stock,
-                            
+                            IdSabor = p.idSabor,
+                            Imagen = p.imagen,
+                            IdTipoProducto = p.idTipoProducto,
+                            NombreSabor = p.SABOR != null ? p.SABOR.nombre : "", // Nombre del sabor
+                            NombreTipoProducto = p.TIPO_PRODUCTO != null ? p.TIPO_PRODUCTO.nombre : "", // Nombre del tipo de producto
+                            NombreEstado = p.ESTADO != null ? p.ESTADO.nombre : "" // Nombre del estado
+                        }).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al obtener productos: " + ex.Message);
+            }
+
+            return productsListDto;
+        }
+
+        public ProductListDto ObtenerProductos()
+        {
+            ProductListDto productsListDto = new ProductListDto();
+
+            try
+            {
+                using (var db = new CRACKEDEntities35())
+                {
+                    productsListDto.Products = db.PRODUCTOes
+                        .Select(p => new ProductDto
+                        {
+                            IdProducto = p.idProducto,
+                            IdEstado = p.idEstado,
+                            Nombre = p.nombre,
+                            Precio = (float?)p.valorUnitario,
+                            Stock = p.stock,
+
                             IdSabor = p.idSabor,
                             Imagen = p.imagen,
                             IdTipoProducto = p.idTipoProducto
@@ -96,7 +145,7 @@ namespace CRACKED.Repositories
 
             try
             {
-                using (var db = new CRACKEDEntities36())
+                using (var db = new CRACKEDEntities35())
                 {
                     productDto = db.PRODUCTOes
                         .Where(p => p.idProducto == productoId)
@@ -123,7 +172,7 @@ namespace CRACKED.Repositories
         {
             try
             {
-                using (var db = new CRACKEDEntities36())
+                using (var db = new CRACKEDEntities35())
                 {
                     // Buscamos el producto en la base de datos
                     var producto = db.PRODUCTOes.FirstOrDefault(p => p.idProducto == productoId);
@@ -139,14 +188,14 @@ namespace CRACKED.Repositories
                     {
                         Console.WriteLine("Stock insuficiente para el producto.");
                     }
-                        // Reducimos el stock
-                        producto.stock -= cantidad;
+                    // Reducimos el stock
+                    producto.stock -= cantidad;
 
-                        // Guardamos los cambios en la base de datos
-                        db.SaveChanges();
-                        return true;
-                    }
-                
+                    // Guardamos los cambios en la base de datos
+                    db.SaveChanges();
+                    return true;
+                }
+
             }
             catch (Exception ex)
             {
@@ -154,6 +203,62 @@ namespace CRACKED.Repositories
                 return false;
             }
         }
+        public ProductDto ObtenerProductoPorIdADMIN(int id)
+        {
+            using (var db = new CRACKEDEntities35())
+            {
+                var producto = db.PRODUCTOes
+                .Where(p => p.idProducto == id)
+                .Select(p => new ProductDto
+                {
+                    IdProducto = p.idProducto,
+                    Nombre = p.nombre,
+                    Precio = (float?)p.valorUnitario,
+                    Stock = p.stock,
+                    IdTipoProducto = p.idTipoProducto
+                }).FirstOrDefault();
 
+                return producto;
+            }
+        }
+
+        // Actualizar un producto
+        public bool ActualizarProducto(ProductDto productDto)
+        {
+            using (var db = new CRACKEDEntities35())
+            {
+                var productoExistente = db.PRODUCTOes.FirstOrDefault(p => p.idProducto == productDto.IdProducto);
+
+                if (productoExistente == null)
+                {
+                    return false;
+                }
+
+                productoExistente.nombre = productDto.Nombre;
+                productoExistente.valorUnitario = productDto.Precio;
+                productoExistente.stock = productDto.Stock;
+                productoExistente.idTipoProducto = productDto.IdTipoProducto;
+
+                db.SaveChanges();
+                return true;
+            }
+        }
+        public bool DeleteProduct(int idProducto)
+        {
+            using (var db = new CRACKEDEntities35())
+            {
+                var producto = db.PRODUCTOes.FirstOrDefault(p => p.idProducto == idProducto);
+
+                if (producto == null)
+                {
+                    return false; // Producto no encontrado
+                }
+
+                db.PRODUCTOes.Remove(producto);
+                db.SaveChanges();
+                return true;
+            }
+        }
     }
+        
 }
