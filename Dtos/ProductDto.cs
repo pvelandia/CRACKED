@@ -18,5 +18,9 @@ namespace CRACKED.Dtos
         public string Imagen { get; set; } // URL de la imagen del producto
 
         public int IdTipoProducto { get; set; } // Enlace con el tipo de producto
+
+        public string NombreSabor { get; set; }           // Nombre del sabor
+        public string NombreTipoProducto { get; set; }    // Nombre del tipo de producto
+        public string NombreEstado { get; set; }          // Nombre del estado
     }
 }

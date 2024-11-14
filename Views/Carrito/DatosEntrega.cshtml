@@ -70,182 +70,176 @@
 
                 </div>
                 <div class="col-12">
-                            <!-- Cambiar el botón de type="button" a type="submit" -->
-                            <button type="submit" class="btn btn-primary">
-                                Pide ahora
-                            </button>
-                        </div>
-            </div>
+                    <!-- Cambiar el botón a type="button" y añadir atributos para el modal -->
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        Pide ahora
+                    </button>
+                </div>
 
-            <div class="col-8">
-                <div class="container">
-                    <div class="form-group">
-                        <div class="row justify-content-between">
-                            <div class="col-6 align-self-center">
-                                <div class="alert alert-primary d-flex align-items-center small-alert" role="alert">
-                                    <svg class="bi flex-shrink-0 " role="img" aria-label="Info:" width="50" height="50"><use xlink:href="#info-fill" /></svg>
-                                    <div style="padding-left: 0.5rem;">
-                                        <h6 style="color: black; font-weight: bold;">Recuerda que el pago es Contra entrega</h6>
+                <div class="col-8">
+                    <div class="container">
+                        <div class="form-group">
+                            <div class="row justify-content-between">
+                                <div class="col-6 align-self-center">
+                                    <div class="alert alert-primary d-flex align-items-center small-alert" role="alert">
+                                        <svg class="bi flex-shrink-0" role="img" aria-label="Info:" width="50" height="50"><use xlink:href="#info-fill" /></svg>
+                                        <div style="padding-left: 0.5rem;">
+                                            <h6 style="color: black; font-weight: bold;">Recuerda que el pago es Contra entrega</h6>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
-            </div>
-
-            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="false" data-bs-focus="true" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header" style="background-color:antiquewhite">
-
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body" style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;" >
-                            <h3 style="color:saddlebrown">¡Gracias por tu pedido!</h3>
-                            Toda la información ha sido enviada a tu correo electrónico.
-                        </div>
-                        <div class="modal-footer">
-
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+</div></div></div>
+                <!-- Modal -->
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-focus="true" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header" style="background-color: antiquewhite;">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body" style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">
+                                <h3 style="color: saddlebrown;">¡Gracias por tu pedido!</h3>
+                                Toda la información ha sido enviada a tu correo electrónico.
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
 
 
-    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+                <!-- jQuery -->
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <!-- jQuery UI -->
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    <script>
-        function cargarCiudades() {
-            // Obtén el valor del departamento seleccionado
-            const departamentoId = document.getElementById("inputDepartamento").value;
-            const ciudadDropdown = document.getElementById("inputCiudad");
+                <!-- jQuery UI -->
+                <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+                <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+                <script>
+                    function cargarCiudades() {
+                        // Obtén el valor del departamento seleccionado
+                        const departamentoId = document.getElementById("inputDepartamento").value;
+                        const ciudadDropdown = document.getElementById("inputCiudad");
 
-            // Limpia el dropdown de ciudades
-            ciudadDropdown.innerHTML = '<option selected>Selecciona una Ciudad</option>';
+                        // Limpia el dropdown de ciudades
+                        ciudadDropdown.innerHTML = '<option selected>Selecciona una Ciudad</option>';
 
-            // Define las ciudades para cada departamento
-            let ciudades = [];
+                        // Define las ciudades para cada departamento
+                        let ciudades = [];
 
-            switch (departamentoId) {
-                case '1': // Cundinamarca
-                    ciudades = ['Bogotá', 'Soacha', 'Chocontá', 'Zipaquirá', 'Funza', 'Mosquera', 'Cota'];
-                    break;
-                case '2': // Boyacá
-                    ciudades = ['Tunja', 'Duitama', 'Sogamoso', 'Paipa', 'Chiquinquirá', 'Belén', 'Tibasosa'];
-                    break;
-                case '3': // Santander
-                    ciudades = ['Bucaramanga', 'Girón', 'Barrancabermeja', 'Floridablanca', 'San Gil', 'Piedecuesta', 'Zapatoca'];
-                    break;
-                case '4': // Tolima
-                    ciudades = ['Ibagué', 'Espinal', 'Cajamarca', 'Melgar', 'Honda', 'Lérida', 'Mariquita'];
-                    break;
-                case '5': // Huila
-                    ciudades = ['Neiva', 'Pitalito', 'Garzón', 'La Plata', 'Campoalegre', 'El Agrado', 'Isnos'];
-                    break;
-                case '6': // Quindío
-                    ciudades = ['Armenia', 'Calarcá', 'Quimbaya', 'Salento', 'Circasia'];
-                    break;
-                case '7': // Caldas
-                    ciudades = ['Manizales', 'Villamaría', 'Neira', 'Chinchiná', 'Marquetalia'];
-                    break;
-                case '8': // Risaralda
-                    ciudades = ['Pereira', 'Dosquebradas', 'Santa Rosa de Cabal', 'La Virginia', 'Marsella'];
-                    break;
-                default:
-                    ciudades = [];
-            }
+                        switch (departamentoId) {
+                            case '1': // Cundinamarca
+                                ciudades = ['Bogotá', 'Soacha', 'Chocontá', 'Zipaquirá', 'Funza', 'Mosquera', 'Cota'];
+                                break;
+                            case '2': // Boyacá
+                                ciudades = ['Tunja', 'Duitama', 'Sogamoso', 'Paipa', 'Chiquinquirá', 'Belén', 'Tibasosa'];
+                                break;
+                            case '3': // Santander
+                                ciudades = ['Bucaramanga', 'Girón', 'Barrancabermeja', 'Floridablanca', 'San Gil', 'Piedecuesta', 'Zapatoca'];
+                                break;
+                            case '4': // Tolima
+                                ciudades = ['Ibagué', 'Espinal', 'Cajamarca', 'Melgar', 'Honda', 'Lérida', 'Mariquita'];
+                                break;
+                            case '5': // Huila
+                                ciudades = ['Neiva', 'Pitalito', 'Garzón', 'La Plata', 'Campoalegre', 'El Agrado', 'Isnos'];
+                                break;
+                            case '6': // Quindío
+                                ciudades = ['Armenia', 'Calarcá', 'Quimbaya', 'Salento', 'Circasia'];
+                                break;
+                            case '7': // Caldas
+                                ciudades = ['Manizales', 'Villamaría', 'Neira', 'Chinchiná', 'Marquetalia'];
+                                break;
+                            case '8': // Risaralda
+                                ciudades = ['Pereira', 'Dosquebradas', 'Santa Rosa de Cabal', 'La Virginia', 'Marsella'];
+                                break;
+                            default:
+                                ciudades = [];
+                        }
 
-            // Agrega las ciudades al dropdown
-            ciudades.forEach(ciudad => {
-                const option = document.createElement("option");
-                option.value = ciudad;
-                option.textContent = ciudad;
-                ciudadDropdown.appendChild(option);
-            });
-        }
-    </script>
+                        // Agrega las ciudades al dropdown
+                        ciudades.forEach(ciudad => {
+                            const option = document.createElement("option");
+                            option.value = ciudad;
+                            option.textContent = ciudad;
+                            ciudadDropdown.appendChild(option);
+                        });
+                    }
+                </script>
 
-    <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
-        <symbol id="info-fill" viewBox="0 0 16 16">
-            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
-        </symbol>
-    </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+                    <symbol id="info-fill" viewBox="0 0 16 16">
+                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+                    </symbol>
+                </svg>
 
-    <style>
-        .form-group {
-            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-        }
+                <style>
+                    .form-group {
+                        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+                    }
 
-        .form-label {
-            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-            font-weight: bold;
-        }
-        .form-control {
-            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-           
-        }
-        
-        .colored-container {
-            background-color: whitesmoke; /* Cambia el color al que prefieras */
-            padding: 50px; /* Agrega un poco de relleno */
+                    .form-label {
+                        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+                        font-weight: bold;
+                    }
 
-            opacity: 0.8;
-        }
-          
-      .form-control:disabled {
-                background-color: #f3d8bf;
-                opacity: 0.8;
-            }
+                    .form-control {
+                        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+                    }
 
-     
+                    .colored-container {
+                        background-color: whitesmoke; /* Cambia el color al que prefieras */
+                        padding: 50px; /* Agrega un poco de relleno */
 
-        .alert {
-            background-color: #efcbab;
-            border-color: saddlebrown;
-        }
+                        opacity: 0.8;
+                    }
 
-        .small-alert {
-            padding: 4px; /* Reduce el espaciado general */
-            font-size: 0.875rem; /* Tamaño de fuente más pequeño */
-        }
+                    .form-control:disabled {
+                        background-color: #f3d8bf;
+                        opacity: 0.8;
+                    }
 
-        .small-alert-text {
-            padding-left: 6px; /* Espacio entre el ícono y el texto */
-        }
 
-        .btn-primary {
-            padding: 10px 30px;
-            font-size: 16px;
-            background-color: saddlebrown;
-            color: whitesmoke;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-        }
 
-        .form-control, .form-select {
-            background-color: #efcfb2;
-        }
+                    .alert {
+                        background-color: #efcbab;
+                        border-color: saddlebrown;
+                    }
 
-        .form-label {
-            font-weight: bold;
-        }
+                    .small-alert {
+                        padding: 4px; /* Reduce el espaciado general */
+                        font-size: 0.875rem; /* Tamaño de fuente más pequeño */
+                    }
 
-        .alert {
-            background-color: #efcbab;
-            border-color: saddlebrown;
-        }
-    </style>
+                    .small-alert-text {
+                        padding-left: 6px; /* Espacio entre el ícono y el texto */
+                    }
+
+                    .btn-primary {
+                        padding: 10px 30px;
+                        font-size: 16px;
+                        background-color: saddlebrown;
+                        color: whitesmoke;
+                        border: none;
+                        border-radius: 5px;
+                        cursor: pointer;
+                        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+                    }
+
+                    .form-control, .form-select {
+                        background-color: #efcfb2;
+                    }
+
+                    .form-label {
+                        font-weight: bold;
+                    }
+
+                    .alert {
+                        background-color: #efcbab;
+                        border-color: saddlebrown;
+                    }
+                </style>
 </form>

@@ -1,0 +1,107 @@
+﻿@model CRACKED.Dtos.ReportDto2
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Reporte de @Model.TipoReporte</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .report-title {
+            text-align: center;
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #b03a71;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #ff99cc;
+            color: white;
+            font-weight: bold;
+        }
+
+        td {
+            color: #333;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h2 class="report-title">Reporte de @Model.TipoReporte</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    @if (Model.TipoReporte == "Pedidos")
+                    {
+                        <th>ID Pedido</th>
+                        <th>ID Cliente</th>
+                        <th>ID Estado</th>
+                        <th>Fecha Entrega</th>
+                        <th>Fecha Venta</th>
+                        <th>Dirección</th>
+                        <th>Valor Total</th>
+                    }
+                    else if (Model.TipoReporte == "Usuarios")
+                    {
+                        <th>ID Usuario</th>
+                        <th>ID Rol</th>
+                        <th>Teléfono</th>
+                        <th>ID Estado</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Correo Electrónico</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.List)
+                {
+                    <tr>
+                        @if (Model.TipoReporte == "Pedidos")
+                        {
+                            <td>@item.IdPedido</td>
+                            <td>@item.IdCliente</td>
+                            <td>@item.IdEstado</td>
+                            <td>@item.FechaEntrega.ToShortDateString()</td>
+                            <td>@item.FechaVenta.ToShortDateString()</td>
+                            <td>@item.Direccion</td>
+                            <td>@(item.ValorTotal.HasValue ? item.ValorTotal.Value.ToString("C") : "N/A")</td>
+                        }
+                        else if (Model.TipoReporte == "Usuarios")
+                        {
+                            <td>@item.IdUser</td>
+                            <td>@item.IdRol</td>
+                            <td>@item.Telefono</td>
+                            <td>@item.IdEstado</td>
+                            <td>@item.Name</td>
+                            <td>@item.Apellido</td>
+                            <td>@item.Correo</td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

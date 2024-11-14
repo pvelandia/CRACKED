@@ -13,10 +13,10 @@ namespace CRACKED.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class CRACKEDEntities36 : DbContext
+    public partial class CRACKEDEntities40 : DbContext
     {
-        public CRACKEDEntities36()
-            : base("name=CRACKEDEntities36")
+        public CRACKEDEntities40()
+            : base("name=CRACKEDEntities40")
         {
         }
     
@@ -37,5 +37,6 @@ namespace CRACKED.Models
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TIPO_PRODUCTO> TIPO_PRODUCTO { get; set; }
         public virtual DbSet<USUARIO> USUARIOs { get; set; }
+        public virtual DbSet<USUARIO_HISTORIAL> USUARIO_HISTORIAL { get; set; }
     }
 }

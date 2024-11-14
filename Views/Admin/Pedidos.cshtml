@@ -1,4 +1,5 @@
-﻿@{
+﻿@model CRACKED.Dtos.PedidoListDto
+@{
     ViewBag.Title = "Pedidos";
     Layout = "~/Views/Shared/_Layout - Admin.cshtml";
 }
@@ -56,19 +57,22 @@
     </thead>
     <tbody id="tableBody">
         <!-- Aquí se agregan dinámicamente los productos -->
-        <tr>
-            <td>25</td>
-            <td>Sara</td>
-            <td>25/09/2024</td>
-            <td>Domiciliario 1</td>
-            <td>Pendiente</td>
-            <td>
-                <a href="@Url.Action("DetallePedido", "Admin")" class="btn btn-secondary">
-                    <i class=" bi bi-eye-fill nav-icon"></i>
-                </a>
-            </td>
+        @foreach (var pedido in Model.Pedidos)
+        {
+            <tr>
+                <td>@pedido.IdPedido</td>
+                <td>@pedido.NombreCliente</td>
+                <td>@pedido.FechaEntrega.ToString("yyyy-MM-dd")</td>
+                <td>@pedido.NombreDomiciliario</td>
+                <td>@pedido.NombreEstado</td>
+                <td>
+                    <a href="@Url.Action("DetallePedido", "Admin")" class="btn btn-secondary">
+                        <i class=" bi bi-eye-fill nav-icon"></i>
+                    </a>
+                </td>
 
-        </tr>
+            </tr>
+        }
     </tbody>
 </table>
 
@@ -196,7 +200,7 @@
             let estado = cells[4].textContent.toLowerCase(); // Columna de Rol
             let domici = cells[3].textContent.toLowerCase(); // Columna de Rol
 
-            if (filterValue === "" || estado === filterValue || domici === filterValue ) {
+            if (filterValue === "" || estado === filterValue || domici === filterValue) {
                 if (match) {
                     rows[i].style.display = ""; // Mostrar fila si coincide con la búsqueda y el filtro
                     noResults = false;
