@@ -218,7 +218,19 @@ namespace CRACKED.Controllers
             Session["UserLogged"] = null;
             return RedirectToAction("Index", "Home");  // Redirigir al inicio después de cerrar sesión
         }
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            // Obtener el usuario de la sesión
+            var userLogin = Session["UserLogged"] as UserDto;
 
+            // Si el usuario está autenticado, pasa el objeto completo a ViewBag
+            if (userLogin != null)
+            {
+                ViewBag.User = userLogin;
+            }
+
+            base.OnActionExecuting(filterContext);
+        }
         [HttpPost]
         public ActionResult Cookiecakes(UserDto model, int quantity, string selectionInput)
         {

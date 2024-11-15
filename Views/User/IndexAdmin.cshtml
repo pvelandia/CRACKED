@@ -35,12 +35,7 @@
                         <span class="img-button-text">Reportes</span>
                     </a>
                 </div>
-                <div class="col-4">
-                    <a href="@Url.Action("Galletas", "User")" class="btn img-button">
-                        <img src="~/Content/Imagen/statistics_1580913.png" alt="Botón de imagen" class="img-fluid">
-                        <span class="img-button-text">Estadisticas</span>
-                    </a>
-                </div>
+                
             </div>
         </div>
     </div>
@@ -65,6 +60,10 @@
         bottom: 10px; /* Coloca el botón 10px por encima de la parte inferior de la imagen */
         left: 50%; /* Centra el botón horizontalmente */
         transform: translateX(-50%); /* Asegura que el botón esté completamente centrado */
+    }
+    .container-fluid {
+        position: relative; /* Garantiza que el contenedor no interfiera con el menú */
+        z-index: 1; /* Asegúrate de que tenga un z-index bajo */
     }
 
     .btn-primary {

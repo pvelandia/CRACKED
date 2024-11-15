@@ -15,8 +15,11 @@ namespace CRACKED.Models
     public partial class AUDITORIA
     {
         public int idAuditoria { get; set; }
+        public int idUsuario { get; set; }
         public string accion { get; set; }
         public string query { get; set; }
         public Nullable<System.DateTime> fecha { get; set; }
+    
+        public virtual USUARIO USUARIO { get; set; }
     }
 }

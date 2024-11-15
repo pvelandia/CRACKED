@@ -57,7 +57,14 @@
             flex-direction: column;
             z-index: 1000;
         }
-
+        .navbar-toggler {
+            position: relative; /* Asegura que el colapso tenga posición */
+            z-index: 1050; /* Un z-index alto para que esté por encima de otros elementos */
+        }
+     
+        .collapse-login {
+            z-index: 1050; /* Un z-index alto para que esté por encima de otros elementos */
+        }
             .vertical-menu .nav-link {
                 display: flex;
                 align-items: center;
@@ -107,18 +114,19 @@
                         <span class="bi bi-person-fill nav-icon" style="font-size: 4rem; "> </span>
                     </button>
                     <div class="pos-f-t">
-                        <div class="collapse" id="login">
+                        <div class="collapse-login" id="login">
                             <div class="container-fluid">
 
                                 <h5 class="text-black h6">Mi perfil</h5>
                                 <div class="vertical-menu">
-                                    <p><strong>Nombre:</strong></p>
-                                    <!-- Correo del usuario -->
-                                    <p><strong>Correo:</strong> </p>
-                                    <!-- Botón de cerrar sesión -->
-                                    <form action="@Url.Action("Logout", "User")" method="post">
-                                        <button type="submit" class="btn btn-danger"style=" padding: 10px 30px; font-size: 16px; background-color: saddlebrown; color: whitesmoke; border: none; border-radius: 5px; margin-top: 10px; cursor: pointer; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">Cerrar sesión</button>
-                                    </form>
+                                    @if (ViewBag.User != null)
+                                    {
+                                        <p><strong>Nombre:</strong> @ViewBag.User.Name</p>
+
+                                        <form action="@Url.Action("Logout", "User")" method="post">
+                                            <button type="submit" class="btn btn-danger" style="padding: 10px 30px; font-size: 16px; background-color: saddlebrown; color: whitesmoke; border: none; border-radius: 5px; margin-top: 10px; cursor: pointer; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">Cerrar sesión</button>
+                                        </form>
+                                    }
                                 </div>
                             </div>
                         </div>

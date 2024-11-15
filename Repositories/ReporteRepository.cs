@@ -14,7 +14,7 @@ namespace CRACKED.Repositories
     {
         public List<ReportDto> ObtenerPedidos()
         {
-            using (var db = new CRACKEDEntities40())
+            using (var db = new CRACKEDEntities37())
             {
                 return db.PEDIDOes.Select(p => new ReportDto
                 {
@@ -31,7 +31,7 @@ namespace CRACKED.Repositories
 
         public List<ReportDto> ObtenerUsuarios()
         {
-            using (var db = new CRACKEDEntities40())
+            using (var db = new CRACKEDEntities37())
             {
                 return db.USUARIOs.Select(u => new ReportDto
                 {

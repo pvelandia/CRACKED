@@ -14,7 +14,7 @@ namespace CRACKED.Repositories
 
             try
             {
-                using (var db = new CRACKEDEntities40())
+                using (var db = new CRACKEDEntities37())
                 {
                     // Realizamos los joins para traer la información relacionada
                     var pedidos = (from p in db.PEDIDOes

@@ -18,7 +18,7 @@ namespace CRACKED.Controllers
         {
             // Aquí se pasa tanto CarritoRepository como ProductRepository al CarritoService
             _carritoService = new CarritoService(
-                new CarritoRepository(new CRACKEDEntities40()),
+                new CarritoRepository(new CRACKEDEntities37()),
                 new ProductRepository()
             );
         }
@@ -279,6 +279,19 @@ namespace CRACKED.Controllers
         {
             // Método de ejemplo que devuelve un idPedido
             return 1; // Aquí deberías obtener el idPedido real asociado con el cliente
+        }
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            // Obtener el usuario de la sesión
+            var userLogin = Session["UserLogged"] as UserDto;
+
+            // Si el usuario está autenticado, pasa el objeto completo a ViewBag
+            if (userLogin != null)
+            {
+                ViewBag.User = userLogin;
+            }
+
+            base.OnActionExecuting(filterContext);
         }
     }
 }

@@ -18,11 +18,11 @@
         <form asp-action="AgregarProducto" asp-controller="Admin" method="post">
             <div class="mb-3">
                 <label for="InputNombreProduc" class="form-label"><h8 style="color:black; ">Nombre</h8> </label>
-                <input type="text" id="InputNombreProduc" name="nombre" class="form-control" placeholder="Nombre Producto">
+                <input type="text" id="InputNombreProduc" name="nombre" class="form-control" placeholder="Nombre Producto" required>
             </div>
             <div class="mb-3">
                 <label for="selectTipo" class="form-label">Tipo</label>
-                <select id="selectTipo" class="form-select" name="IdTipoProducto" aria-label="Default select example">
+                <select id="selectTipo" class="form-select" name="IdTipoProducto" aria-label="Default select example" required>
                     <option selected>Tipo de producto</option>
                     <option value="2">Cookiecake</option>
                     <option value="1">Galleta</option>
@@ -30,11 +30,11 @@
             </div>
             <div class="mb-3">
                 <label for="InputCantidad" class="form-label"><h8 style="color:black; ">Cantidad</h8> </label>
-                <input type="text" id="InputCantidad" class="form-control" name="Stock" placeholder="Stock para ese producto">
+                <input type="text" id="InputCantidad" class="form-control" name="Stock" placeholder="Stock para ese producto" required>
             </div>
             <div class="mb-3">
                 <label for="InputPrecio" class="form-label"><h8 style="color:black; ">Precio</h8> </label>
-                <input type="text" id="InputPrecio" class="form-control" name="Precio" placeholder="$Valor unitario">
+                <input type="text" id="InputPrecio" class="form-control" name="Precio" placeholder="$Valor unitario" required>
             </div>
 
 

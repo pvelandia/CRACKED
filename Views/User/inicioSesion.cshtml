@@ -3,6 +3,7 @@
 
 @using (Html.BeginForm())
 {
+
     @Html.AntiForgeryToken()
     <div class="row justify-content-xl-start">
 
@@ -11,8 +12,11 @@
                 <h3 style="color:saddlebrown;  font-family: cursive;">Iniciar Sesión</h3>
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                @*@{ Layout = ViewBag.Layout; }*@
-                <!-- Campo de Correo o Usuario -->
+                @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+                {
+            <div class="alert alert-danger">
+                @ViewBag.ErrorMessage
+            </div>}
                 <div class="form-group">
                     @Html.LabelFor(model => model.Name, "Usuario", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
@@ -33,7 +37,6 @@
                                 </button>
                             </div>
                         </div>
-                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                     </div>
                 </div>
 

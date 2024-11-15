@@ -5,57 +5,53 @@
         <h2 style="color:saddlebrown; font-family: cursive; font-weight:bold;">
             Usuario @Model.IdUsuario
         </h2>
+        <fieldset disabled>
+            <!-- Campos de información del usuario (habilitados para vista y edición) -->
+            <div class="mb-3">
+                <label for="InputNombre" class="form-label"><h8 style="color:black;">Nombre</h8></label>
+                <input type="text" id="InputNombre" class="form-control" name="Nombre" value="@Model.Nombre" required>
+            </div>
+            <div class="mb-3">
+                <label for="InputApellido" class="form-label"><h8 style="color:black;">Apellido</h8></label>
+                <input type="text" id="InputApellido" class="form-control" name="Apellido" value="@Model.Apellido" required>
+            </div>
+            <div class="mb-3">
+                <label for="InputTelefono" class="form-label"><h8 style="color:black;">Celular</h8></label>
+                <input type="text" id="InputTelefono" class="form-control" name="NumeroContacto" value="@Model.NumeroContacto" required>
+            </div>
+            <div class="mb-3">
+                <label for="InputCorreo" class="form-label"><h8 style="color:black;">Correo</h8></label>
+                <input type="email" id="InputCorreo" class="form-control" name="CorreoElectronico" value="@Model.CorreoElectronico" required>
+            </div>
 
-        <!-- Campos de información del usuario (habilitados para vista y edición) -->
-        <div class="mb-3">
-            <label for="InputNombre" class="form-label"><h8 style="color:black;">Nombre</h8></label>
-            <input type="text" id="InputNombre" class="form-control" name="Nombre" value="@Model.Nombre" required>
-        </div>
-        <div class="mb-3">
-            <label for="InputApellido" class="form-label"><h8 style="color:black;">Apellido</h8></label>
-            <input type="text" id="InputApellido" class="form-control" name="Apellido" value="@Model.Apellido" required>
-        </div>
-        <div class="mb-3">
-            <label for="InputTelefono" class="form-label"><h8 style="color:black;">Celular</h8></label>
-            <input type="text" id="InputTelefono" class="form-control" name="NumeroContacto" value="@Model.NumeroContacto" required>
-        </div>
-        <div class="mb-3">
-            <label for="InputCorreo" class="form-label"><h8 style="color:black;">Correo</h8></label>
-            <input type="email" id="InputCorreo" class="form-control" name="CorreoElectronico" value="@Model.CorreoElectronico" required>
-        </div>
+            <!-- Selección de Estado -->
+            <div class="mb-3">
+                <label for="selectEstado" class="form-label">Estado</label>
+                <select id="selectEstado" name="IdEstado" class="form-select" aria-label="Estado" required>
+                    <option value="1" @(Model.IdEstado == 1 ? "selected" : "")>Activo</option>
+                    <option value="2" @(Model.IdEstado == 2 ? "selected" : "")>Inactivo</option>
+                </select>
+            </div>
 
-        <!-- Selección de Estado -->
-        <div class="mb-3">
-            <label for="selectEstado" class="form-label">Estado</label>
-            <select id="selectEstado" name="IdEstado" class="form-select" aria-label="Estado" required>
-                <option value="1" @(Model.IdEstado == 1 ? "selected" : "")>Activo</option>
-                <option value="2" @(Model.IdEstado == 2 ? "selected" : "")>Inactivo</option>
-            </select>
-        </div>
-
-        <!-- Selección de Rol -->
-        <div class="mb-3">
-            <label for="selectRol" class="form-label">Rol</label>
-            <select id="selectRol" name="IdRol" class="form-select" aria-label="Rol" required>
-                <option value="3" @(Model.IdRol == 3 ? "selected" : "")>Domiciliario</option>
-                <option value="2" @(Model.IdRol == 2 ? "selected" : "")>Administrador</option>
-                <option value="1" @(Model.IdRol == 1 ? "selected" : "")>Cliente</option>
-            </select>
-        </div>
-
+            <!-- Selección de Rol -->
+            <div class="mb-3">
+                <label for="selectRol" class="form-label">Rol</label>
+                <select id="selectRol" name="IdRol" class="form-select" aria-label="Rol" required>
+                    <option value="3" @(Model.IdRol == 3 ? "selected" : "")>Domiciliario</option>
+                    <option value="2" @(Model.IdRol == 2 ? "selected" : "")>Administrador</option>
+                    <option value="1" @(Model.IdRol == 1 ? "selected" : "")>Cliente</option>
+                </select>
+            </div>
+        </fieldset>
         <!-- Formulario para Guardar Cambios -->
         <div class="row justify-content-start">
             <div class="col-4 mb-3">
-                <form id="formActualizarUsuario" asp-action="ActualizarUsuario" asp-controller="Admin" method="post" onsubmit="return validateForm();">
-                    @Html.AntiForgeryToken()
-                    <input type="hidden" name="IdUsuario" value="@Model.IdUsuario" />
-                    <button class="btn btn-primary" type="submit">Guardar cambios</button>
-                </form>
+
             </div>
 
             <!-- Formulario para Eliminar Usuario -->
             <div class="col-4 mb-3">
-                <button class="btn btn-danger" onclick="eliminarUsuario(@Model.IdUsuario)">Eliminar usuario</button>
+                <button class="btn btn-primary" onclick="eliminarUsuario(@Model.IdUsuario)">Eliminar usuario</button>
             </div>
         </div>
 
@@ -79,32 +75,162 @@
         }
         return true;
     }
+</script>
 
+<!-- Incluir SweetAlert2 -->
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.4/dist/sweetalert2.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.4/dist/sweetalert2.all.min.js"></script>
+
+<script type="text/javascript">
     // Función AJAX para eliminar usuario
     function eliminarUsuario(id) {
-        if (confirm("¿Estás seguro de que deseas eliminar este usuario?")) {
-            // Enviar solicitud AJAX para eliminar el usuario
-            fetch(`/Admin/EliminarUsuario`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val() // Incluye el token CSRF
-                },
-                body: JSON.stringify({ idUsuario: id })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert("Usuario eliminado correctamente.");
-                        window.location.href = '/Admin/Index'; // Redirige a la lista de usuarios
-                    } else {
-                        alert("Hubo un error al eliminar el usuario.");
-                    }
+        // Confirmación antes de eliminar con SweetAlert2
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "Esta acción no se puede deshacer.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Enviar solicitud AJAX para eliminar el usuario
+                fetch(`/Admin/EliminarUsuario`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val() // Incluye el token CSRF
+                    },
+                    body: JSON.stringify({ idUsuario: id })
                 })
-                .catch(error => {
-                    alert("Hubo un error en la solicitud.");
-                    console.error(error);
-                });
-        }
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Mostrar mensaje de éxito con SweetAlert2
+                            Swal.fire(
+                                '¡Eliminado!',
+                                'El usuario ha sido eliminado correctamente.',
+                                'success'
+                            ).then(function () {
+                                // Redirigir a la página de lista de usuarios
+                                window.location.href = '/Admin/InfoUsuarios';
+                            });
+                        } else {
+                            // Mostrar mensaje de error si no se pudo eliminar
+                            Swal.fire(
+                                'Error',
+                                'Hubo un error al eliminar el usuario.',
+                                'error'
+                            );
+                        }
+                    })
+                    .catch(error => {
+                        // Mostrar mensaje de error si ocurre un problema con la solicitud
+                        Swal.fire(
+                            'Error',
+                            'Hubo un error en la solicitud.',
+                            'error'
+                        );
+                        console.error(error);
+                    });
+            }
+        });
     }
 </script>
+
+<style>
+
+    .table-custom th {
+        background-color: #efcbab; /* Fondo de los encabezados */
+        color: #3d2306; /* Color del texto de los encabezados */
+        font-weight: bold; /* Negrita en los encabezados */
+        text-align: center;
+    }
+
+    .table-custom td {
+        color: black; /* Color del texto de los encabezados */
+        background-color: whitesmoke;
+    }
+
+    .table-custom {
+        width: 100%;
+        font-size: 20px; /* Tamaño de fuente */
+        text-align: center;
+    }
+
+    .table th, .table td {
+        border-color: saddlebrown;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        vertical-align: middle;
+    }
+
+    .btn-secondary {
+        padding: 10px 30px;
+        font-size: 16px;
+        background-color: transparent;
+        color: whitesmoke;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+
+    .btn-success {
+        padding: 10px 30px;
+        font-size: 16px;
+        background-color: saddlebrown;
+        color: whitesmoke;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+
+    .btn-primary {
+        padding: 10px 30px;
+        font-size: 16px;
+        background-color: saddlebrown;
+        color: whitesmoke;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+
+    .total-container {
+        text-align: right;
+        margin-top: 20px;
+    }
+
+    .total-text {
+        font-size: 25px;
+        font-weight: bold;
+        color: saddlebrown;
+    }
+
+    .btn:hover {
+        opacity: 0.8;
+        color: white;
+        background-color: #a67145;
+    }
+
+    .nav-icon:hover {
+        color: white;
+    }
+
+    .form-select {
+        background-color: #efcfb2;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+
+    .input-group-text {
+        background-color: saddlebrown;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+
+    .form-control {
+        background-color: #efcfb2;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+</style>

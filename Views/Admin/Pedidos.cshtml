@@ -16,8 +16,8 @@
                 <div class="col-auto">
 
                     <select id="filterRoleState" class="form-select" onchange="filterTable()">
-                        <option value="">Filtrar por estado o domiciliario</option>
-                        <option value="domiciliario 1">domiciliario 1</option>  @*creo que aca se cargan los nombres de la bd como con los departamentos *@
+                        <option value="">Filtrar por estado </option>
+                       @*creo que aca se cargan los nombres de la bd como con los departamentos *@
                         <option value="pendiente">Pendiente</option>
                         <option value="entregado">Entregado</option>
                         <option value="cancelado">Cancelado</option>
@@ -49,30 +49,68 @@
             <th>Pedido</th>
             <th>Cliente</th>
             <th>Fecha Entrega</th>
-            <th>Domiciliario</th>
             <th>Estado</th>
             <th>Ver detalles</th>
 
         </tr>
     </thead>
     <tbody id="tableBody">
-        <!-- Aquí se agregan dinámicamente los productos -->
-        @foreach (var pedido in Model.Pedidos)
-        {
-            <tr>
-                <td>@pedido.IdPedido</td>
-                <td>@pedido.NombreCliente</td>
-                <td>@pedido.FechaEntrega.ToString("yyyy-MM-dd")</td>
-                <td>@pedido.NombreDomiciliario</td>
-                <td>@pedido.NombreEstado</td>
-                <td>
-                    <a href="@Url.Action("DetallePedido", "Admin")" class="btn btn-secondary">
-                        <i class=" bi bi-eye-fill nav-icon"></i>
-                    </a>
-                </td>
-
-            </tr>
-        }
+        <tr>
+            <td>11</td>
+            <td>Juan Pérez</td>
+            <td>2024-11-20</td>
+            <td>Pendiente</td>
+            <td>
+                <a href="@Url.Action("DetallePedido", "Admin")" class="btn btn-secondary">
+                    <i class=" bi bi-eye-fill nav-icon"></i>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>12</td>
+            <td>Ana García</td>
+            <td>2024-11-21</td>
+         
+            <td>Entregado</td>
+            <td>
+                <a href="#" class="btn btn-secondary">
+                    <i class="bi bi-eye-fill nav-icon"></i>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>13</td>
+            <td>Carlos Mendoza</td>
+            <td>2024-11-22</td>
+            <td>Cancelado</td>
+            <td>
+                <a href="#" class="btn btn-secondary">
+                    <i class="bi bi-eye-fill nav-icon"></i>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>14</td>
+            <td>Lucía Ramírez</td>
+            <td>2024-11-23</td>
+            <td>Pendiente</td>
+            <td>
+                <a href="#" class="btn btn-secondary">
+                    <i class="bi bi-eye-fill nav-icon"></i>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>15</td>
+            <td>Roberto Díaz</td>
+            <td>2024-11-24</td>
+            <td>Entregado</td>
+            <td>
+                <a href="#" class="btn btn-secondary">
+                    <i class="bi bi-eye-fill nav-icon"></i>
+                </a>
+            </td>
+        </tr>
     </tbody>
 </table>
 

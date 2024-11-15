@@ -254,5 +254,19 @@ namespace CRACKED.Controllers
                 FileName = "Reporte-" + tipoReporte + "-" + Guid.NewGuid() + ".pdf"
             };
         }
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            // Obtener el usuario de la sesión
+            var userLogin = Session["UserLogged"] as UserDto;
+
+            // Si el usuario está autenticado, pasa el objeto completo a ViewBag
+            if (userLogin != null)
+            {
+                ViewBag.User = userLogin;
+            }
+
+            base.OnActionExecuting(filterContext);
+        }
     }
+
 }

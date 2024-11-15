@@ -14,5 +14,6 @@ namespace CRACKED.Dtos
         public float PrecioUnit { get; set; }
         public float PrecioTotal { get; set; }
         public float PrecioSubtotal { get; set; }
+        public string Imagen { get; set; }
     }
 }
