@@ -222,7 +222,7 @@ namespace CRACKED.Repositories
                         pedidoExistente.idDomiciliario = 4; // Asumimos que esto se establece de alguna manera
                         pedidoExistente.idCiudad = 1; // Lo mismo aquí
                    
-                        pedidoExistente.idEstado = 1; // Asumimos que el estado es 1
+                        pedidoExistente.idEstado = 3; // Asumimos que el estado es 1
 
                         db.SaveChanges(); // Guardar los cambios
 
@@ -246,7 +246,7 @@ namespace CRACKED.Repositories
                             idDomiciliario = 4,  // Asumimos que esto se establece de alguna manera
                             idCiudad = 1,        // Lo mismo aquí
         
-                            idEstado = 1,        // Lo mismo
+                            idEstado = 3,        // Lo mismo
                             fechaEntrega = DateTime.Now,
                             fechaVenta = DateTime.Now,
                             direccion = direccion,

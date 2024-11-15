@@ -1,4 +1,4 @@
-﻿@model CRACKED.Dtos.PedidoListDto
+﻿@model List<CRACKED.Dtos.PedidoAdminDTO>
 @{
     ViewBag.Title = "Pedidos";
     Layout = "~/Views/Shared/_Layout - Admin.cshtml";
@@ -55,62 +55,20 @@
         </tr>
     </thead>
     <tbody id="tableBody">
-        <tr>
-            <td>11</td>
-            <td>Juan Pérez</td>
-            <td>2024-11-20</td>
-            <td>Pendiente</td>
-            <td>
-                <a href="@Url.Action("DetallePedido", "Admin")" class="btn btn-secondary">
-                    <i class=" bi bi-eye-fill nav-icon"></i>
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td>12</td>
-            <td>Ana García</td>
-            <td>2024-11-21</td>
-         
-            <td>Entregado</td>
-            <td>
-                <a href="#" class="btn btn-secondary">
-                    <i class="bi bi-eye-fill nav-icon"></i>
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td>13</td>
-            <td>Carlos Mendoza</td>
-            <td>2024-11-22</td>
-            <td>Cancelado</td>
-            <td>
-                <a href="#" class="btn btn-secondary">
-                    <i class="bi bi-eye-fill nav-icon"></i>
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td>14</td>
-            <td>Lucía Ramírez</td>
-            <td>2024-11-23</td>
-            <td>Pendiente</td>
-            <td>
-                <a href="#" class="btn btn-secondary">
-                    <i class="bi bi-eye-fill nav-icon"></i>
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td>15</td>
-            <td>Roberto Díaz</td>
-            <td>2024-11-24</td>
-            <td>Entregado</td>
-            <td>
-                <a href="#" class="btn btn-secondary">
-                    <i class="bi bi-eye-fill nav-icon"></i>
-                </a>
-            </td>
-        </tr>
+        @foreach (var pedido in Model)
+        {
+    <tr>
+        <td>@pedido.IdPedido</td>
+        <td>@pedido.ClienteNombre</td>
+        <td>@pedido.FechaEntrega</td>
+        <td>@pedido.Estado</td>
+        <td>
+            <a href="@Url.Action("DetallePedido", "Admin")" class="btn btn-secondary">
+                <i class="bi bi-eye-fill nav-icon"></i>
+            </a>
+        </td>
+    </tr>}
+
     </tbody>
 </table>
 

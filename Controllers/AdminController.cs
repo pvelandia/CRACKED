@@ -18,15 +18,18 @@ namespace CRACKED.Controllers
         private readonly ProductService _productService;
         private readonly PedidoService _pedidoService;
         private readonly ReporteService _reporteService;
-
+   
         public AdminController()
         {
+            var context = new CRACKEDEntities37(); // Suponiendo que tienes un contexto de base de datos
+            var pedidoRepository = new PedidoRepository(context);
             _usuarioService = new User_AdminService(new User_AdminRepository());
             _productService = new ProductService();
-            _pedidoService = new PedidoService();
+            _pedidoService = new PedidoService(pedidoRepository);
             _reporteService = new ReporteService();
 
         }
+
         
         
       
@@ -123,13 +126,9 @@ namespace CRACKED.Controllers
 
         public ActionResult Pedidos()
         {
-            
-                // Usamos el servicio para obtener la lista de pedidos
-                PedidoListDto pedidoListDto = _pedidoService.ObtenerPedidos();
 
-                // Pasamos el DTO a la vista
-                return View(pedidoListDto);
-            
+            List<PedidoAdminDTO> pedidos = _pedidoService.ObtenerPedidos();
+            return View(pedidos);
         }
         public ActionResult Productos()
         {

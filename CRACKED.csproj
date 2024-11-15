@@ -153,6 +153,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Dtos\CarroDto.cs" />
+    <Compile Include="Dtos\PedidoAdminDTO.cs" />
     <Compile Include="Dtos\PedidoDto.cs" />
     <Compile Include="Dtos\PedidoListDto.cs" />
     <Compile Include="Dtos\Pedido_ProductoDto.cs" />
@@ -463,6 +464,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\PedidoAdminDTO\" />
     <Folder Include="Views\PedidoListDto\" />
     <Folder Include="Views\PedidoRepository\" />
     <Folder Include="Views\Pedido\" />
