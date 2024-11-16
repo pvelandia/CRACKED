@@ -1,7 +1,10 @@
 ﻿using CRACKED.Dtos;
+using CRACKED.Models;
 using CRACKED.Repositories;
 using System.Collections.Generic;
 using System.Linq;
+using System;
+using System.Web;
 
 namespace CRACKED.Services
 {
@@ -66,9 +69,63 @@ namespace CRACKED.Services
 
             return productosFiltrados;
         }
+        public ProductListDto ObtenerProductosAdmin()
+        {
+            return _productRepository.ObtenerProductosAdmin();
+        }
+        public bool CrearProducto(ProductDto productDto)
+        {
+            try
+            {
+                // Mapeo del DTO a la entidad de la base de datos
+                var producto = new PRODUCTO
+                {
+                    nombre = productDto.Nombre,
+                    valorUnitario = productDto.Precio ?? 0,
+                    stock = productDto.Stock,
+                    idEstado = 1,
+                    idSabor = 4,
+                    idTipoProducto = productDto.IdTipoProducto,
+                    imagen = null,
+                };
 
+                // Llamada al repositorio
+                return _productRepository.GuardarProducto(producto);
+            }
+            catch (Exception ex)
+            {
+                // Si hay un error, lo propagamos
+                throw new Exception($"Error en el servicio: {ex.Message}");
+            }
 
+        }
+        public ProductDto ObtenerProductoPorId(int id)
+        {
+            return _productRepository.ObtenerProductoPorIdADMIN(id);
+        }
 
+        // Actualizar un producto
+        public bool ActualizarProducto(ProductDto productDto)
+        {
+            return _productRepository.ActualizarProducto(productDto);
+        }
 
+        public bool DeleteProduct(int idProducto)
+        {
+            if (idProducto == 0)
+            {
+                throw new ArgumentException("ID del producto no válido");
+            }
+
+            var resultado = _productRepository.DeleteProduct(idProducto);
+
+            if (!resultado)
+            {
+                throw new InvalidOperationException("No se pudo eliminar el producto. Puede que no exista.");
+            }
+
+            return true;
+        }
     }
 }
+

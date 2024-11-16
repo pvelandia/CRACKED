@@ -1,13 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="CRACKEDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errores durante la generación:
+advertencia 6013: La tabla o vista 'CRACKED.dbo.ADMIN_REGISTRO_PRODUCTOS' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
+        <EntityType Name="ADMIN_REGISTRO_PRODUCTOS">
+          <Property Name="idProducto" Type="int" />
+          <Property Name="idTipoProducto" Type="int" />
+          <Property Name="idEstado" Type="int" />
+          <Property Name="nombre" Type="varchar" MaxLength="255" />
+          <Property Name="valorUnitario" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="stock" Type="int" />
+          <Property Name="imagen" Type="varchar" MaxLength="255" />
+          <Property Name="idSabor" Type="int" />
+          <Property Name="fechaEliminacion" Type="datetime" />
+        </EntityType>-->
   <EntityType Name="AUDITORIA">
     <Key>
       <PropertyRef Name="idAuditoria" />
     </Key>
     <Property Name="idAuditoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="idUsuario" Type="int" Nullable="false" />
     <Property Name="accion" Type="varchar" MaxLength="100" />
-    <Property Name="query" Type="varchar" MaxLength="100" />
+    <Property Name="query" Type="varchar" MaxLength="1000" />
     <Property Name="fecha" Type="date" />
   </EntityType>
   <EntityType Name="CIUDAD">
@@ -34,14 +46,6 @@
     <Property Name="idEstado" Type="int" Nullable="false" />
     <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
-  <EntityType Name="METODO_PAGO">
-    <Key>
-      <PropertyRef Name="idMetodoPago" />
-    </Key>
-    <Property Name="idMetodoPago" Type="int" Nullable="false" />
-    <Property Name="idEstado" Type="int" Nullable="false" />
-    <Property Name="nombre" Type="varchar" MaxLength="100" Nullable="false" />
-  </EntityType>
   <EntityType Name="PEDIDO">
     <Key>
       <PropertyRef Name="idPedido" />
@@ -50,13 +54,15 @@
     <Property Name="idCliente" Type="int" Nullable="false" />
     <Property Name="idDomiciliario" Type="int" Nullable="false" />
     <Property Name="idCiudad" Type="int" Nullable="false" />
-    <Property Name="idMetodoPago" Type="int" Nullable="false" />
     <Property Name="idEstado" Type="int" Nullable="false" />
     <Property Name="fechaEntrega" Type="date" />
     <Property Name="fechaVenta" Type="date" />
-    <Property Name="direccion" Type="varchar" MaxLength="50" />
-    <Property Name="valor" Type="float" />
-    <Property Name="iva" Type="float" />
+    <Property Name="direccion" Type="varchar" MaxLength="100" />
+    <Property Name="subtotal" Type="float" />
+    <Property Name="valorDomicilio" Type="float" />
+    <Property Name="totalPedido" Type="float" />
+    <Property Name="telefonoEntrega" Type="varchar" MaxLength="50" />
+    <Property Name="barrio" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="PEDIDO_PRODUCTO">
     <Key>
@@ -69,6 +75,7 @@
     <Property Name="IdCliente" Type="int" Nullable="false" />
     <Property Name="cantidad" Type="int" />
     <Property Name="valorProducto" Type="float" />
+    <Property Name="porcion" Type="int" />
   </EntityType>
   <EntityType Name="PRODUCTO">
     <Key>
@@ -80,9 +87,23 @@
     <Property Name="nombre" Type="varchar" MaxLength="200" />
     <Property Name="valorUnitario" Type="float" />
     <Property Name="stock" Type="int" />
-    <Property Name="porcion" Type="int" />
     <Property Name="imagen" Type="varchar" MaxLength="1000" />
     <Property Name="idSabor" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="REGISTRO_PRODUCTOS">
+    <Key>
+      <PropertyRef Name="idRegistroProducto" />
+    </Key>
+    <Property Name="idPedidoProducto" Type="int" />
+    <Property Name="idPedido" Type="int" />
+    <Property Name="idCliente" Type="int" />
+    <Property Name="idProducto" Type="int" />
+    <Property Name="cantidad" Type="int" />
+    <Property Name="idEstado" Type="int" />
+    <Property Name="valorProducto" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="porcion" Type="int" />
+    <Property Name="fecha_eliminacionTabla" Type="datetime" />
+    <Property Name="idRegistroProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
   </EntityType>
   <EntityType Name="ROL">
     <Key>
@@ -133,26 +154,17 @@
     <Property Name="idRol" Type="int" Nullable="false" />
     <Property Name="idEstado" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="USUARIO_PRODUCTO">
+  <EntityType Name="USUARIO_HISTORIAL">
     <Key>
-      <PropertyRef Name="idUsuarioProducto" />
+      <PropertyRef Name="IdHistorial" />
     </Key>
-    <Property Name="idUsuarioProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="idUsuario" Type="int" Nullable="false" />
-    <Property Name="idProducto" Type="int" Nullable="false" />
+    <Property Name="IdHistorial" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdUsuario" Type="int" />
+    <Property Name="NombreUsuario" Type="nvarchar" MaxLength="255" />
+    <Property Name="CorreoUsuario" Type="nvarchar" MaxLength="255" />
+    <Property Name="FechaEliminacion" Type="datetime" />
+    <Property Name="Accion" Type="nvarchar" MaxLength="50" />
   </EntityType>
-  <Association Name="FK_AUDITORIA_USUARIO">
-    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
-    <End Role="AUDITORIA" Type="Self.AUDITORIA" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="USUARIO">
-        <PropertyRef Name="idUsuario" />
-      </Principal>
-      <Dependent Role="AUDITORIA">
-        <PropertyRef Name="idUsuario" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_CIUDAD_DEPARTAMENTO">
     <End Role="DEPARTAMENTO" Type="Self.DEPARTAMENTO" Multiplicity="1" />
     <End Role="CIUDAD" Type="Self.CIUDAD" Multiplicity="*" />
@@ -222,18 +234,6 @@
       </Principal>
       <Dependent Role="PEDIDO">
         <PropertyRef Name="idEstado" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_PEDIDO_METODO_PAGO">
-    <End Role="METODO_PAGO" Type="Self.METODO_PAGO" Multiplicity="1" />
-    <End Role="PEDIDO" Type="Self.PEDIDO" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="METODO_PAGO">
-        <PropertyRef Name="idMetodoPago" />
-      </Principal>
-      <Dependent Role="PEDIDO">
-        <PropertyRef Name="idMetodoPago" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -381,30 +381,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_USUARIO_PRODUCTO_PRODUCTO">
-    <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="1" />
-    <End Role="USUARIO_PRODUCTO" Type="Self.USUARIO_PRODUCTO" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="PRODUCTO">
-        <PropertyRef Name="idProducto" />
-      </Principal>
-      <Dependent Role="USUARIO_PRODUCTO">
-        <PropertyRef Name="idProducto" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_USUARIO_PRODUCTO_USUARIO">
-    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
-    <End Role="USUARIO_PRODUCTO" Type="Self.USUARIO_PRODUCTO" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="USUARIO">
-        <PropertyRef Name="idUsuario" />
-      </Principal>
-      <Dependent Role="USUARIO_PRODUCTO">
-        <PropertyRef Name="idUsuario" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_USUARIO_ROL">
     <End Role="ROL" Type="Self.ROL" Multiplicity="1" />
     <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="*" />
@@ -429,25 +405,55 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_registrar_eliminacion_usuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idUsuario" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="CRACKEDModelStoreContainer">
     <EntitySet Name="AUDITORIA" EntityType="Self.AUDITORIA" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CIUDAD" EntityType="Self.CIUDAD" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DEPARTAMENTO" EntityType="Self.DEPARTAMENTO" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ESTADO" EntityType="Self.ESTADO" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="METODO_PAGO" EntityType="Self.METODO_PAGO" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PEDIDO" EntityType="Self.PEDIDO" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PEDIDO_PRODUCTO" EntityType="Self.PEDIDO_PRODUCTO" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PRODUCTO" EntityType="Self.PRODUCTO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="REGISTRO_PRODUCTOS" EntityType="Self.REGISTRO_PRODUCTOS" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ROL" EntityType="Self.ROL" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SABOR" EntityType="Self.SABOR" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TIPO_PRODUCTO" EntityType="Self.TIPO_PRODUCTO" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="USUARIO" EntityType="Self.USUARIO" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="USUARIO_PRODUCTO" EntityType="Self.USUARIO_PRODUCTO" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK_AUDITORIA_USUARIO" Association="Self.FK_AUDITORIA_USUARIO">
-      <End Role="USUARIO" EntitySet="USUARIO" />
-      <End Role="AUDITORIA" EntitySet="AUDITORIA" />
-    </AssociationSet>
+    <EntitySet Name="USUARIO_HISTORIAL" EntityType="Self.USUARIO_HISTORIAL" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_CIUDAD_DEPARTAMENTO" Association="Self.FK_CIUDAD_DEPARTAMENTO">
       <End Role="DEPARTAMENTO" EntitySet="DEPARTAMENTO" />
       <End Role="CIUDAD" EntitySet="CIUDAD" />
@@ -470,10 +476,6 @@
     </AssociationSet>
     <AssociationSet Name="FK_PEDIDO_ESTADO" Association="Self.FK_PEDIDO_ESTADO">
       <End Role="ESTADO" EntitySet="ESTADO" />
-      <End Role="PEDIDO" EntitySet="PEDIDO" />
-    </AssociationSet>
-    <AssociationSet Name="FK_PEDIDO_METODO_PAGO" Association="Self.FK_PEDIDO_METODO_PAGO">
-      <End Role="METODO_PAGO" EntitySet="METODO_PAGO" />
       <End Role="PEDIDO" EntitySet="PEDIDO" />
     </AssociationSet>
     <AssociationSet Name="FK_PEDIDO_PRODUCTO_ESTADO" Association="Self.FK_PEDIDO_PRODUCTO_ESTADO">
@@ -523,14 +525,6 @@
     <AssociationSet Name="FK_USUARIO_ESTADO" Association="Self.FK_USUARIO_ESTADO">
       <End Role="ESTADO" EntitySet="ESTADO" />
       <End Role="USUARIO" EntitySet="USUARIO" />
-    </AssociationSet>
-    <AssociationSet Name="FK_USUARIO_PRODUCTO_PRODUCTO" Association="Self.FK_USUARIO_PRODUCTO_PRODUCTO">
-      <End Role="PRODUCTO" EntitySet="PRODUCTO" />
-      <End Role="USUARIO_PRODUCTO" EntitySet="USUARIO_PRODUCTO" />
-    </AssociationSet>
-    <AssociationSet Name="FK_USUARIO_PRODUCTO_USUARIO" Association="Self.FK_USUARIO_PRODUCTO_USUARIO">
-      <End Role="USUARIO" EntitySet="USUARIO" />
-      <End Role="USUARIO_PRODUCTO" EntitySet="USUARIO_PRODUCTO" />
     </AssociationSet>
     <AssociationSet Name="FK_USUARIO_ROL" Association="Self.FK_USUARIO_ROL">
       <End Role="ROL" EntitySet="ROL" />

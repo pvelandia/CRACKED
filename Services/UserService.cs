@@ -41,7 +41,7 @@ namespace CRACKED.Services
                     idUsuario = usuario.IdUser,
                     nombre = usuario.Name,
                     contraseña = usuario.PasswordE,
-                    idRol = 3,
+                    idRol = 1,
                     idEstado = 1,
                     apellido = usuario.Apellido,
                     correoElectronico = usuario.Correo,
@@ -66,10 +66,10 @@ namespace CRACKED.Services
             if (userResponse != null && BCrypt.Net.BCrypt.Verify(userModel.Password, userResponse.PasswordE))
             {
                 userResponse.Mensaje = "Successful Login";
-
-                Correo gestorCorreo = new Correo();
-                gestorCorreo.EnviarCorreo("valentinavelandiacastro2005@gmail.com",
-                    "Registro exito / Reporte Semanal / ...", mensaje(userResponse.Name), true);
+                userResponse.Correo= userModel.Correo;
+                //Correo gestorCorreo = new Correo();
+                //gestorCorreo.EnviarCorreo("valentinavelandiacastro2005@gmail.com",
+                //    "Registro exito / Reporte Semanal / ...", mensaje(userResponse.Name), true);
             }
             else
             {
@@ -87,11 +87,6 @@ namespace CRACKED.Services
                    password.Any(char.IsDigit);
         }
 
-        private string mensaje(string name)
-        {
-            return "<html><body><h1> CRACKES </h1></br><p> Bienvenido(a) <b> " + name + " </b></p>" +
-                   "<p> Notificación Automática. <b> No responder a este correo.</b></p><ol><li> Item 1 </li>" +
-                   "<li> Item 2 </li><li> Item 3 </li></ol></body></html>";
-        }
+        
     }
 }

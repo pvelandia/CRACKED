@@ -17,11 +17,9 @@ namespace CRACKED.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public USUARIO()
         {
-            this.AUDITORIAs = new HashSet<AUDITORIA>();
             this.PEDIDOes = new HashSet<PEDIDO>();
             this.PEDIDOes1 = new HashSet<PEDIDO>();
             this.PEDIDO_PRODUCTO = new HashSet<PEDIDO_PRODUCTO>();
-            this.USUARIO_PRODUCTO = new HashSet<USUARIO_PRODUCTO>();
         }
     
         public int idUsuario { get; set; }
@@ -33,8 +31,6 @@ namespace CRACKED.Models
         public int idRol { get; set; }
         public int idEstado { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AUDITORIA> AUDITORIAs { get; set; }
         public virtual ESTADO ESTADO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PEDIDO> PEDIDOes { get; set; }
@@ -43,8 +39,6 @@ namespace CRACKED.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PEDIDO_PRODUCTO> PEDIDO_PRODUCTO { get; set; }
         public virtual ROL ROL { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<USUARIO_PRODUCTO> USUARIO_PRODUCTO { get; set; }
         public virtual USUARIO USUARIO1 { get; set; }
         public virtual USUARIO USUARIO2 { get; set; }
     }

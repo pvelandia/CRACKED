@@ -24,17 +24,18 @@ namespace CRACKED.Models
         public int idCliente { get; set; }
         public int idDomiciliario { get; set; }
         public int idCiudad { get; set; }
-        public int idMetodoPago { get; set; }
         public int idEstado { get; set; }
         public Nullable<System.DateTime> fechaEntrega { get; set; }
         public Nullable<System.DateTime> fechaVenta { get; set; }
         public string direccion { get; set; }
-        public Nullable<double> valor { get; set; }
-        public Nullable<double> iva { get; set; }
+        public Nullable<double> subtotal { get; set; }
+        public Nullable<double> valorDomicilio { get; set; }
+        public Nullable<double> totalPedido { get; set; }
+        public string telefonoEntrega { get; set; }
+        public string barrio { get; set; }
     
         public virtual CIUDAD CIUDAD { get; set; }
         public virtual ESTADO ESTADO { get; set; }
-        public virtual METODO_PAGO METODO_PAGO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PEDIDO_PRODUCTO> PEDIDO_PRODUCTO { get; set; }
         public virtual USUARIO USUARIO { get; set; }

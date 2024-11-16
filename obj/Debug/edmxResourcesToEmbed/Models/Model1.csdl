@@ -5,11 +5,9 @@
       <PropertyRef Name="idAuditoria" />
     </Key>
     <Property Name="idAuditoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="idUsuario" Type="Int32" Nullable="false" />
     <Property Name="accion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="query" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="query" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
     <Property Name="fecha" Type="DateTime" Precision="0" />
-    <NavigationProperty Name="USUARIO" Relationship="Self.FK_AUDITORIA_USUARIO" FromRole="AUDITORIA" ToRole="USUARIO" />
   </EntityType>
   <EntityType Name="CIUDAD">
     <Key>
@@ -50,15 +48,6 @@
     <NavigationProperty Name="TIPO_PRODUCTO" Relationship="Self.FK_TIPO_PRODUCTO_ESTADO" FromRole="ESTADO" ToRole="TIPO_PRODUCTO" />
     <NavigationProperty Name="USUARIOs" Relationship="Self.FK_USUARIO_ESTADO" FromRole="ESTADO" ToRole="USUARIO" />
   </EntityType>
-  <EntityType Name="METODO_PAGO">
-    <Key>
-      <PropertyRef Name="idMetodoPago" />
-    </Key>
-    <Property Name="idMetodoPago" Type="Int32" Nullable="false" />
-    <Property Name="idEstado" Type="Int32" Nullable="false" />
-    <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-    <NavigationProperty Name="PEDIDOes" Relationship="Self.FK_PEDIDO_METODO_PAGO" FromRole="METODO_PAGO" ToRole="PEDIDO" />
-  </EntityType>
   <EntityType Name="PEDIDO">
     <Key>
       <PropertyRef Name="idPedido" />
@@ -67,16 +56,17 @@
     <Property Name="idCliente" Type="Int32" Nullable="false" />
     <Property Name="idDomiciliario" Type="Int32" Nullable="false" />
     <Property Name="idCiudad" Type="Int32" Nullable="false" />
-    <Property Name="idMetodoPago" Type="Int32" Nullable="false" />
     <Property Name="idEstado" Type="Int32" Nullable="false" />
     <Property Name="fechaEntrega" Type="DateTime" Precision="0" />
     <Property Name="fechaVenta" Type="DateTime" Precision="0" />
-    <Property Name="direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="valor" Type="Double" />
-    <Property Name="iva" Type="Double" />
+    <Property Name="direccion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="subtotal" Type="Double" />
+    <Property Name="valorDomicilio" Type="Double" />
+    <Property Name="totalPedido" Type="Double" />
+    <Property Name="telefonoEntrega" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="barrio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="CIUDAD" Relationship="Self.FK_PEDIDO_CIUDAD" FromRole="PEDIDO" ToRole="CIUDAD" />
     <NavigationProperty Name="ESTADO" Relationship="Self.FK_PEDIDO_ESTADO" FromRole="PEDIDO" ToRole="ESTADO" />
-    <NavigationProperty Name="METODO_PAGO" Relationship="Self.FK_PEDIDO_METODO_PAGO" FromRole="PEDIDO" ToRole="METODO_PAGO" />
     <NavigationProperty Name="PEDIDO_PRODUCTO" Relationship="Self.FK_PEDIDO_PRODUCTO_PEDIDO" FromRole="PEDIDO" ToRole="PEDIDO_PRODUCTO" />
     <NavigationProperty Name="USUARIO" Relationship="Self.FK_PEDIDO_USUARIO" FromRole="PEDIDO" ToRole="USUARIO" />
     <NavigationProperty Name="USUARIO1" Relationship="Self.FK_PEDIDO_USUARIO1" FromRole="PEDIDO" ToRole="USUARIO" />
@@ -92,6 +82,7 @@
     <Property Name="IdCliente" Type="Int32" Nullable="false" />
     <Property Name="cantidad" Type="Int32" />
     <Property Name="valorProducto" Type="Double" />
+    <Property Name="porcion" Type="Int32" />
     <NavigationProperty Name="ESTADO" Relationship="Self.FK_PEDIDO_PRODUCTO_ESTADO" FromRole="PEDIDO_PRODUCTO" ToRole="ESTADO" />
     <NavigationProperty Name="PEDIDO" Relationship="Self.FK_PEDIDO_PRODUCTO_PEDIDO" FromRole="PEDIDO_PRODUCTO" ToRole="PEDIDO" />
     <NavigationProperty Name="PRODUCTO" Relationship="Self.FK_PEDIDO_PRODUCTO_PRODUCTO" FromRole="PEDIDO_PRODUCTO" ToRole="PRODUCTO" />
@@ -107,14 +98,27 @@
     <Property Name="nombre" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="valorUnitario" Type="Double" />
     <Property Name="stock" Type="Int32" />
-    <Property Name="porcion" Type="Int32" />
     <Property Name="imagen" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
     <Property Name="idSabor" Type="Int32" Nullable="false" />
     <NavigationProperty Name="ESTADO" Relationship="Self.FK_PRODUCTO_ESTADO" FromRole="PRODUCTO" ToRole="ESTADO" />
     <NavigationProperty Name="PEDIDO_PRODUCTO" Relationship="Self.FK_PEDIDO_PRODUCTO_PRODUCTO" FromRole="PRODUCTO" ToRole="PEDIDO_PRODUCTO" />
     <NavigationProperty Name="SABOR" Relationship="Self.FK_PRODUCTO_SABOR" FromRole="PRODUCTO" ToRole="SABOR" />
     <NavigationProperty Name="TIPO_PRODUCTO" Relationship="Self.FK_PRODUCTO_TIPO_PRODUCTO" FromRole="PRODUCTO" ToRole="TIPO_PRODUCTO" />
-    <NavigationProperty Name="USUARIO_PRODUCTO" Relationship="Self.FK_USUARIO_PRODUCTO_PRODUCTO" FromRole="PRODUCTO" ToRole="USUARIO_PRODUCTO" />
+  </EntityType>
+  <EntityType Name="REGISTRO_PRODUCTOS">
+    <Key>
+      <PropertyRef Name="idRegistroProducto" />
+    </Key>
+    <Property Name="idPedidoProducto" Type="Int32" />
+    <Property Name="idPedido" Type="Int32" />
+    <Property Name="idCliente" Type="Int32" />
+    <Property Name="idProducto" Type="Int32" />
+    <Property Name="cantidad" Type="Int32" />
+    <Property Name="idEstado" Type="Int32" />
+    <Property Name="valorProducto" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="porcion" Type="Int32" />
+    <Property Name="fecha_eliminacionTabla" Type="DateTime" Precision="3" />
+    <Property Name="idRegistroProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
   </EntityType>
   <EntityType Name="ROL">
     <Key>
@@ -169,38 +173,25 @@
     <Property Name="contraseña" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
     <Property Name="idRol" Type="Int32" Nullable="false" />
     <Property Name="idEstado" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="AUDITORIAs" Relationship="Self.FK_AUDITORIA_USUARIO" FromRole="USUARIO" ToRole="AUDITORIA" />
     <NavigationProperty Name="ESTADO" Relationship="Self.FK_USUARIO_ESTADO" FromRole="USUARIO" ToRole="ESTADO" />
     <NavigationProperty Name="PEDIDOes" Relationship="Self.FK_PEDIDO_USUARIO" FromRole="USUARIO" ToRole="PEDIDO" />
     <NavigationProperty Name="PEDIDOes1" Relationship="Self.FK_PEDIDO_USUARIO1" FromRole="USUARIO" ToRole="PEDIDO" />
     <NavigationProperty Name="PEDIDO_PRODUCTO" Relationship="Self.FK_PEDIDO_PRODUCTO_USUARIO" FromRole="USUARIO" ToRole="PEDIDO_PRODUCTO" />
     <NavigationProperty Name="ROL" Relationship="Self.FK_USUARIO_ROL" FromRole="USUARIO" ToRole="ROL" />
-    <NavigationProperty Name="USUARIO_PRODUCTO" Relationship="Self.FK_USUARIO_PRODUCTO_USUARIO" FromRole="USUARIO" ToRole="USUARIO_PRODUCTO" />
     <NavigationProperty Name="USUARIO1" Relationship="Self.FK_USUARIO_USUARIO" FromRole="USUARIO" ToRole="USUARIO1" />
     <NavigationProperty Name="USUARIO2" Relationship="Self.FK_USUARIO_USUARIO" FromRole="USUARIO1" ToRole="USUARIO" />
   </EntityType>
-  <EntityType Name="USUARIO_PRODUCTO">
+  <EntityType Name="USUARIO_HISTORIAL">
     <Key>
-      <PropertyRef Name="idUsuarioProducto" />
+      <PropertyRef Name="IdHistorial" />
     </Key>
-    <Property Name="idUsuarioProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="idUsuario" Type="Int32" Nullable="false" />
-    <Property Name="idProducto" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="PRODUCTO" Relationship="Self.FK_USUARIO_PRODUCTO_PRODUCTO" FromRole="USUARIO_PRODUCTO" ToRole="PRODUCTO" />
-    <NavigationProperty Name="USUARIO" Relationship="Self.FK_USUARIO_PRODUCTO_USUARIO" FromRole="USUARIO_PRODUCTO" ToRole="USUARIO" />
+    <Property Name="IdHistorial" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdUsuario" Type="Int32" />
+    <Property Name="NombreUsuario" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="CorreoUsuario" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="FechaEliminacion" Type="DateTime" Precision="3" />
+    <Property Name="Accion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
-  <Association Name="FK_AUDITORIA_USUARIO">
-    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
-    <End Role="AUDITORIA" Type="Self.AUDITORIA" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="USUARIO">
-        <PropertyRef Name="idUsuario" />
-      </Principal>
-      <Dependent Role="AUDITORIA">
-        <PropertyRef Name="idUsuario" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_CIUDAD_DEPARTAMENTO">
     <End Role="DEPARTAMENTO" Type="Self.DEPARTAMENTO" Multiplicity="1" />
     <End Role="CIUDAD" Type="Self.CIUDAD" Multiplicity="*" />
@@ -333,18 +324,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_PEDIDO_METODO_PAGO">
-    <End Role="METODO_PAGO" Type="Self.METODO_PAGO" Multiplicity="1" />
-    <End Role="PEDIDO" Type="Self.PEDIDO" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="METODO_PAGO">
-        <PropertyRef Name="idMetodoPago" />
-      </Principal>
-      <Dependent Role="PEDIDO">
-        <PropertyRef Name="idMetodoPago" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_PEDIDO_PRODUCTO_PEDIDO">
     <End Role="PEDIDO" Type="Self.PEDIDO" Multiplicity="1" />
     <End Role="PEDIDO_PRODUCTO" Type="Self.PEDIDO_PRODUCTO" Multiplicity="*" />
@@ -429,18 +408,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_USUARIO_PRODUCTO_PRODUCTO">
-    <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="1" />
-    <End Role="USUARIO_PRODUCTO" Type="Self.USUARIO_PRODUCTO" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="PRODUCTO">
-        <PropertyRef Name="idProducto" />
-      </Principal>
-      <Dependent Role="USUARIO_PRODUCTO">
-        <PropertyRef Name="idProducto" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_USUARIO_ROL">
     <End Role="ROL" Type="Self.ROL" Multiplicity="1" />
     <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="*" />
@@ -450,18 +417,6 @@
       </Principal>
       <Dependent Role="USUARIO">
         <PropertyRef Name="idRol" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_USUARIO_PRODUCTO_USUARIO">
-    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
-    <End Role="USUARIO_PRODUCTO" Type="Self.USUARIO_PRODUCTO" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="USUARIO">
-        <PropertyRef Name="idUsuario" />
-      </Principal>
-      <Dependent Role="USUARIO_PRODUCTO">
-        <PropertyRef Name="idUsuario" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -477,25 +432,21 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="CRACKEDEntities28" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="CRACKEDEntities41" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="AUDITORIAs" EntityType="Self.AUDITORIA" />
     <EntitySet Name="CIUDADs" EntityType="Self.CIUDAD" />
     <EntitySet Name="DEPARTAMENTOes" EntityType="Self.DEPARTAMENTO" />
     <EntitySet Name="ESTADOes" EntityType="Self.ESTADO" />
-    <EntitySet Name="METODO_PAGO" EntityType="Self.METODO_PAGO" />
     <EntitySet Name="PEDIDOes" EntityType="Self.PEDIDO" />
     <EntitySet Name="PEDIDO_PRODUCTO" EntityType="Self.PEDIDO_PRODUCTO" />
     <EntitySet Name="PRODUCTOes" EntityType="Self.PRODUCTO" />
+    <EntitySet Name="REGISTRO_PRODUCTOS" EntityType="Self.REGISTRO_PRODUCTOS" />
     <EntitySet Name="ROLs" EntityType="Self.ROL" />
     <EntitySet Name="SABORs" EntityType="Self.SABOR" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
     <EntitySet Name="TIPO_PRODUCTO" EntityType="Self.TIPO_PRODUCTO" />
     <EntitySet Name="USUARIOs" EntityType="Self.USUARIO" />
-    <EntitySet Name="USUARIO_PRODUCTO" EntityType="Self.USUARIO_PRODUCTO" />
-    <AssociationSet Name="FK_AUDITORIA_USUARIO" Association="Self.FK_AUDITORIA_USUARIO">
-      <End Role="USUARIO" EntitySet="USUARIOs" />
-      <End Role="AUDITORIA" EntitySet="AUDITORIAs" />
-    </AssociationSet>
+    <EntitySet Name="USUARIO_HISTORIAL" EntityType="Self.USUARIO_HISTORIAL" />
     <AssociationSet Name="FK_CIUDAD_DEPARTAMENTO" Association="Self.FK_CIUDAD_DEPARTAMENTO">
       <End Role="DEPARTAMENTO" EntitySet="DEPARTAMENTOes" />
       <End Role="CIUDAD" EntitySet="CIUDADs" />
@@ -540,10 +491,6 @@
       <End Role="ESTADO" EntitySet="ESTADOes" />
       <End Role="USUARIO" EntitySet="USUARIOs" />
     </AssociationSet>
-    <AssociationSet Name="FK_PEDIDO_METODO_PAGO" Association="Self.FK_PEDIDO_METODO_PAGO">
-      <End Role="METODO_PAGO" EntitySet="METODO_PAGO" />
-      <End Role="PEDIDO" EntitySet="PEDIDOes" />
-    </AssociationSet>
     <AssociationSet Name="FK_PEDIDO_PRODUCTO_PEDIDO" Association="Self.FK_PEDIDO_PRODUCTO_PEDIDO">
       <End Role="PEDIDO" EntitySet="PEDIDOes" />
       <End Role="PEDIDO_PRODUCTO" EntitySet="PEDIDO_PRODUCTO" />
@@ -572,21 +519,57 @@
       <End Role="TIPO_PRODUCTO" EntitySet="TIPO_PRODUCTO" />
       <End Role="PRODUCTO" EntitySet="PRODUCTOes" />
     </AssociationSet>
-    <AssociationSet Name="FK_USUARIO_PRODUCTO_PRODUCTO" Association="Self.FK_USUARIO_PRODUCTO_PRODUCTO">
-      <End Role="PRODUCTO" EntitySet="PRODUCTOes" />
-      <End Role="USUARIO_PRODUCTO" EntitySet="USUARIO_PRODUCTO" />
-    </AssociationSet>
     <AssociationSet Name="FK_USUARIO_ROL" Association="Self.FK_USUARIO_ROL">
       <End Role="ROL" EntitySet="ROLs" />
       <End Role="USUARIO" EntitySet="USUARIOs" />
-    </AssociationSet>
-    <AssociationSet Name="FK_USUARIO_PRODUCTO_USUARIO" Association="Self.FK_USUARIO_PRODUCTO_USUARIO">
-      <End Role="USUARIO" EntitySet="USUARIOs" />
-      <End Role="USUARIO_PRODUCTO" EntitySet="USUARIO_PRODUCTO" />
     </AssociationSet>
     <AssociationSet Name="FK_USUARIO_USUARIO" Association="Self.FK_USUARIO_USUARIO">
       <End Role="USUARIO" EntitySet="USUARIOs" />
       <End Role="USUARIO1" EntitySet="USUARIOs" />
     </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(CRACKEDModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(CRACKEDModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_registrar_eliminacion_usuario">
+      <Parameter Name="idUsuario" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
   </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
 </Schema>

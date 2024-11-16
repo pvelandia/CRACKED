@@ -21,7 +21,7 @@ namespace CRACKED.Controllers
         {
             _productService = new ProductService();
         }
-
+     
         public ActionResult Productos()
         {
             TipoProductListDto tiposDeProducto = _productService.ObtenerTiposDeProducto();
@@ -139,7 +139,7 @@ namespace CRACKED.Controllers
 
                 if (usuario.Respuesta == true)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("inicioSesion", "User");
 
                 }
                 else
@@ -211,8 +211,26 @@ namespace CRACKED.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult Logout()
+        {
+            // Eliminar los datos del usuario de la sesión
+            Session["UserLogged"] = null;
+            return RedirectToAction("Index", "Home");  // Redirigir al inicio después de cerrar sesión
+        }
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            // Obtener el usuario de la sesión
+            var userLogin = Session["UserLogged"] as UserDto;
 
+            // Si el usuario está autenticado, pasa el objeto completo a ViewBag
+            if (userLogin != null)
+            {
+                ViewBag.User = userLogin;
+            }
 
+            base.OnActionExecuting(filterContext);
+        }
         [HttpPost]
         public ActionResult Cookiecakes(UserDto model, int quantity, string selectionInput)
         {

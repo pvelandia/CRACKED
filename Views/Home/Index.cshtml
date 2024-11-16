@@ -19,12 +19,17 @@
         height: auto; /* Mantiene la altura proporcional original */
         object-fit: cover; /* Ajusta la imagen sin deformarla */
         opacity:0.8;
+        
     }
 
     .image-container {
         position: relative; /* Necesario para posicionar el botón dentro de la imagen */
         width: 100%; /* El contenedor tiene el mismo ancho que la pantalla */
         overflow: hidden; /* Oculta cualquier parte de la imagen que sobresalga del contenedor */
+        z-index: 1;
+    }
+    .container-fluid {
+        overflow: visible; /* Permite que el menú colapsable sea visible */
     }
 
     .button-container {

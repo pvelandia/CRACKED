@@ -12,11 +12,15 @@ namespace CRACKED.Dtos
 
         // Cambiar a int? para permitir que sean null
         public int? Stock { get; set; }
-        public int? Porcion { get; set; }
+        
 
         public int IdSabor { get; set; }
         public string Imagen { get; set; } // URL de la imagen del producto
 
         public int IdTipoProducto { get; set; } // Enlace con el tipo de producto
+
+        public string NombreSabor { get; set; }           // Nombre del sabor
+        public string NombreTipoProducto { get; set; }    // Nombre del tipo de producto
+        public string NombreEstado { get; set; }          // Nombre del estado
     }
 }
