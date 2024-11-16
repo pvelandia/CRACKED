@@ -92,39 +92,40 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $(".delete-btn").click(function () {
-            var idPedidoProducto = $(this).data("id"); // Obtiene el ID del producto a eliminar
+        $(".change-status-btn").click(function () {
+            var idPedido = $(this).data("id"); // Obtiene el ID del pedido
+            var nuevoEstado = 5; // Cambiar al estado específico, en este caso, 5
 
-            // Confirmación antes de eliminar con SweetAlert2
+            // Confirmación antes de cambiar el estado con SweetAlert2
             Swal.fire({
                 title: '¿Estás seguro?',
-                text: "Esta acción no se puede deshacer.",
+                text: "¿Deseas cambiar el estado de este pedido?",
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonText: 'Sí, eliminar',
+                confirmButtonText: 'Sí, cambiar estado',
                 cancelButtonText: 'Cancelar',
                 reverseButtons: true
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Enviar la solicitud AJAX al controlador
                     $.ajax({
-                        url: '@Url.Action("EliminarProducto", "Carrito")', // Ruta al controlador y acción
+                        url: '@Url.Action("GuardarEstado", "Admin")', // Ruta al controlador y acción
                         type: 'POST',
-                        data: { idPedidoProducto: idPedidoProducto }, // Enviar el ID del producto
+                        data: { idPedido: idPedido, idEstado: nuevoEstado }, // Enviar el ID del pedido y el nuevo estado
                         success: function (response) {
-                            // Si la eliminación es exitosa, muestra mensaje y recarga la página
+                            // Si la actualización es exitosa, muestra mensaje y recarga la página
                             if (response.success) {
                                 Swal.fire(
-                                    '¡Eliminado!',
-                                    'El producto ha sido eliminado correctamente.',
+                                    '¡Estado Actualizado!',
+                                    'El estado del pedido ha sido cambiado correctamente.',
                                     'success'
-                                ).then(function() {
+                                ).then(function () {
                                     location.reload(); // Recarga la página para ver los cambios
                                 });
                             } else {
                                 Swal.fire(
                                     'Error',
-                                    'No se pudo eliminar el producto.',
+                                    response.message || 'No se pudo cambiar el estado del pedido.',
                                     'error'
                                 );
                             }
@@ -132,7 +133,7 @@
                         error: function () {
                             Swal.fire(
                                 'Error',
-                                'Ocurrió un error al eliminar el producto.',
+                                'Ocurrió un error al intentar cambiar el estado.',
                                 'error'
                             );
                         }
@@ -142,6 +143,7 @@
         });
     });
 </script>
+
 
 
 <!-- Estilos -->

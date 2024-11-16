@@ -83,9 +83,10 @@
           <Property Name="imagen" Type="varchar" MaxLength="1000" />
           <Property Name="idSabor" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'CRACKED.dbo.REGISTRO_PRODUCTOS' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
         <EntityType Name="REGISTRO_PRODUCTOS">
+          <Key>
+            <PropertyRef Name="idRegistroProducto" />
+          </Key>
           <Property Name="idPedidoProducto" Type="int" />
           <Property Name="idPedido" Type="int" />
           <Property Name="idCliente" Type="int" />
@@ -95,7 +96,8 @@ advertencia 6013: La tabla o vista 'CRACKED.dbo.REGISTRO_PRODUCTOS' no tiene def
           <Property Name="valorProducto" Type="decimal" Precision="10" Scale="2" />
           <Property Name="porcion" Type="int" />
           <Property Name="fecha_eliminacionTabla" Type="datetime" />
-        </EntityType>-->
+          <Property Name="idRegistroProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
         <EntityType Name="ROL">
           <Key>
             <PropertyRef Name="idRol" />
@@ -395,6 +397,7 @@ advertencia 6013: La tabla o vista 'CRACKED.dbo.REGISTRO_PRODUCTOS' no tiene def
           <EntitySet Name="PEDIDO" EntityType="Self.PEDIDO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PEDIDO_PRODUCTO" EntityType="Self.PEDIDO_PRODUCTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PRODUCTO" EntityType="Self.PRODUCTO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REGISTRO_PRODUCTOS" EntityType="Self.REGISTRO_PRODUCTOS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ROL" EntityType="Self.ROL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SABOR" EntityType="Self.SABOR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TIPO_PRODUCTO" EntityType="Self.TIPO_PRODUCTO" Schema="dbo" store:Type="Tables" />
@@ -595,6 +598,21 @@ advertencia 6013: La tabla o vista 'CRACKED.dbo.REGISTRO_PRODUCTOS' no tiene def
           <NavigationProperty Name="PEDIDO_PRODUCTO" Relationship="Self.FK_PEDIDO_PRODUCTO_PRODUCTO" FromRole="PRODUCTO" ToRole="PEDIDO_PRODUCTO" />
           <NavigationProperty Name="SABOR" Relationship="Self.FK_PRODUCTO_SABOR" FromRole="PRODUCTO" ToRole="SABOR" />
           <NavigationProperty Name="TIPO_PRODUCTO" Relationship="Self.FK_PRODUCTO_TIPO_PRODUCTO" FromRole="PRODUCTO" ToRole="TIPO_PRODUCTO" />
+        </EntityType>
+        <EntityType Name="REGISTRO_PRODUCTOS">
+          <Key>
+            <PropertyRef Name="idRegistroProducto" />
+          </Key>
+          <Property Name="idPedidoProducto" Type="Int32" />
+          <Property Name="idPedido" Type="Int32" />
+          <Property Name="idCliente" Type="Int32" />
+          <Property Name="idProducto" Type="Int32" />
+          <Property Name="cantidad" Type="Int32" />
+          <Property Name="idEstado" Type="Int32" />
+          <Property Name="valorProducto" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="porcion" Type="Int32" />
+          <Property Name="fecha_eliminacionTabla" Type="DateTime" Precision="3" />
+          <Property Name="idRegistroProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="ROL">
           <Key>
@@ -900,7 +918,7 @@ advertencia 6013: La tabla o vista 'CRACKED.dbo.REGISTRO_PRODUCTOS' no tiene def
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="CRACKEDEntities37" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="CRACKEDEntities39" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AUDITORIAs" EntityType="Self.AUDITORIA" />
           <EntitySet Name="CIUDADs" EntityType="Self.CIUDAD" />
           <EntitySet Name="DEPARTAMENTOes" EntityType="Self.DEPARTAMENTO" />
@@ -908,6 +926,7 @@ advertencia 6013: La tabla o vista 'CRACKED.dbo.REGISTRO_PRODUCTOS' no tiene def
           <EntitySet Name="PEDIDOes" EntityType="Self.PEDIDO" />
           <EntitySet Name="PEDIDO_PRODUCTO" EntityType="Self.PEDIDO_PRODUCTO" />
           <EntitySet Name="PRODUCTOes" EntityType="Self.PRODUCTO" />
+          <EntitySet Name="REGISTRO_PRODUCTOS" EntityType="Self.REGISTRO_PRODUCTOS" />
           <EntitySet Name="ROLs" EntityType="Self.ROL" />
           <EntitySet Name="SABORs" EntityType="Self.SABOR" />
           <EntitySet Name="TIPO_PRODUCTO" EntityType="Self.TIPO_PRODUCTO" />
@@ -1002,7 +1021,7 @@ advertencia 6013: La tabla o vista 'CRACKED.dbo.REGISTRO_PRODUCTOS' no tiene def
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="CRACKEDModelStoreContainer" CdmEntityContainer="CRACKEDEntities37">
+        <EntityContainerMapping StorageEntityContainer="CRACKEDModelStoreContainer" CdmEntityContainer="CRACKEDEntities39">
           <EntitySetMapping Name="AUDITORIAs">
             <EntityTypeMapping TypeName="CRACKEDModel.AUDITORIA">
               <MappingFragment StoreEntitySet="AUDITORIA">
@@ -1085,6 +1104,22 @@ advertencia 6013: La tabla o vista 'CRACKED.dbo.REGISTRO_PRODUCTOS' no tiene def
                 <ScalarProperty Name="stock" ColumnName="stock" />
                 <ScalarProperty Name="imagen" ColumnName="imagen" />
                 <ScalarProperty Name="idSabor" ColumnName="idSabor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REGISTRO_PRODUCTOS">
+            <EntityTypeMapping TypeName="CRACKEDModel.REGISTRO_PRODUCTOS">
+              <MappingFragment StoreEntitySet="REGISTRO_PRODUCTOS">
+                <ScalarProperty Name="idPedidoProducto" ColumnName="idPedidoProducto" />
+                <ScalarProperty Name="idPedido" ColumnName="idPedido" />
+                <ScalarProperty Name="idCliente" ColumnName="idCliente" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="idEstado" ColumnName="idEstado" />
+                <ScalarProperty Name="valorProducto" ColumnName="valorProducto" />
+                <ScalarProperty Name="porcion" ColumnName="porcion" />
+                <ScalarProperty Name="fecha_eliminacionTabla" ColumnName="fecha_eliminacionTabla" />
+                <ScalarProperty Name="idRegistroProducto" ColumnName="idRegistroProducto" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

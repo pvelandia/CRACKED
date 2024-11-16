@@ -12,9 +12,10 @@ namespace CRACKED.Dtos
            
             public int IdUser { get; set; }
             public int IdRol { get; set; }
-            public int IdEstado { get; set; }
-
-            [Required(ErrorMessage = "El nombre es obligatorio.")]
+            public int Estado { get; set; }
+        public string Rolnombre { get; set; } = string.Empty;
+        public string Estadonombre { get; set; }
+        [Required(ErrorMessage = "El nombre es obligatorio.")]
             [StringLength(50, ErrorMessage = "El nombre no puede superar los 50 caracteres.")]
 
             public string Name { get; set; } = string.Empty;

@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Views",
+    "\\Views\\Shared"
   ],
-  "SelectedNode": "\\CRACKED.sln",
+  "SelectedNode": "\\Views\\Shared\\_LayoutDomiciliario.cshtml",
   "PreviewInSolutionExplorer": false
 }

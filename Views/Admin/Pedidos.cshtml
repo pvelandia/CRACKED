@@ -63,7 +63,7 @@
         <td>@pedido.FechaEntrega</td>
         <td>@pedido.Estado</td>
         <td>
-            <a href="@Url.Action("DetallePedido", "Admin")" class="btn btn-secondary">
+            <a href="@Url.Action("DetallePedido", "Admin", new { id = pedido.IdPedido })" class="btn btn-secondary">
                 <i class="bi bi-eye-fill nav-icon"></i>
             </a>
         </td>
