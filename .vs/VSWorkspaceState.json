@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\Views",
+    "\\Views\\Admin",
     "\\Views\\Shared"
   ],
-  "SelectedNode": "\\Views\\Shared\\_LayoutDomiciliario.cshtml",
+  "SelectedNode": "\\Views\\Admin\\Pedidos.cshtml",
   "PreviewInSolutionExplorer": false
 }
