@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Web;
 using System;
 using System.Threading.Tasks;
+using CRACKED.Models;
 
 namespace CRACKED.Services
 {
@@ -21,6 +22,14 @@ namespace CRACKED.Services
         {
             return _pedidoRepository.ObtenerPedidosAdmin();
         }
-
+        public PedidoAdminDTO ObtenerPedidoPorId(int id)
+        {
+          return _pedidoRepository.ObtenerPedidoPorId(id);
+           
+        }
+        public void ActualizarEstadoPedido(int idPedido, int idEstado)
+        {
+            _pedidoRepository.ActualizarEstadoPedido(idPedido, idEstado);
+        }
     }
 }

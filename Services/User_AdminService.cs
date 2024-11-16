@@ -12,7 +12,7 @@ namespace CRACKED.Services
     {
         private readonly User_AdminRepository _userAdminRepository;
 
-        // Constructor que recibe User_AdminRepository como parámetro
+     
         public User_AdminService(User_AdminRepository usuarioRepository)
         {
             _userAdminRepository = usuarioRepository;
@@ -28,7 +28,19 @@ namespace CRACKED.Services
         }
 
 
-
+        public void ActualizarEstadoUsuario(int idUsuario, int idEstado, int idRol)
+        {
+            var usuario = _userAdminRepository.ObtenerUsuarioPorId(idUsuario);
+            if (usuario != null)
+            {
+                usuario.Estado = idEstado; // Actualizamos el estado del usuario
+                _userAdminRepository.ActualizarEstadoUsuario(idUsuario,idEstado, idRol); // Guardamos los cambios
+            }
+            else
+            {
+                throw new Exception("Usuario no encontrado");
+            }
+        }
 
         public UserDto ObtenerUsuarioPorId(int idUsuario)
         {

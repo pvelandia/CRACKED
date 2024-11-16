@@ -139,7 +139,7 @@ namespace CRACKED.Controllers
 
                 if (usuario.Respuesta == true)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("inicioSesion", "User");
 
                 }
                 else

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="CRACKEDModelStoreContainer" CdmEntityContainer="CRACKEDEntities37">
+  <EntityContainerMapping StorageEntityContainer="CRACKEDModelStoreContainer" CdmEntityContainer="CRACKEDEntities39">
     <EntitySetMapping Name="AUDITORIAs">
       <EntityTypeMapping TypeName="CRACKEDModel.AUDITORIA">
         <MappingFragment StoreEntitySet="AUDITORIA">
@@ -83,6 +83,22 @@
           <ScalarProperty Name="stock" ColumnName="stock" />
           <ScalarProperty Name="imagen" ColumnName="imagen" />
           <ScalarProperty Name="idSabor" ColumnName="idSabor" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="REGISTRO_PRODUCTOS">
+      <EntityTypeMapping TypeName="CRACKEDModel.REGISTRO_PRODUCTOS">
+        <MappingFragment StoreEntitySet="REGISTRO_PRODUCTOS">
+          <ScalarProperty Name="idPedidoProducto" ColumnName="idPedidoProducto" />
+          <ScalarProperty Name="idPedido" ColumnName="idPedido" />
+          <ScalarProperty Name="idCliente" ColumnName="idCliente" />
+          <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+          <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+          <ScalarProperty Name="idEstado" ColumnName="idEstado" />
+          <ScalarProperty Name="valorProducto" ColumnName="valorProducto" />
+          <ScalarProperty Name="porcion" ColumnName="porcion" />
+          <ScalarProperty Name="fecha_eliminacionTabla" ColumnName="fecha_eliminacionTabla" />
+          <ScalarProperty Name="idRegistroProducto" ColumnName="idRegistroProducto" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -159,6 +159,7 @@
     <Compile Include="Dtos\Pedido_ProductoDto.cs" />
     <Compile Include="Dtos\ProductDto.cs" />
     <Compile Include="Dtos\ProductListDto.cs" />
+    <Compile Include="Dtos\ProductosPedidoRDTO.cs" />
     <Compile Include="Dtos\ReporteDto.cs" />
     <Compile Include="Dtos\ReporteDto2.cs" />
     <Compile Include="Dtos\TipoProductListDto.cs" />
@@ -205,6 +206,9 @@
     <Compile Include="Models\PRODUCTO.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\REGISTRO_PRODUCTOS.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ROL.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -221,12 +225,14 @@
     <Compile Include="Repositories\CarritoRepository.cs" />
     <Compile Include="Repositories\PedidoRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
+    <Compile Include="Repositories\RegistroProductoRepository.cs" />
     <Compile Include="Repositories\ReporteRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Repositories\User_AdminRepository.cs" />
     <Compile Include="Services\CarritoService.cs" />
     <Compile Include="Services\PedidoService.cs" />
     <Compile Include="Services\ProductService.cs" />
+    <Compile Include="Services\RegistroProductoService.cs" />
     <Compile Include="Services\ReporteService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\User_AdminService.cs" />
@@ -426,10 +432,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\RegistroUsuarios.cshtml" />
     <Content Include="Views\User\inicioSesion.cshtml" />
     <Content Include="Views\User\Productos.cshtml" />
@@ -464,14 +467,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\PedidoAdminDTO\" />
-    <Folder Include="Views\PedidoListDto\" />
-    <Folder Include="Views\PedidoRepository\" />
-    <Folder Include="Views\Pedido\" />
-    <Folder Include="Views\Productos\" />
-    <Folder Include="Views\Producto\" />
-    <Folder Include="Views\Product\" />
-    <Folder Include="Views\Userr\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
