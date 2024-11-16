@@ -17,7 +17,7 @@ namespace CRACKED.Controllers
 
         public DomiciliarioController()
         {
-            var context = new CRACKEDEntities39();
+            var context = new CRACKEDEntities41();
 
             // Crear instancias de los repositorios
             var pedidoRepository = new PedidoRepository(context);

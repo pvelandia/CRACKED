@@ -10,13 +10,13 @@
 namespace CRACKED.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class AUDITORIA
+    public partial class sp_helpdiagrams_Result
     {
-        public int idAuditoria { get; set; }
-        public string accion { get; set; }
-        public string query { get; set; }
-        public Nullable<System.DateTime> fecha { get; set; }
+        public string Database { get; set; }
+        public string Name { get; set; }
+        public int ID { get; set; }
+        public string Owner { get; set; }
+        public int OwnerID { get; set; }
     }
 }

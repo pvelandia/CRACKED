@@ -12,11 +12,12 @@ namespace CRACKED.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class AUDITORIA
+    public partial class sysdiagram
     {
-        public int idAuditoria { get; set; }
-        public string accion { get; set; }
-        public string query { get; set; }
-        public Nullable<System.DateTime> fecha { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

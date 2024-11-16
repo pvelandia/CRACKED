@@ -21,7 +21,7 @@ namespace CRACKED.Controllers
         private readonly RegistroProductoService _registroProductoService;
         public AdminController()
         {
-            var context = new CRACKEDEntities39();
+            var context = new CRACKEDEntities41();
             var pedidoRepository = new PedidoRepository(context);
             var registroProductoRepository = new RegistroProductoRepository(context);
             _usuarioService = new User_AdminService(new User_AdminRepository(context));

@@ -12,11 +12,13 @@ namespace CRACKED.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class AUDITORIA
+    public partial class USUARIO_HISTORIAL
     {
-        public int idAuditoria { get; set; }
-        public string accion { get; set; }
-        public string query { get; set; }
-        public Nullable<System.DateTime> fecha { get; set; }
+        public int IdHistorial { get; set; }
+        public Nullable<int> IdUsuario { get; set; }
+        public string NombreUsuario { get; set; }
+        public string CorreoUsuario { get; set; }
+        public Nullable<System.DateTime> FechaEliminacion { get; set; }
+        public string Accion { get; set; }
     }
 }

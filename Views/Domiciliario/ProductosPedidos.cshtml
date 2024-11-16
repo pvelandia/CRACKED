@@ -18,18 +18,18 @@
         </tr>
     </thead>
     <tbody id="tableBody">
-        <!-- Aquí se agregan dinámicamente los productos -->
-        <tr>
-            @foreach (var productos in Model)
-            {
+        @foreach (var productos in Model)
+        {
+            <tr>
+
                 <td>@productos.IdPedido</td>
                 <td>@productos.NombreProducto</td>
                 <td>@productos.Cantidad</td>
                 <td>@productos.ValorProducto</td>
-            }
 
-        </tr>
 
+            </tr>
+        }
     </tbody>
 </table>
 

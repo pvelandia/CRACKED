@@ -10,9 +10,9 @@ namespace CRACKED.Repositories
 {
     public class RegistroProductoRepository : Controller
     {
-        private readonly CRACKEDEntities39 _context;
+        private readonly CRACKEDEntities41 _context;
 
-        public RegistroProductoRepository(CRACKEDEntities39 context)
+        public RegistroProductoRepository(CRACKEDEntities41 context)
         {
             _context = context;
         }

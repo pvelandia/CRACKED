@@ -10,15 +10,15 @@ namespace CRACKED.Repositories
 
     public class User_AdminRepository
     {
-        private readonly CRACKEDEntities39 _context;
-        public User_AdminRepository(CRACKEDEntities39 context)
+        private readonly CRACKEDEntities41 _context;
+        public User_AdminRepository(CRACKEDEntities41 context)
         {
             _context = context;
         }
 
         public List<USUARIO> ObtenerUsuariosFiltrados(string searchValue, string filterValue)
         {
-            using (var db = new CRACKEDEntities39())
+            using (var db = new CRACKEDEntities41())
             {
                 var query = db.USUARIOs.AsQueryable();
 
@@ -58,7 +58,7 @@ namespace CRACKED.Repositories
         }
         public void ActualizarUsuario(USUARIO usuario)
         {
-            using (var db = new CRACKEDEntities39())
+            using (var db = new CRACKEDEntities41())
             {
                 var usuarioExistente = db.USUARIOs.Find(usuario.idUsuario);
                 if (usuarioExistente != null)
@@ -92,7 +92,7 @@ namespace CRACKED.Repositories
         }
             public void EliminarUsuario(int idUsuario)
             {
-                using (var db = new CRACKEDEntities39())
+                using (var db = new CRACKEDEntities41())
                 {
                     var usuario = db.USUARIOs.FirstOrDefault(u => u.idUsuario == idUsuario);
                     if (usuario != null)
@@ -104,7 +104,7 @@ namespace CRACKED.Repositories
             }
         public UserDto ObtenerUsuarioPorId(int idUsuario)
         {
-            using (var db = new CRACKEDEntities39())
+            using (var db = new CRACKEDEntities41())
             {
                 var usuario = db.USUARIOs.Find(idUsuario);
                 if (usuario != null)

@@ -12,10 +12,10 @@ namespace CRACKED.Repositories
 
     public class PedidoRepository 
     {
-        private readonly CRACKEDEntities39 _context;
+        private readonly CRACKEDEntities41 _context;
 
         // Constructor que recibe el contexto
-        public PedidoRepository(CRACKEDEntities39 context)
+        public PedidoRepository(CRACKEDEntities41 context)
         {
             _context = context;
         }

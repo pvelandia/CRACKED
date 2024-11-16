@@ -5,11 +5,9 @@
       <PropertyRef Name="idAuditoria" />
     </Key>
     <Property Name="idAuditoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="idUsuario" Type="Int32" Nullable="false" />
     <Property Name="accion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="query" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="query" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
     <Property Name="fecha" Type="DateTime" Precision="0" />
-    <NavigationProperty Name="USUARIO" Relationship="Self.FK_AUDITORIA_USUARIO" FromRole="AUDITORIA" ToRole="USUARIO" />
   </EntityType>
   <EntityType Name="CIUDAD">
     <Key>
@@ -142,6 +140,16 @@
     <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="PRODUCTOes" Relationship="Self.FK_PRODUCTO_SABOR" FromRole="SABOR" ToRole="PRODUCTO" />
   </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
   <EntityType Name="TIPO_PRODUCTO">
     <Key>
       <PropertyRef Name="idTipoProducto" />
@@ -165,7 +173,6 @@
     <Property Name="contraseña" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
     <Property Name="idRol" Type="Int32" Nullable="false" />
     <Property Name="idEstado" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="AUDITORIAs" Relationship="Self.FK_AUDITORIA_USUARIO" FromRole="USUARIO" ToRole="AUDITORIA" />
     <NavigationProperty Name="ESTADO" Relationship="Self.FK_USUARIO_ESTADO" FromRole="USUARIO" ToRole="ESTADO" />
     <NavigationProperty Name="PEDIDOes" Relationship="Self.FK_PEDIDO_USUARIO" FromRole="USUARIO" ToRole="PEDIDO" />
     <NavigationProperty Name="PEDIDOes1" Relationship="Self.FK_PEDIDO_USUARIO1" FromRole="USUARIO" ToRole="PEDIDO" />
@@ -174,18 +181,17 @@
     <NavigationProperty Name="USUARIO1" Relationship="Self.FK_USUARIO_USUARIO" FromRole="USUARIO" ToRole="USUARIO1" />
     <NavigationProperty Name="USUARIO2" Relationship="Self.FK_USUARIO_USUARIO" FromRole="USUARIO1" ToRole="USUARIO" />
   </EntityType>
-  <Association Name="FK_AUDITORIA_USUARIO">
-    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
-    <End Role="AUDITORIA" Type="Self.AUDITORIA" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="USUARIO">
-        <PropertyRef Name="idUsuario" />
-      </Principal>
-      <Dependent Role="AUDITORIA">
-        <PropertyRef Name="idUsuario" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
+  <EntityType Name="USUARIO_HISTORIAL">
+    <Key>
+      <PropertyRef Name="IdHistorial" />
+    </Key>
+    <Property Name="IdHistorial" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdUsuario" Type="Int32" />
+    <Property Name="NombreUsuario" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="CorreoUsuario" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="FechaEliminacion" Type="DateTime" Precision="3" />
+    <Property Name="Accion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
   <Association Name="FK_CIUDAD_DEPARTAMENTO">
     <End Role="DEPARTAMENTO" Type="Self.DEPARTAMENTO" Multiplicity="1" />
     <End Role="CIUDAD" Type="Self.CIUDAD" Multiplicity="*" />
@@ -426,7 +432,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="CRACKEDEntities39" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="CRACKEDEntities41" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="AUDITORIAs" EntityType="Self.AUDITORIA" />
     <EntitySet Name="CIUDADs" EntityType="Self.CIUDAD" />
     <EntitySet Name="DEPARTAMENTOes" EntityType="Self.DEPARTAMENTO" />
@@ -437,12 +443,10 @@
     <EntitySet Name="REGISTRO_PRODUCTOS" EntityType="Self.REGISTRO_PRODUCTOS" />
     <EntitySet Name="ROLs" EntityType="Self.ROL" />
     <EntitySet Name="SABORs" EntityType="Self.SABOR" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
     <EntitySet Name="TIPO_PRODUCTO" EntityType="Self.TIPO_PRODUCTO" />
     <EntitySet Name="USUARIOs" EntityType="Self.USUARIO" />
-    <AssociationSet Name="FK_AUDITORIA_USUARIO" Association="Self.FK_AUDITORIA_USUARIO">
-      <End Role="USUARIO" EntitySet="USUARIOs" />
-      <End Role="AUDITORIA" EntitySet="AUDITORIAs" />
-    </AssociationSet>
+    <EntitySet Name="USUARIO_HISTORIAL" EntityType="Self.USUARIO_HISTORIAL" />
     <AssociationSet Name="FK_CIUDAD_DEPARTAMENTO" Association="Self.FK_CIUDAD_DEPARTAMENTO">
       <End Role="DEPARTAMENTO" EntitySet="DEPARTAMENTOes" />
       <End Role="CIUDAD" EntitySet="CIUDADs" />
@@ -523,5 +527,49 @@
       <End Role="USUARIO" EntitySet="USUARIOs" />
       <End Role="USUARIO1" EntitySet="USUARIOs" />
     </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(CRACKEDModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(CRACKEDModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_registrar_eliminacion_usuario">
+      <Parameter Name="idUsuario" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
   </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
 </Schema>
