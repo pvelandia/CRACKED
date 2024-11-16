@@ -18,12 +18,12 @@ namespace CRACKED.Controllers
         {
             // Aquí se pasa tanto CarritoRepository como ProductRepository al CarritoService
             _carritoService = new CarritoService(
-                new CarritoRepository(new CRACKEDEntities37()),
+                new CarritoRepository(new CRACKEDEntities39()),
                 new ProductRepository()
             );
         }
 
-        // Constructor con parámetros (necesario cuando tienes IoC configurado)
+     
         public CarritoController(CarritoService carritoService, ProductRepository productRepository)
         {
             _carritoService = carritoService;
@@ -50,7 +50,7 @@ namespace CRACKED.Controllers
 
                     if (idCiudad.HasValue)
                     {
-                        // Aquí puedes trabajar con el idCiudad encontrado
+                        // trabaja con el idCiudad encontrado
                         model.IdCiudads = idCiudad.Value;
                     }
                     else

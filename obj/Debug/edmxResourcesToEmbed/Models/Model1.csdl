@@ -107,6 +107,21 @@
     <NavigationProperty Name="SABOR" Relationship="Self.FK_PRODUCTO_SABOR" FromRole="PRODUCTO" ToRole="SABOR" />
     <NavigationProperty Name="TIPO_PRODUCTO" Relationship="Self.FK_PRODUCTO_TIPO_PRODUCTO" FromRole="PRODUCTO" ToRole="TIPO_PRODUCTO" />
   </EntityType>
+  <EntityType Name="REGISTRO_PRODUCTOS">
+    <Key>
+      <PropertyRef Name="idRegistroProducto" />
+    </Key>
+    <Property Name="idPedidoProducto" Type="Int32" />
+    <Property Name="idPedido" Type="Int32" />
+    <Property Name="idCliente" Type="Int32" />
+    <Property Name="idProducto" Type="Int32" />
+    <Property Name="cantidad" Type="Int32" />
+    <Property Name="idEstado" Type="Int32" />
+    <Property Name="valorProducto" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="porcion" Type="Int32" />
+    <Property Name="fecha_eliminacionTabla" Type="DateTime" Precision="3" />
+    <Property Name="idRegistroProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+  </EntityType>
   <EntityType Name="ROL">
     <Key>
       <PropertyRef Name="idRol" />
@@ -411,7 +426,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="CRACKEDEntities37" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="CRACKEDEntities39" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="AUDITORIAs" EntityType="Self.AUDITORIA" />
     <EntitySet Name="CIUDADs" EntityType="Self.CIUDAD" />
     <EntitySet Name="DEPARTAMENTOes" EntityType="Self.DEPARTAMENTO" />
@@ -419,6 +434,7 @@
     <EntitySet Name="PEDIDOes" EntityType="Self.PEDIDO" />
     <EntitySet Name="PEDIDO_PRODUCTO" EntityType="Self.PEDIDO_PRODUCTO" />
     <EntitySet Name="PRODUCTOes" EntityType="Self.PRODUCTO" />
+    <EntitySet Name="REGISTRO_PRODUCTOS" EntityType="Self.REGISTRO_PRODUCTOS" />
     <EntitySet Name="ROLs" EntityType="Self.ROL" />
     <EntitySet Name="SABORs" EntityType="Self.SABOR" />
     <EntitySet Name="TIPO_PRODUCTO" EntityType="Self.TIPO_PRODUCTO" />
