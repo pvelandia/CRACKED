@@ -1,11 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Models",
-    "\\Repositories",
     "\\Views",
-    "\\Views\\User"
+    "\\Views\\Admin",
+    "\\Views\\Shared"
   ],
-  "SelectedNode": "\\Views\\User\\Detalle_Cookiecakes.cshtml",
+  "SelectedNode": "\\Views\\Admin\\Pedidos.cshtml",
   "PreviewInSolutionExplorer": false
 }

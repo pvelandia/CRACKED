@@ -18,7 +18,6 @@ namespace CRACKED.Models
         public PRODUCTO()
         {
             this.PEDIDO_PRODUCTO = new HashSet<PEDIDO_PRODUCTO>();
-            this.USUARIO_PRODUCTO = new HashSet<USUARIO_PRODUCTO>();
         }
     
         public int idProducto { get; set; }
@@ -27,7 +26,6 @@ namespace CRACKED.Models
         public string nombre { get; set; }
         public Nullable<double> valorUnitario { get; set; }
         public Nullable<int> stock { get; set; }
-        public Nullable<int> porcion { get; set; }
         public string imagen { get; set; }
         public int idSabor { get; set; }
     
@@ -36,7 +34,5 @@ namespace CRACKED.Models
         public virtual ICollection<PEDIDO_PRODUCTO> PEDIDO_PRODUCTO { get; set; }
         public virtual SABOR SABOR { get; set; }
         public virtual TIPO_PRODUCTO TIPO_PRODUCTO { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<USUARIO_PRODUCTO> USUARIO_PRODUCTO { get; set; }
     }
 }

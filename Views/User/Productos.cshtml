@@ -5,42 +5,45 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h1 style="color: saddlebrown; font-family: cursive; text-align: center;">Nuestros Productos</h1>
-        <hr />
-        <div class="row justify-content-around">
-            <!-- Primer Producto -->
-            <div class="col-4">
-                <img src="~/Content/Imagen/@Model.Users[0].Imagen" width="380" height="360" class="img-fluid" />
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="button" value="@Model.Users[0].Nombre" class="btn btn-primary"
-                               onclick="window.location.href='@Url.Action("Galletas", "User", new { nombre = Model.Users[0].Nombre })'" />
-                    </div>
+<div class="form-horizontal">
+    @if (ViewBag.ErrorMessage != null)
+    {
+<div class="alert alert-danger" role="alert">
+    @ViewBag.ErrorMessage
+</div>}
+    <h1 style="color: saddlebrown; font-family: cursive; text-align: center;">Nuestros Productos</h1>
+    <hr />
+    <div class="row justify-content-around">
+        <!-- Primer Producto -->
+        <div class="col-4">
+            <img src="~/Content/Imagen/image (1).png" width="380" height="360" class="img-fluid" />
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="button" value="@Model.Users[0].Nombre" class="btn btn-primary"
+                           onclick="window.location.href='@Url.Action("Galletas", "User", new { nombre = Model.Users[0].Nombre })'" />
                 </div>
             </div>
+        </div>
 
-            <!-- Segundo Producto -->
-            <div class="col-4">
-                <img src="~/Content/Imagen/@Model.Users[1].Imagen" width="380" height="360" class="img-fluid" />
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="button" value="@Model.Users[1].Nombre" class="btn btn-primary"
-                               onclick="window.location.href='@Url.Action("Cookiecakes", "User", new { nombre = Model.Users[1].Nombre })'" />
-                    </div>
+        <!-- Segundo Producto -->
+        <div class="col-4">
+            <img src="~/Content/Imagen/image (2).png" width="380" height="360" class="img-fluid" />
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="button" value="@Model.Users[1].Nombre" class="btn btn-primary"
+                           onclick="window.location.href='@Url.Action("Cookiecakes", "User", new { nombre = Model.Users[1].Nombre })'" />
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 
 
 
 }
 
-<div>
-    @Html.ActionLink("Volver a la lista", "Index", "Home")
-</div>
+
 <script>
     // Script para toggle de visibilidad de la contraseña
     const togglePassword = document.getElementById('togglePassword');
