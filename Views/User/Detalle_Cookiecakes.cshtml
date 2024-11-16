@@ -64,9 +64,7 @@
         </div>
     </div>
 
-    <div>
-        @Html.ActionLink("Volver a la lista", "Index", "Home")
-    </div>
+    
 }
 
 <script>
@@ -95,23 +93,17 @@
 
         document.getElementById("Buttonx4").addEventListener("click", (event) => {
             event.preventDefault();
+            document.getElementById("selectionInput").value = "x4";
             hiddenPortion.value = 4;
         });
 
         document.getElementById("Buttonx8").addEventListener("click", (event) => {
             event.preventDefault();
+            document.getElementById("selectionInput").value = "x8";
             hiddenPortion.value = 8;
         });
    
-        document.getElementById("Buttonx4").addEventListener("click", (event) => {
-            event.preventDefault();
-            document.getElementById("selectionInput").value = "x4";
-        });
-
-        document.getElementById("Buttonx8").addEventListener("click", (event) => {
-            event.preventDefault();
-            document.getElementById("selectionInput").value = "x8";
-        });
+        
     });
 </script>
 

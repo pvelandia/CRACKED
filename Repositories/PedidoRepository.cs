@@ -1,60 +1,75 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using CRACKED.Dtos;
 using CRACKED.Models;
+using System.Data.Entity;
 
 namespace CRACKED.Repositories
 {
-    public class PedidoRepository
+   
+
+    public class PedidoRepository 
     {
-        public PedidoListDto ObtenerPedidos()
+        private readonly CRACKEDEntities39 _context;
+
+        // Constructor que recibe el contexto
+        public PedidoRepository(CRACKEDEntities39 context)
         {
-            var pedidoListDto = new PedidoListDto();
+            _context = context;
+        }
 
-            try
-            {
-                using (var db = new CRACKEDEntities40())
+        // Método asincrónico para obtener los pedidos con relaciones cargadas
+        public List<PedidoAdminDTO> ObtenerPedidosAdmin()
+        {
+            return _context.PEDIDOes
+                .Select(p => new PedidoAdminDTO
                 {
-                    // Realizamos los joins para traer la información relacionada
-                    var pedidos = (from p in db.PEDIDOes
-                                   join c in db.USUARIOs on p.idCliente equals c.idUsuario into clienteJoin
-                                   from c in clienteJoin.DefaultIfEmpty()  // Left join para Cliente
-                                   join d in db.USUARIOs on p.idDomiciliario equals d.idUsuario into domiciliarioJoin
-                                   from d in domiciliarioJoin.DefaultIfEmpty()  // Left join para Domiciliario
-                                   join e in db.ESTADOes on p.idEstado equals e.idEstado
-                                   join ci in db.CIUDADs on p.idCiudad equals ci.idCiudad
-                                  
-                                   select new PedidoDto
-                                   {
-                                       IdPedido = p.idPedido,
-                                       IdCliente = p.idCliente,
-                                       IdDomiciliario = p.idDomiciliario,
-                                       IdCiudads = p.idCiudad, 
-                                       IdEstado = p.idEstado,
-                                       FechaEntrega = p.fechaEntrega.HasValue ? p.fechaEntrega.Value : default(DateTime),
-                                       FechaVenta = p.fechaVenta.HasValue ? p.fechaVenta.Value : default(DateTime),
-                                       Direccion = p.direccion,
-                                       Barrio = p.barrio,
-                                       Telefono = p.telefonoEntrega,
-                                       ValorTotal = (float)p.totalPedido,
-                                       NombreCliente = c != null ? c.nombre : "Desconocido",  // Si Cliente es null
-                                       NombreDomiciliario = d != null ? d.nombre : "Desconocido",  // Lo mismo para Domiciliario
-                                       NombreEstado = e.nombre,
-                                       NombreCiudad = ci.nombre,
-                                      
-                                   }).ToList();
+                    IdPedido = p.idPedido,
+                    Direccion = p.direccion,
+                    Estado = p.ESTADO.nombre,
+                    ClienteNombre = p.USUARIO.nombre,  // Asumimos que el Cliente tiene un nombre
+                    FechaEntrega = p.fechaEntrega,
+                    Ciudad = p.CIUDAD.nombre,
+                    Telefono = p.telefonoEntrega,
+                    Correo = p.USUARIO.correoElectronico,
+                    ValorPedido = p.totalPedido,
+                    Domiciliario=p.USUARIO.nombre,
+                    IdEstado = p.ESTADO.idEstado,
+                    ApellidoCliente = p.USUARIO.apellido
 
-                    // Asignamos los pedidos a la propiedad Pedidos de PedidoListDto
-                    pedidoListDto.Pedidos = pedidos;
-                }
-            }
-            catch (Exception ex)
+                }).ToList();  // Cambiado a ToList()
+        }
+        public PedidoAdminDTO ObtenerPedidoPorId(int id)
+        {
+            return _context.PEDIDOes
+                .Where(p => p.idPedido == id)
+                .Select(p => new PedidoAdminDTO
+                {
+                    IdPedido = p.idPedido,
+                    Direccion = p.direccion,
+                    Estado = p.ESTADO.nombre,
+                    ClienteNombre = p.USUARIO.nombre,
+                    FechaEntrega = p.fechaEntrega,
+                    Ciudad=p.CIUDAD.nombre,
+                    Telefono=p.telefonoEntrega,
+                    Correo=p.USUARIO.correoElectronico,
+                    ValorPedido=p.totalPedido,
+                    Domiciliario = p.USUARIO.nombre,
+                    IdEstado = p.ESTADO.idEstado,
+                    ApellidoCliente=p.USUARIO.apellido
+
+                }).FirstOrDefault();
+        }
+        public void ActualizarEstadoPedido(int idPedido, int idEstado)
+        {
+            var pedido = _context.PEDIDOes.FirstOrDefault(p => p.idPedido == idPedido);
+            if (pedido != null)
             {
-                Console.WriteLine("Error al obtener pedidos: " + ex.Message);
+                pedido.idEstado = idEstado;  // Actualizar el estado del pedido
+                _context.SaveChanges();      // Guardar los cambios en la base de datos
             }
-
-            return pedidoListDto;
         }
     }
 }

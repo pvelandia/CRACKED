@@ -18,12 +18,12 @@ namespace CRACKED.Controllers
         {
             // Aquí se pasa tanto CarritoRepository como ProductRepository al CarritoService
             _carritoService = new CarritoService(
-                new CarritoRepository(new CRACKEDEntities40()),
+                new CarritoRepository(new CRACKEDEntities39()),
                 new ProductRepository()
             );
         }
 
-        // Constructor con parámetros (necesario cuando tienes IoC configurado)
+     
         public CarritoController(CarritoService carritoService, ProductRepository productRepository)
         {
             _carritoService = carritoService;
@@ -50,7 +50,7 @@ namespace CRACKED.Controllers
 
                     if (idCiudad.HasValue)
                     {
-                        // Aquí puedes trabajar con el idCiudad encontrado
+                        // trabaja con el idCiudad encontrado
                         model.IdCiudads = idCiudad.Value;
                     }
                     else
@@ -279,6 +279,19 @@ namespace CRACKED.Controllers
         {
             // Método de ejemplo que devuelve un idPedido
             return 1; // Aquí deberías obtener el idPedido real asociado con el cliente
+        }
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            // Obtener el usuario de la sesión
+            var userLogin = Session["UserLogged"] as UserDto;
+
+            // Si el usuario está autenticado, pasa el objeto completo a ViewBag
+            if (userLogin != null)
+            {
+                ViewBag.User = userLogin;
+            }
+
+            base.OnActionExecuting(filterContext);
         }
     }
 }

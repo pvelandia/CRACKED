@@ -3,31 +3,33 @@ using CRACKED.Repositories;
 using System.Collections.Generic;
 using System.Web;
 using System;
+using System.Threading.Tasks;
+using CRACKED.Models;
 
 namespace CRACKED.Services
 {
-    public class PedidoService
+   
+    public class PedidoService 
     {
         private readonly PedidoRepository _pedidoRepository;
 
-        public PedidoService()
+        public PedidoService(PedidoRepository pedidoRepository)
         {
-            _pedidoRepository = new PedidoRepository();
+            _pedidoRepository = pedidoRepository;
         }
 
-        // Método para obtener todos los pedidos
-        public PedidoListDto ObtenerPedidos()
+        public List<PedidoAdminDTO> ObtenerPedidos()
         {
-            try
-            {
-                // Aquí podemos agregar cualquier lógica adicional si es necesario
-                return _pedidoRepository.ObtenerPedidos();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error en el servicio: " + ex.Message);
-                return new PedidoListDto(); // Retornamos un DTO vacío en caso de error
-            }
+            return _pedidoRepository.ObtenerPedidosAdmin();
+        }
+        public PedidoAdminDTO ObtenerPedidoPorId(int id)
+        {
+          return _pedidoRepository.ObtenerPedidoPorId(id);
+           
+        }
+        public void ActualizarEstadoPedido(int idPedido, int idEstado)
+        {
+            _pedidoRepository.ActualizarEstadoPedido(idPedido, idEstado);
         }
     }
 }

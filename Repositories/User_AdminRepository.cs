@@ -10,13 +10,19 @@ namespace CRACKED.Repositories
 
     public class User_AdminRepository
     {
+        private readonly CRACKEDEntities39 _context;
+        public User_AdminRepository(CRACKEDEntities39 context)
+        {
+            _context = context;
+        }
+
         public List<USUARIO> ObtenerUsuariosFiltrados(string searchValue, string filterValue)
         {
-            using (var db = new CRACKEDEntities40())
+            using (var db = new CRACKEDEntities39())
             {
                 var query = db.USUARIOs.AsQueryable();
 
-                // Aplicar filtro de búsqueda si existe
+                // filtro de búsqueda si existe
                 if (!string.IsNullOrEmpty(searchValue))
                 {
                     query = query.Where(u => u.nombre.Contains(searchValue) ||
@@ -24,7 +30,7 @@ namespace CRACKED.Repositories
                                              u.correoElectronico.Contains(searchValue));
                 }
 
-                // Aplicar filtro de rol y estado
+                // filtro de rol y estado
                 if (!string.IsNullOrEmpty(filterValue))
                 {
                     switch (filterValue)
@@ -42,7 +48,7 @@ namespace CRACKED.Repositories
                             query = query.Where(u => u.idEstado == 1);
                             break;
                         case "inactivo":
-                            query = query.Where(u => u.idEstado == 0);
+                            query = query.Where(u => u.idEstado == 2);
                             break;
                     }
                 }
@@ -52,7 +58,7 @@ namespace CRACKED.Repositories
         }
         public void ActualizarUsuario(USUARIO usuario)
         {
-            using (var db = new CRACKEDEntities40())
+            using (var db = new CRACKEDEntities39())
             {
                 var usuarioExistente = db.USUARIOs.Find(usuario.idUsuario);
                 if (usuarioExistente != null)
@@ -69,11 +75,24 @@ namespace CRACKED.Repositories
             }
         }
 
-
-
-        public void EliminarUsuario(int idUsuario)
+        //actualiza el rol y el estado del usuario
+        public void ActualizarEstadoUsuario(int idUsuario, int idEstado,int idRol)
+        {
+            var usuario = _context.USUARIOs.FirstOrDefault(u => u.idUsuario == idUsuario);
+            if (usuario != null)
             {
-                using (var db = new CRACKEDEntities40())
+                usuario.idEstado = idEstado;// Actualizamos el estado del usuario
+                usuario.idRol = idRol;// Actualizamos el rol del usuario
+                _context.SaveChanges(); 
+            }
+            else
+            {
+                throw new Exception("Usuario no encontrado");
+            }
+        }
+            public void EliminarUsuario(int idUsuario)
+            {
+                using (var db = new CRACKEDEntities39())
                 {
                     var usuario = db.USUARIOs.FirstOrDefault(u => u.idUsuario == idUsuario);
                     if (usuario != null)
@@ -85,7 +104,7 @@ namespace CRACKED.Repositories
             }
         public UserDto ObtenerUsuarioPorId(int idUsuario)
         {
-            using (var db = new CRACKEDEntities40())
+            using (var db = new CRACKEDEntities39())
             {
                 var usuario = db.USUARIOs.Find(idUsuario);
                 if (usuario != null)
@@ -97,8 +116,10 @@ namespace CRACKED.Repositories
                         Apellido = usuario.apellido,
                         Numero = usuario.numeroContacto,
                         Correo = usuario.correoElectronico,
-                        IdEstado = usuario.idEstado,
-                        IdRol = usuario.idRol
+                        Estado=usuario.idEstado,
+                        Estadonombre = usuario.ESTADO.nombre,
+                        IdRol = usuario.idRol,
+                        Rolnombre=usuario.ROL.nombre
                     };
                 }
                 return null;

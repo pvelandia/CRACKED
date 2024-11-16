@@ -1,5 +1,5 @@
 ﻿@using CRACKED.Dtos
-@model CRACKED.Dtos.UserListDto
+
 @{
     var userLogged = ViewBag.UserLogged as UserDto;
 }
@@ -98,18 +98,7 @@
                 </a>
 
             </li>
-            <li class="nav-item">
-                <button type="button" class="nav-link" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
-                    <i class="bi bi-bell-fill nav-icon"></i>
-                </button>
-                <div style="min-height: 120px;">
-                    <div class="collapse collapse-horizontal" id="collapseWidthExample">
-                        <div class="card card-body" style="width: 300px;">
-                            This is some placeholder content for a horizontal collapse. It's hidden by default and shown when triggered.
-                        </div>
-                    </div>
-                </div>
-                </li>
+            
                 <li class="nav-item">
 
                 @if (Session["UserLogged"] != null)
@@ -123,13 +112,15 @@
 
                                 <h5 class="text-black h6">Mi perfil</h5>
                                 <div class="vertical-menu">
-                                    <p><strong>Nombre:</strong></p>
-                                    <!-- Correo del usuario -->
-                                    <p><strong>Correo:</strong> </p>
-                                    <!-- Botón de cerrar sesión -->
-                                    <form action="@Url.Action("Logout", "User")" method="post">
-                                        <button type="submit" class="btn btn-danger"style=" padding: 10px 30px; font-size: 16px; background-color: saddlebrown; color: whitesmoke; border: none; border-radius: 5px; margin-top: 10px; cursor: pointer; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">Cerrar sesión</button>
-                                    </form>
+                                    @if (ViewBag.User != null)
+                                    {
+                                        <p><strong>Nombre:</strong> @ViewBag.User.Name</p>
+                                     
+                                        <!-- Botón de cerrar sesión -->
+                                        <form action="@Url.Action("Logout", "User")" method="post">
+                                            <button type="submit" class="btn btn-danger" style="padding: 10px 30px; font-size: 16px; background-color: saddlebrown; color: whitesmoke; border: none; border-radius: 5px; margin-top: 10px; cursor: pointer; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">Cerrar sesión</button>
+                                        </form>
+                                    }
                                 </div>
                             </div>
                         </div>

@@ -7,15 +7,7 @@
 
 <form method="post" action="@Url.Action("DatosEntrega", "Carrito")">
     <div class="form-group">
-        <fieldset disabled>
-            <div class="mb-3">
-                <label for="disabledTextInput" class="form-label">
-                    <h8 style="color:saddlebrown;">Correo para recibir la confirmación de tu pedido una vez diligencies los datos correctamente</h8>
-                </label>
-                <input type="text" id="disabledTextInput" class="form-control" placeholder="Disabled input" value="correousuario@sjdfskd.com">
-            </div>
-        </fieldset>
-
+       
         <h2 style="color:saddlebrown; font-family: cursive; font-weight: bold;">Datos Entrega</h2>
 
         <div class="row justify-content-between">
@@ -24,7 +16,7 @@
                     <!-- Dropdown de Departamentos -->
                     <div class="col-6">
                         <label for="inputDepartamento" class="form-label">Departamento</label>
-                        <select id="inputDepartamento" class="form-select" onchange="cargarCiudades()" aria-label="Default select example">
+                        <select id="inputDepartamento" class="form-select" onchange="cargarCiudades()" aria-label="Default select example" required>
                             <option selected>Selecciona un Departamento</option>
                             <option value="1">Cundinamarca</option>
                             <option value="2">Boyacá</option>
@@ -41,24 +33,28 @@
                     <div class="col-md-6">
                         <label for="inputBarrio" class="form-label">Barrio o localidad</label>
                         @Html.TextBoxFor(model => model.Barrio, new { @class = "form-control", id = "inputBarrio", placeholder = "Escriba su barrio" })
+                        @Html.ValidationMessageFor(model => model.Barrio, "", new { @class = "text-danger" })
                     </div>
 
                     <!-- Dropdown de Ciudades -->
                     <div class="col-6">
-                        <label for="inputCiudad" class="form-label ">Ciudad</label>
+                        <label for="inputCiudad" class="form-label " required>Ciudad</label>
                         @Html.DropDownListFor(model => model.IdCiudad, new List<SelectListItem>(), "Seleccione una Ciudad", new { @class = "form-select ", id = "inputCiudad" })
+                        @Html.ValidationMessageFor(model => model.IdCiudad, "", new { @class = "text-danger" })
                     </div>
 
                     <!-- Dirección -->
                     <div class="col-6">
                         <label for="inputAddress" class="form-label">Dirección</label>
                         @Html.TextBoxFor(model => model.Direccion, new { @class = "form-control", id = "inputAddress", placeholder = "Ej: cra 5 b # 3-08" })
+                        @Html.ValidationMessageFor(model => model.Direccion, "", new { @class = "text-danger" })
                     </div>
 
                     <!-- Fecha -->
                     <div class="col-6">
                         <label for="fecha" class="form-label">Fecha de Entrega</label>
                         @Html.TextBoxFor(model => model.FechaEntrega, "{0:yyyy-MM-dd}", new { @class = "form-control", id = "fecha" })
+                        @Html.ValidationMessageFor(model => model.FechaEntrega, "", new { @class = "text-danger" })
                     </div>
 
 
@@ -66,25 +62,28 @@
                     <div class="col-6">
                         <label for="inputTelefono" class="form-label">Teléfono</label>
                         @Html.TextBoxFor(model => model.Telefono, new { @class = "form-control", id = "inputTelefono", placeholder = "De quien recibe el pedido" })
+                        @Html.ValidationMessageFor(model => model.Telefono, "", new { @class = "text-danger" })
                     </div>
 
                 </div>
                 <div class="col-12">
                     <!-- Cambiar el botón a type="button" y añadir atributos para el modal -->
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                         Pide ahora
                     </button>
                 </div>
-
-                <div class="col-8">
-                    <div class="container">
-                        <div class="form-group">
-                            <div class="row justify-content-between">
-                                <div class="col-6 align-self-center">
-                                    <div class="alert alert-primary d-flex align-items-center small-alert" role="alert">
-                                        <svg class="bi flex-shrink-0" role="img" aria-label="Info:" width="50" height="50"><use xlink:href="#info-fill" /></svg>
-                                        <div style="padding-left: 0.5rem;">
-                                            <h6 style="color: black; font-weight: bold;">Recuerda que el pago es Contra entrega</h6>
+            </div>
+                
+                    <div class="col-8">
+                        <div class="container">
+                            <div class="form-group">
+                                <div class="row justify-content-between">
+                                    <div class="col-6 align-self-center">
+                                        <div class="alert alert-primary d-flex align-items-center small-alert" role="alert">
+                                            <svg class="bi flex-shrink-0" role="img" aria-label="Info:" width="50" height="50"><use xlink:href="#info-fill" /></svg>
+                                            <div style="padding-left: 0.5rem;">
+                                                <h6 style="color: black; font-weight: bold;">Recuerda que el pago es Contra entrega</h6>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -92,7 +91,7 @@
                         </div>
                     </div>
                 </div>
-</div></div></div>
+            </div>
                 <!-- Modal -->
                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-focus="true" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
@@ -111,7 +110,7 @@
                     </div>
                 </div>
 
-
+       
                 <script src="~/Scripts/bootstrap.bundle.min.js"></script>
                 <!-- jQuery -->
                 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -133,7 +132,7 @@
 
                         switch (departamentoId) {
                             case '1': // Cundinamarca
-                                ciudades = ['Bogotá', 'Soacha', 'Chocontá', 'Zipaquirá', 'Funza', 'Mosquera', 'Cota'];
+                                ciudades = ['Bogotá', 'Soacha', 'Chocontá', 'Zipaquirá', 'Funza', 'Mosquera', 'Cota', 'Facatativa'];
                                 break;
                             case '2': // Boyacá
                                 ciudades = ['Tunja', 'Duitama', 'Sogamoso', 'Paipa', 'Chiquinquirá', 'Belén', 'Tibasosa'];

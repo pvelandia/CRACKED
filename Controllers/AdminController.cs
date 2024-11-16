@@ -18,15 +18,20 @@ namespace CRACKED.Controllers
         private readonly ProductService _productService;
         private readonly PedidoService _pedidoService;
         private readonly ReporteService _reporteService;
-
+        private readonly RegistroProductoService _registroProductoService;
         public AdminController()
         {
-            _usuarioService = new User_AdminService(new User_AdminRepository());
+            var context = new CRACKEDEntities39();
+            var pedidoRepository = new PedidoRepository(context);
+            var registroProductoRepository = new RegistroProductoRepository(context);
+            _usuarioService = new User_AdminService(new User_AdminRepository(context));
             _productService = new ProductService();
-            _pedidoService = new PedidoService();
+            _pedidoService = new PedidoService(pedidoRepository);
             _reporteService = new ReporteService();
+            _registroProductoService = new RegistroProductoService(registroProductoRepository);
 
         }
+
         
         
       
@@ -57,36 +62,36 @@ namespace CRACKED.Controllers
                 Apellido = usuario.Apellido,
                 NumeroContacto = usuario.Numero,
                 CorreoElectronico = usuario.Correo,
-                IdEstado = usuario.IdEstado,
+                IdEstado = usuario.Estado,
                 IdRol = usuario.IdRol
             };
             return View(viewModel);
         }
 
-        // Acción para actualizar un usuario
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult ActualizarUsuario(UsuarioViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var usuarioDto = new USUARIO
-                {
-                    idUsuario = model.IdUsuario,
-                    nombre = model.Nombre,
-                    apellido = model.Apellido,
-                  numeroContacto= model.NumeroContacto,
-                    correoElectronico = model.CorreoElectronico,
-                    idEstado = model.IdEstado,
-                    idRol = model.IdRol
-                };
+        //// Acción para actualizar un usuario
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult ActualizarUsuario(UsuarioViewModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var usuarioDto = new USUARIO
+        //        {
+        //            idUsuario = model.IdUsuario,
+        //            nombre = model.Nombre,
+        //            apellido = model.Apellido,
+        //          numeroContacto= model.NumeroContacto,
+        //            correoElectronico = model.CorreoElectronico,
+        //            idEstado = model.IdEstado,
+        //            idRol = model.IdRol
+        //        };
 
-                _usuarioService.ActualizarUsuario(usuarioDto);
-                return RedirectToAction("Index"); // Redirige a la lista de usuarios o al perfil del usuario
-            }
+        //        _usuarioService.ActualizarUsuario(usuarioDto);
+        //        return RedirectToAction("Index"); // Redirige a la lista de usuarios o al perfil del usuario
+        //    }
 
-            return View(model); // Si hay errores de validación, vuelve a la vista con los mensajes de error
-        }
+        //    return View(model); // Si hay errores de validación, vuelve a la vista con los mensajes de error
+        //}
 
         // Acción para eliminar un usuario (usando AJAX)
         [HttpPost]
@@ -113,7 +118,7 @@ namespace CRACKED.Controllers
                 Apellido = usuario.Apellido,
                 NumeroContacto = usuario.Numero,
                 CorreoElectronico = usuario.Correo,
-                IdEstado = usuario.IdEstado,
+                IdEstado = usuario.Estado,
                 IdRol = usuario.IdRol
             };
             return View(viewModel);
@@ -123,13 +128,9 @@ namespace CRACKED.Controllers
 
         public ActionResult Pedidos()
         {
-            
-                // Usamos el servicio para obtener la lista de pedidos
-                PedidoListDto pedidoListDto = _pedidoService.ObtenerPedidos();
 
-                // Pasamos el DTO a la vista
-                return View(pedidoListDto);
-            
+            List<PedidoAdminDTO> pedidos = _pedidoService.ObtenerPedidos();
+            return View(pedidos);
         }
         public ActionResult Productos()
         {
@@ -147,31 +148,31 @@ namespace CRACKED.Controllers
             var producto = _productService.ObtenerProductoPorId(id);
             if (producto == null)
             {
-                return HttpNotFound();  // Si no encuentra el producto, devuelve un error 404
+                return HttpNotFound();  
             }
 
-            return View(producto); // Muestra los detalles para editar
+            return View(producto); 
         }
 
-        // Acción para actualizar el producto
-        [HttpPost]
-        public ActionResult Editar(ProductDto productDto)
-        {
-            if (ModelState.IsValid)
-            {
-                bool actualizado = _productService.ActualizarProducto(productDto);
-                if (actualizado)
-                {
-                    return RedirectToAction("Index");  // Redirige a la lista de productos
-                }
-                else
-                {
-                    ViewBag.Message="No se pudo actualizar el producto.";
-                }
-            }
+        
+        //[HttpPost]
+        //public ActionResult Editar(ProductDto productDto)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        bool actualizado = _productService.ActualizarProducto(productDto);
+        //        if (actualizado)
+        //        {
+        //            return RedirectToAction("Index");  // Redirige a la lista de productos
+        //        }
+        //        else
+        //        {
+        //            ViewBag.Message="No se pudo actualizar el producto.";
+        //        }
+        //    }
 
-            return View(productDto);  // Si hay un error, vuelve a mostrar el formulario
-        }
+        //    return View(productDto);  // Si hay un error, vuelve a mostrar el formulario
+        //}
     
     public ActionResult AgregarProducto()
         {
@@ -225,14 +226,24 @@ namespace CRACKED.Controllers
 
 
 
-        public ActionResult DetallePedido()
+        public ActionResult DetallePedido(int id)
         {
-            return View();
+            PedidoAdminDTO pedido = _pedidoService.ObtenerPedidoPorId(id);
+            if (pedido == null)
+            {
+                return HttpNotFound();
+            }
+            return View(pedido);
         }
-        public ActionResult ProductosPedido()
+        public ActionResult ProductosPedido(int id)
         {
-            return View();
+            // Obtiene los productos del pedido desde la tabla registro_productos
+            var productos = _registroProductoService.ObtenerProductosDePedido(id);
+
+            // Pasar los productos a la vista
+            return View(productos);
         }
+
         [HttpPost]
 
         public ActionResult User_AdminReportPrint(string tipoReporte)
@@ -254,5 +265,61 @@ namespace CRACKED.Controllers
                 FileName = "Reporte-" + tipoReporte + "-" + Guid.NewGuid() + ".pdf"
             };
         }
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            // Obtener el usuario de la sesión
+            var userLogin = Session["UserLogged"] as UserDto;
+
+            // Si el usuario está autenticado, pasa el objeto completo a ViewBag
+            if (userLogin != null)
+            {
+                ViewBag.User = userLogin;
+         
+            }
+
+            base.OnActionExecuting(filterContext);
+        }
+       
+        [HttpPost]
+        public ActionResult GuardarEstado(int idPedido, int idEstado)
+        {
+            try
+            {
+                // Llamamos al servicio para actualizar el estado del pedido
+                _pedidoService.ActualizarEstadoPedido(idPedido, idEstado);
+
+                // Mostrar mensaje de éxito
+                TempData["SuccessMessage"] = "Estado actualizado correctamente.";
+
+                // Redirigir a la vista de detalle del pedido
+                return RedirectToAction("Pedidos");
+            }
+            catch (Exception ex)
+            {
+                // En caso de error, mostrar mensaje de error
+                TempData["ErrorMessage"] = $"Ocurrió un error: {ex.Message}";
+                return RedirectToAction("DetallePedido", new { id = idPedido });
+            }
+        }
+        public ActionResult GuardarEstadoUsuario(int idUsuario, int idEstado, int idRol)
+        {
+            try
+            {
+                // Llamamos al servicio para actualizar el estado del usuario
+                _usuarioService.ActualizarEstadoUsuario(idUsuario, idEstado,idRol);
+
+                // Mostrar mensaje de éxito
+                TempData["SuccessMessage"] = "Estado del usuario actualizado correctamente.";
+            }
+            catch (Exception ex)
+            {
+                // En caso de error, mostrar mensaje de error
+                TempData["ErrorMessage"] = $"Ocurrió un error: {ex.Message}";
+            }
+
+            // Redirigir a la vista de lista de usuarios
+            return RedirectToAction("InfoUsuarios");
+        }
     }
+
 }

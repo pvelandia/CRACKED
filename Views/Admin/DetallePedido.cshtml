@@ -1,4 +1,5 @@
-﻿
+﻿@model CRACKED.Dtos.PedidoAdminDTO
+
 @{
     ViewBag.Title = "DetallePedido";
     Layout = "~/Views/Shared/_Layout - Admin.cshtml";
@@ -6,179 +7,186 @@
 
 
 
-<div class="container-fluid d-flex justify-content-center ">
-    <div class="form-group p-lg-4 bg rounded shadow" style="max-width: 800px; width: 100%;">
+
+    <div class="container-fluid d-flex justify-content-center ">
+        <div class="form-group p-lg-4 bg rounded shadow" style="max-width: 800px; width: 100%;">
 
 
-        <h2 style="color:saddlebrown;  font-family: cursive;  font-weight:bold;">
-            Pedido+id
-        </h2>
-        <fieldset disabled>
-            <div class="row justify-content-center">
-                <div class="col-4">
+            <h2 style="color:saddlebrown;  font-family: cursive;  font-weight:bold;"name="idPedido">
+
+                pedido @Model.IdPedido
+
+            </h2>
+
+            <form action="@Url.Action("GuardarEstado", "Admin")" method="post">
+                @Html.HiddenFor(Model => Model.IdPedido)
+
+                <fieldset disabled>
+                    <div class="row justify-content-center">
+                        <div class="col-4">
+                            <div class="mb-3">
+                                <label for="InputNombreUsuario" class="form-label"><h8 style="color:black; ">Nombre</h8> </label>
+                                <input type="text" id="InputNombreProduc" class="form-control" value="@Model.ClienteNombre" readonly>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="mb-3">
+                                <label for="InputNombreProduc" class="form-label"><h8 style="color:black; ">Apellido</h8> </label>
+                                <input type="text" id="InputNombreProduc" class="form-control" value="@Model.ApellidoCliente">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-4">
+                            <div class="mb-3">
+                                <label for="InputNombreUsuario" class="form-label"><h8 style="color:black; ">Cuidad</h8> </label>
+                                <input type="text" id="InputNombreProduc" class="form-control" value="@Model.Ciudad">
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="mb-3">
+                                <label for="InputNombreProduc" class="form-label"><h8 style="color:black; ">Direccion</h8> </label>
+                                <input type="text" id="InputNombreProduc" class="form-control" value="@Model.Direccion">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-4">
+                            <div class="mb-3">
+                                <label for="InputNombreUsuario" class="form-label"><h8 style="color:black; ">Contacto</h8> </label>
+                                <input type="text" id="InputNombreProduc" class="form-control" value="@Model.Telefono ">
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="mb-3">
+                                <label for="InputNombreProduc" class="form-label"><h8 style="color:black; ">Correo</h8> </label>
+                                <input type="text" id="InputNombreProduc" class="form-control" value="@Model.Correo">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-4">
+                            <div class="mb-3">
+                                <label for="InputNombreUsuario" class="form-label"><h8 style="color:black; ">Fecha de entrega</h8> </label>
+                                <input type="text" id="InputNombreProduc" class="form-control" value="@Model.FechaEntrega">
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="mb-3">
+                                <label for="InputNombreProduc" class="form-label"><h8 style="color:black; ">Total a pagar</h8> </label>
+                                <input type="text" id="InputNombreProduc" class="form-control" value="@Model.ValorPedido">
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="row justify-content-center">
+                    <div class="col-4">
+                        <div class="mb-3">
+                            <label for="selectTipo" class="form-label">Estado</label>
+                            <select id="idEstado" name="idEstado" class="form-select" aria-label="Default select example">
+                                <option value="" disabled @(Model.IdEstado == 0 ? "selected" : "")>Seleccione el estado</option>
+                                <option value="3" @(Model.IdEstado == 3 ? "selected" : "")>Pendiente</option>
+                                <option value="4" @(Model.IdEstado == 4 ? "selected" : "")>Entregado</option>
+                                <option value="5" @(Model.IdEstado == 5 ? "selected" : "")>Cancelado</option>
+                            </select>
+                        </div>
+                    </div>
+                    @*<div class="col-4">
                     <div class="mb-3">
-                        <label for="InputNombreUsuario" class="form-label"><h8 style="color:black; ">Nombre</h8> </label>
-                        <input type="text" id="InputNombreProduc" class="form-control" value="aca va el nombre del usuario">
+                        <label for="selectTipo" class="form-label">Domiciliario</label>
+                        <select id="selectTipo" class="form-select" aria-label="Default select example">
+                            <option selected>Asignar domiciliario</option>
+                            <option value="1">Domiciliario 1</option>
+                            <option value="2">Domiciliario 2</option>
+                        </select>
+                    </div>
+                </div>*@
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-4">
+                        <div class="col-auto mb-3">
+                            <button class="btn btn-primary" type="submit">Guardar Cambios</button>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="col-auto mb-3">
+                            <a href="@Url.Action("ProductosPedido", "Admin", new { id = Model.IdPedido })" class="btn btn-primary">
+                                <i class="bi bi-bag-heart-fill"></i> Productos en pedido
+                            </a>
+                        </div>
                     </div>
                 </div>
-                <div class="col-4">
-                    <div class="mb-3">
-                        <label for="InputNombreProduc" class="form-label"><h8 style="color:black; ">Departamento</h8> </label>
-                        <input type="text" id="InputNombreProduc" class="form-control" value="aca va el departamento">
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-4">
-                    <div class="mb-3">
-                        <label for="InputNombreUsuario" class="form-label"><h8 style="color:black; ">Cuidad</h8> </label>
-                        <input type="text" id="InputNombreProduc" class="form-control"value="aca va la ciudad">
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="mb-3">
-                        <label for="InputNombreProduc" class="form-label"><h8 style="color:black; ">Direccion</h8> </label>
-                        <input type="text" id="InputNombreProduc" class="form-control" value="aca va la direccion">
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-4">
-                    <div class="mb-3">
-                        <label for="InputNombreUsuario" class="form-label"><h8 style="color:black; ">Contacto</h8> </label>
-                        <input type="text" id="InputNombreProduc" class="form-control" value="aca va el contacto">
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="mb-3">
-                        <label for="InputNombreProduc" class="form-label"><h8 style="color:black; ">Correo</h8> </label>
-                        <input type="text" id="InputNombreProduc" class="form-control" value="aca va el correo">
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-4">
-                    <div class="mb-3">
-                        <label for="InputNombreUsuario" class="form-label"><h8 style="color:black; ">Fecha de entrega</h8> </label>
-                        <input type="text" id="InputNombreProduc" class="form-control" value="aca va la fecha de entrega">
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="mb-3">
-                        <label for="InputNombreProduc" class="form-label"><h8 style="color:black; ">Total a pagar</h8> </label>
-                        <input type="text" id="InputNombreProduc" class="form-control" value="aca va el nombre">
-                    </div>
-                </div>
-            </div>
-        </fieldset>
-        <div class="row justify-content-center">
-            <div class="col-4">
-                <div class="mb-3">
-                    <label for="selectTipo" class="form-label">Estado</label>
-                    <select id="selectTipo" class="form-select" aria-label="Default select example">
-                        <option selected>Estado de entrega</option>
-                        <option value="1">Pendiente</option>
-                        <option value="2">Entregado</option>
-                        <option value="3">Cancelado</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="mb-3">
-                    <label for="selectTipo" class="form-label">Domiciliario</label>
-                    <select id="selectTipo" class="form-select" aria-label="Default select example">
-                        <option selected>Asignar domiciliario</option>
-                        <option value="1">Domiciliario 1</option>
-                        <option value="2">Domiciliario 2</option>
-                    </select>
-                </div>
-            </div>
+                </form>
+
         </div>
-        <div class="row justify-content-center">
-            <div class="col-4">
-                <div class="col-auto mb-3">
-                    <button class="btn btn-primary" type="submit">Guardar Cambios</button>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="col-auto mb-3">
-                    <a href="@Url.Action("ProductosPedido", "Admin")" class="btn btn-primary">
-                        <i class="bi bi-bag-heart-fill"></i> Productos en pedido
-                    </a>
-                </div>
-            </div>
-        </div>
+    </div>
+
+    <style>
+        .form-group {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        .form-label {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-weight: bold;
+        }
+
+        .form-control {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        .colored-container {
+            background-color: whitesmoke; /* Cambia el color al que prefieras */
+            padding: 50px; /* Agrega un poco de relleno */
+
+            opacity: 0.8;
+        }
+
+        .form-control:disabled {
+            background-color: #f3d8bf;
+            opacity: 0.8;
+        }
 
 
-     </div>
-</div>
+        .bg {
+            background-color: floralwhite;
+        }
 
-<style>
-    .form-group {
-        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    }
+        .alert {
+            background-color: #efcbab;
+            border-color: saddlebrown;
+        }
 
-    .form-label {
-        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-        font-weight: bold;
-    }
+        .small-alert {
+            padding: 4px; /* Reduce el espaciado general */
+            font-size: 0.875rem; /* Tamaño de fuente más pequeño */
+        }
 
-    .form-control {
-        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    }
+        .small-alert-text {
+            padding-left: 6px; /* Espacio entre el ícono y el texto */
+        }
 
-    .colored-container {
-        background-color: whitesmoke; /* Cambia el color al que prefieras */
-        padding: 50px; /* Agrega un poco de relleno */
+        .btn-primary {
+            padding: 10px 30px;
+            font-size: 16px;
+            background-color: saddlebrown;
+            color: whitesmoke;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
 
-        opacity: 0.8;
-    }
+        .form-control, .form-select {
+            background-color: #efcfb2;
+        }
 
-    .form-control:disabled {
-        background-color: #f3d8bf;
-        opacity: 0.8;
-    }
+        .form-label {
+            font-weight: bold;
+        }
 
-
-    .bg {
-        background-color: floralwhite;
-    }
-
-    .alert {
-        background-color: #efcbab;
-        border-color: saddlebrown;
-    }
-
-    .small-alert {
-        padding: 4px; /* Reduce el espaciado general */
-        font-size: 0.875rem; /* Tamaño de fuente más pequeño */
-    }
-
-    .small-alert-text {
-        padding-left: 6px; /* Espacio entre el ícono y el texto */
-    }
-
-    .btn-primary {
-        padding: 10px 30px;
-        font-size: 16px;
-        background-color: saddlebrown;
-        color: whitesmoke;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    }
-
-    .form-control, .form-select {
-        background-color: #efcfb2;
-    }
-
-    .form-label {
-        font-weight: bold;
-    }
-
-    .alert {
-        background-color: #efcbab;
-        border-color: saddlebrown;
-    }
-</style>
+        .alert {
+            background-color: #efcbab;
+            border-color: saddlebrown;
+        }
+    </style>

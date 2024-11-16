@@ -1,4 +1,4 @@
-﻿@model CRACKED.Dtos.PedidoListDto
+﻿@model List<CRACKED.Dtos.PedidoAdminDTO>
 @{
     ViewBag.Title = "Pedidos";
     Layout = "~/Views/Shared/_Layout - Admin.cshtml";
@@ -16,8 +16,8 @@
                 <div class="col-auto">
 
                     <select id="filterRoleState" class="form-select" onchange="filterTable()">
-                        <option value="">Filtrar por estado o domiciliario</option>
-                        <option value="domiciliario 1">domiciliario 1</option>  @*creo que aca se cargan los nombres de la bd como con los departamentos *@
+                        <option value="">Filtrar por estado </option>
+                       @*creo que aca se cargan los nombres de la bd como con los departamentos *@
                         <option value="pendiente">Pendiente</option>
                         <option value="entregado">Entregado</option>
                         <option value="cancelado">Cancelado</option>
@@ -49,30 +49,26 @@
             <th>Pedido</th>
             <th>Cliente</th>
             <th>Fecha Entrega</th>
-            <th>Domiciliario</th>
             <th>Estado</th>
             <th>Ver detalles</th>
 
         </tr>
     </thead>
     <tbody id="tableBody">
-        <!-- Aquí se agregan dinámicamente los productos -->
-        @foreach (var pedido in Model.Pedidos)
+        @foreach (var pedido in Model)
         {
-            <tr>
-                <td>@pedido.IdPedido</td>
-                <td>@pedido.NombreCliente</td>
-                <td>@pedido.FechaEntrega.ToString("yyyy-MM-dd")</td>
-                <td>@pedido.NombreDomiciliario</td>
-                <td>@pedido.NombreEstado</td>
-                <td>
-                    <a href="@Url.Action("DetallePedido", "Admin")" class="btn btn-secondary">
-                        <i class=" bi bi-eye-fill nav-icon"></i>
-                    </a>
-                </td>
+    <tr>
+        <td>@pedido.IdPedido</td>
+        <td>@pedido.ClienteNombre</td>
+        <td>@pedido.FechaEntrega</td>
+        <td>@pedido.Estado</td>
+        <td>
+            <a href="@Url.Action("DetallePedido", "Admin", new { id = pedido.IdPedido })" class="btn btn-secondary">
+                <i class="bi bi-eye-fill nav-icon"></i>
+            </a>
+        </td>
+    </tr>}
 
-            </tr>
-        }
     </tbody>
 </table>
 

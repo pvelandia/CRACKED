@@ -1,115 +1,123 @@
-﻿
+﻿@model CRACKED.Dtos.PedidoAdminDTO
+
 @{
-    ViewBag.Title = "DetallesPedidos";
+    ViewBag.Title = "DetallePedido";
     Layout = "~/Views/Shared/_LayoutDomiciliario.cshtml";
 }
+
+
+
 
 <div class="container-fluid d-flex justify-content-center ">
     <div class="form-group p-lg-4 bg rounded shadow" style="max-width: 800px; width: 100%;">
 
 
-        <h2 style="color:saddlebrown;  font-family: cursive;  font-weight:bold;">
-            Pedido+id
-        </h2>
-        <fieldset disabled>
-            <div class="row justify-content-center">
-                <div class="col-4">
-                    <div class="mb-3">
-                        <label for="InputNombreUsuario" class="form-label"><h8 style="color:black; ">Nombre</h8> </label>
-                        <input type="text" id="InputNombreProduc" class="form-control" value="aca va el nombre del usuario">
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="mb-3">
-                        <label for="InputNombreProduc" class="form-label"><h8 style="color:black; ">Departamento</h8> </label>
-                        <input type="text" id="InputNombreProduc" class="form-control" value="aca va el departamento">
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-4">
-                    <div class="mb-3">
-                        <label for="InputNombreUsuario" class="form-label"><h8 style="color:black; ">Cuidad</h8> </label>
-                        <input type="text" id="InputNombreProduc" class="form-control" value="aca va la ciudad">
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="mb-3">
-                        <label for="InputNombreProduc" class="form-label"><h8 style="color:black; ">Direccion</h8> </label>
-                        <input type="text" id="InputNombreProduc" class="form-control" value="aca va la direccion">
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-4">
-                    <div class="mb-3">
-                        <label for="InputNombreUsuario" class="form-label"><h8 style="color:black; ">Contacto</h8> </label>
-                        <input type="text" id="InputNombreProduc" class="form-control" value="aca va el contacto">
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="mb-3">
-                        <label for="InputNombreProduc" class="form-label"><h8 style="color:black; ">Correo</h8> </label>
-                        <input type="text" id="InputNombreProduc" class="form-control" value="aca va el correo">
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-4">
-                    <div class="mb-3">
-                        <label for="InputNombreUsuario" class="form-label"><h8 style="color:black; ">Fecha de entrega</h8> </label>
-                        <input type="text" id="InputNombreProduc" class="form-control" value="aca va la fecha de entrega">
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="mb-3">
-                        <label for="InputNombreProduc" class="form-label"><h8 style="color:black; ">Total a pagar</h8> </label>
-                        <input type="text" id="InputNombreProduc" class="form-control" value="aca va el nombre">
-                    </div>
-                </div>
-            </div>
-        </fieldset>
-        <div class="row justify-content-center">
-            <div class="col-4">
-                <div class="mb-3">
-                    <label for="selectTipo" class="form-label">Estado</label>
-                    <select id="selectTipo" class="form-select" aria-label="Default select example">
-                        <option selected>Estado de entrega</option>
-                        <option value="1">Pendiente</option>
-                        <option value="2">Entregado</option>
-                        <option value="3">En proceso</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="mb-3">
-                    <label for="selectTipo" class="form-label">Domiciliario</label>
-                    <select id="selectTipo" class="form-select" aria-label="Default select example">
-                        <option selected>Metodo de pago</option>
-                        <option value="1">Nequi</option>
-                        <option value="2">Daviplata</option>
-                        <option value="2">Efectivo</option>
-                    </select>
-                </div>
-            </div>
-        </div>
+        <h2 style="color:saddlebrown;  font-family: cursive;  font-weight:bold;" name="idPedido">
 
-        <div class="row align-items-start">
-            <div class="col">
-                <button class="btn btn-primary" type="submit">Registrar pago</button>
+            pedido @Model.IdPedido
+
+        </h2>
+
+        <form action="@Url.Action("GuardarEstado", "Admin")" method="post">
+            @Html.HiddenFor(Model => Model.IdPedido)
+
+            <fieldset disabled>
+                <div class="row justify-content-center">
+                    <div class="col-4">
+                        <div class="mb-3">
+                            <label for="InputNombreUsuario" class="form-label"><h8 style="color:black; ">Nombre</h8> </label>
+                            <input type="text" id="InputNombreProduc" class="form-control" value="@Model.ClienteNombre" readonly>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="mb-3">
+                            <label for="InputNombreProduc" class="form-label"><h8 style="color:black; ">Apellido</h8> </label>
+                            <input type="text" id="InputNombreProduc" class="form-control" value="@Model.ApellidoCliente">
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-4">
+                        <div class="mb-3">
+                            <label for="InputNombreUsuario" class="form-label"><h8 style="color:black; ">Cuidad</h8> </label>
+                            <input type="text" id="InputNombreProduc" class="form-control" value="@Model.Ciudad">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="mb-3">
+                            <label for="InputNombreProduc" class="form-label"><h8 style="color:black; ">Direccion</h8> </label>
+                            <input type="text" id="InputNombreProduc" class="form-control" value="@Model.Direccion">
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-4">
+                        <div class="mb-3">
+                            <label for="InputNombreUsuario" class="form-label"><h8 style="color:black; ">Contacto</h8> </label>
+                            <input type="text" id="InputNombreProduc" class="form-control" value="@Model.Telefono ">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="mb-3">
+                            <label for="InputNombreProduc" class="form-label"><h8 style="color:black; ">Correo</h8> </label>
+                            <input type="text" id="InputNombreProduc" class="form-control" value="@Model.Correo">
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-4">
+                        <div class="mb-3">
+                            <label for="InputNombreUsuario" class="form-label"><h8 style="color:black; ">Fecha de entrega</h8> </label>
+                            <input type="text" id="InputNombreProduc" class="form-control" value="@Model.FechaEntrega">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="mb-3">
+                            <label for="InputNombreProduc" class="form-label"><h8 style="color:black; ">Total a pagar</h8> </label>
+                            <input type="text" id="InputNombreProduc" class="form-control" value="@Model.ValorPedido">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="row justify-content-center">
+                <div class="col-4">
+                    <div class="mb-3">
+                        <label for="selectTipo" class="form-label">Estado</label>
+                        <select id="idEstado" name="idEstado" class="form-select" aria-label="Default select example" disabled>
+                            <option value="" disabled @(Model.IdEstado == 0 ? "selected" : "")>Seleccione el estado</option>
+                            <option value="3" @(Model.IdEstado == 3 ? "selected" : "")>Pendiente</option>
+                            <option value="4" @(Model.IdEstado == 4 ? "selected" : "")>Entregado</option>
+                            <option value="5" @(Model.IdEstado == 5 ? "selected" : "")>Cancelado</option>
+                        </select>
+                    </div>
+                </div>
+                @*<div class="col-4">
+                        <div class="mb-3">
+                            <label for="selectTipo" class="form-label">Domiciliario</label>
+                            <select id="selectTipo" class="form-select" aria-label="Default select example">
+                                <option selected>Asignar domiciliario</option>
+                                <option value="1">Domiciliario 1</option>
+                                <option value="2">Domiciliario 2</option>
+                            </select>
+                        </div>
+                    </div>*@
             </div>
-            <div class="col">
-                <a href="@Url.Action("ProductosPedidos", "Domiciliario")" class="btn btn-primary">
-                    <i class="bi bi-bag-heart-fill"></i> Productos en pedido
-                </a>
+            <div class="row justify-content-center">
+                <div class="col-4">
+                    <button class="btn btn-primary" id="cancelarEntregaBtn" data-id="@Model.IdPedido" type="submit">Cancelar entregar</button>
+                </div>
+                <div class="col-4">
+                    <div class="col-auto mb-3">
+                        <a href="@Url.Action("ProductosPedido", "Admin", new { id = Model.IdPedido })" class="btn btn-primary">
+                            <i class="bi bi-bag-heart-fill"></i> Productos en pedido
+                        </a>
+                    </div>
+                </div>
             </div>
-            <div class="col">
-                <button class="btn btn-primary" type="submit">Cancelar entregar</button>
-            </div>
-        </div>
+        </form>
+
     </div>
 </div>
-
 
 <style>
     .form-group {
@@ -180,4 +188,49 @@
         border-color: saddlebrown;
     }
 </style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.4/dist/sweetalert2.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.4/dist/sweetalert2.all.min.js"></script>
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#cancelarEntregaBtn").click(function (e) {
+            e.preventDefault(); // Evita el comportamiento predeterminado del botón
+
+            var idPedido = $(this).data("id"); // Obtén el ID del pedido desde el atributo data-id
+            var idEstado = 5; // Estado para "Cancelar entrega"
+
+            // Confirmación antes de cancelar la entrega
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "¿Deseas cancelar la entrega de este pedido?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Sí, cancelar entrega',
+                cancelButtonText: 'No, volver',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Enviar la solicitud AJAX
+                    $.ajax({
+                        url: '@Url.Action("GuardarEstado", "Domiciliario")', // Acción en tu controlador
+                        type: 'POST',
+                        data: { idPedido: idPedido, idEstado: idEstado },
+                        success: function (response) {
+                            // Manejo de la respuesta exitosa
+                            if (response.success) {
+                                alert(response.message); // Mensaje de éxito
+                                location.reload(); // Recargar la página
+                            } else {
+                                alert(response.message); // Mensaje de error desde el servidor
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            alert("Error en la solicitud: " + error);
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>

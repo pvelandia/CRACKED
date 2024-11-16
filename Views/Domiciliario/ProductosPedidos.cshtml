@@ -1,6 +1,6 @@
-﻿
+﻿@model List<CRACKED.Dtos.ProductosPedidoRDTO>
 @{
-    ViewBag.Title = "ProductosPedidos";
+    ViewBag.Title = "DetallePedido";
     Layout = "~/Views/Shared/_LayoutDomiciliario.cshtml";
 }
 
@@ -20,13 +20,16 @@
     <tbody id="tableBody">
         <!-- Aquí se agregan dinámicamente los productos -->
         <tr>
-            <td>25</td>
-            <td>galleta 1</td>
-            <td>2</td>
-            <td>9000</td>
-
+            @foreach (var productos in Model)
+            {
+                <td>@productos.IdPedido</td>
+                <td>@productos.NombreProducto</td>
+                <td>@productos.Cantidad</td>
+                <td>@productos.ValorProducto</td>
+            }
 
         </tr>
+
     </tbody>
 </table>
 
@@ -154,7 +157,7 @@
             let estado = cells[4].textContent.toLowerCase(); // Columna de Rol
             let domici = cells[3].textContent.toLowerCase(); // Columna de Rol
 
-            if (filterValue === "" || estado === filterValue || domici === filterValue ) {
+            if (filterValue === "" || estado === filterValue || domici === filterValue) {
                 if (match) {
                     rows[i].style.display = ""; // Mostrar fila si coincide con la búsqueda y el filtro
                     noResults = false;
@@ -170,4 +173,5 @@
         document.getElementById("noResultsMessage").style.display = noResults ? "block" : "none";
     }
 </script>
+
 
